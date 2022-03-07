@@ -17,33 +17,39 @@ import MyOrders from "../MyOrders/MyOrders";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import CheckOut from "../CheckOut/CheckOut";
 import Article from "../Article/Article";
-import SidebarFilter from "../SidebarFilter/SidebarFilter";
+// import SidebarFilter from "../SidebarFilter/SidebarFilter";
+
+
 import Container from "react-bootstrap/Container";
 
-function App() {
 
-    const [cart, setCart] = useState({items:[], total:0});
+const CartContext = React.createContext({items: [], total: 0});
+
+function App() {
+    // const [cart, setCart] = useState({items:[], total:0});
 
     return (
-        <Container id={global}>
-            <Router>
-                <Menu/>
-                <Routes>
-                    <Route path="/" element={<Intro/>}/>
-                    <Route path="/shop" element={<Shop/>}/>
-                    <Route path="/sell" element={<Sell/>}/>
-                    <Route path="/register" element={<Register/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/account" element={<Account/>}/>
-                    <Route path="/about" element={<About/>}/>
-                    <Route path="/myitems" element={<MyItems/>}/>
-                    <Route path="/myorders" element={<MyOrders/>}/>
-                    <Route path="/shoppingcart" element={<ShoppingCart/>}/>
-                    <Route path="/checkout" element={<CheckOut/>}/>
-                    <Route path="/shop/:id" element={<Article/>}/>
-                </Routes>
-            </Router>
-        </Container>
+        <CartContext.Provider value={ { items: [], total: 0 } }>
+            <Container id={global}>
+                <Router>
+                    <Menu/>
+                    <Routes>
+                        <Route path="/" element={<Intro/>}/>
+                        <Route path="/shop" element={<Shop/>}/>
+                        <Route path="/sell" element={<Sell/>}/>
+                        <Route path="/register" element={<Register/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/account" element={<Account/>}/>
+                        <Route path="/about" element={<About/>}/>
+                        <Route path="/myitems" element={<MyItems/>}/>
+                        <Route path="/myorders" element={<MyOrders/>}/>
+                        <Route path="/shoppingcart" element={<ShoppingCart/>}/>
+                        <Route path="/checkout" element={<CheckOut/>}/>
+                        <Route path="/shop/:id" element={<Article/>}/>
+                    </Routes>
+                </Router>
+            </Container>
+        </CartContext.Provider>
     );
 
 }
