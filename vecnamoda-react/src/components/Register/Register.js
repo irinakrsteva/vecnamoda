@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/cjs/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {Link} from "react-router-dom";
 
 
 function Register() {
@@ -103,39 +104,42 @@ function Register() {
     }
 
     return (
-        <Container>
+        <Container className="mt-3">
             <Row>
-                <Col lg={{span: 6, offset: 3}}>
+                <Col lg={{span: 5, offset: 3}} sm={{span:8, offset:2}}>
                     <Form>
-                        <Form.Group className="mb-3" controlId="formName">
+                        <Form.Group className="mb-2" controlId="formName">
                             <Form.Label>Name</Form.Label>
                             <Form.Control onChange={onNameChange}/>
                             <p className="formError">{formErrorsState.nameValid}</p>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formUsername">
+                        <Form.Group className="mb-2" controlId="formUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control onChange={onUsernameChange}/>
                             <p className="formError">{formErrorsState.userNameValid}</p>
                         </Form.Group>
-                        <Form.Group controlId="formEmail">
+                        <Form.Group className="mb-2" controlId="formEmail">
                             <Form.Label>Email</Form.Label>
                             <Form.Control onChange={onEmailChange} type="email"/>
                             <p className="formError">{formErrorsState.emailValid}</p>
                         </Form.Group>
-                        <Form.Group controlId="formPassword">
+                        <Form.Group className="mb-2" controlId="formPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control onChange={onPasswordChange} type="password"/>
                             <p className="formError">{formErrorsState.passwordValid}</p>
                         </Form.Group>
-                        <Form.Group controlId="formConfirmPassword">
+                        <Form.Group className="mb-2" controlId="formConfirmPassword">
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control onChange={onConfirmPasswordChange} type="password"/>
                             <p className="formError">{formErrorsState.confirmPasswordValid}</p>
                         </Form.Group>
-                        <Form.Group controlId="formCheck">
+                        <Form.Group className="mb-2" controlId="formCheck">
                             <Form.Check onChange={onCheckChange} type="checkbox" label={(<>I accept the <a href="#">Terms and Conditions</a></>)}/>
                         </Form.Group>
-                        <Button type="submit" variant="primary">Submit</Button>
+                        <Form.Group style={{display: 'flex', justifyContent: 'flex-end'}}>
+                            <Button type="submit" variant="primary">Register</Button>
+                            <Button as={Link} to={"/login"} variant="secondary" className="ms-2">Login</Button>
+                        </Form.Group>
                     </Form>
                 </Col>
             </Row>

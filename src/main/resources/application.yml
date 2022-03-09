@@ -1,5 +1,6 @@
 server:
   port: 3002
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/vecnamoda?serverTimezone=UTC
@@ -20,3 +21,7 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL57InnoDBDialect
+
+security:
+  jwt:
+    secret: 64JimYzFeqqLT8Ek

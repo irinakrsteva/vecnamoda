@@ -1,10 +1,11 @@
 import React from "react";
+import {Container} from "react-bootstrap";
 
 function Sell() {
     return (
-        <div>
+        <Container className="mt-3">
             Here is how you can sell...
-        </div>
+        </Container>
     );
 
 }

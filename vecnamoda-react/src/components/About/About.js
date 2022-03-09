@@ -1,10 +1,11 @@
 import React from "react";
+import {Container} from "react-bootstrap";
 
 function About() {
     return(
-        <div>
+        <Container className="mt-3">
             This is how we work: ______________________________
-        </div>
+        </Container>
     );
 }
 

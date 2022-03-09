@@ -33,7 +33,7 @@ function Shop() {
     }
 
     return (
-        <Container className="main">
+        <Container className="main mt-3">
             <Row>
                 <br/>
                 <Col md="auto"><SidebarFilter/></Col>

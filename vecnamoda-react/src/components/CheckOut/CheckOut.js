@@ -1,10 +1,11 @@
 import React from "react";
+import {Container} from "react-bootstrap";
 
 function CheckOut() {
     return(
-        <div>
+        <Container className="mt-3">
             Confirm your order etc
-        </div>
+        </Container>
     );
 }
 
