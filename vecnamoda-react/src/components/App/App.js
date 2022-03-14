@@ -21,6 +21,7 @@ import Article from "../Article/Article";
 
 
 import Container from "react-bootstrap/Container";
+import AddArticle from "../AddArticle/AddArticle";
 
 
 const CartContext = React.createContext({items: [], total: 0});
@@ -46,6 +47,7 @@ function App() {
                         <Route path="/shoppingcart" element={<ShoppingCart/>}/>
                         <Route path="/checkout" element={<CheckOut/>}/>
                         <Route path="/shop/:id" element={<Article/>}/>
+                        <Route path="/addarticle" element={<AddArticle/>}/>
                     </Routes>
                 </Router>
             </Container>
