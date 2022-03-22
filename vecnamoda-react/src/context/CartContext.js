@@ -17,3 +17,12 @@ export function CartProvider(props) {
         </CartContext.Provider>
     );
 }
+
+const colorState = {
+    color: 'red',
+    changeColor: () => {}
+};
+const ColorContext = React.createContext(colorState);
+
+export default ColorContext;
+

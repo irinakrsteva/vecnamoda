@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Button, Container} from "react-bootstrap";
+import ColorContext from "../../context/CartContext";
 
 function Intro({testVar}) {
 
@@ -11,6 +12,13 @@ function Intro({testVar}) {
             <div>
                 <Button onClick={() => {setUTestVar(updatableTestVar + "AA - ")}} >Test</Button>
             </div>
+            <ColorContext.Provider value={{color: 'blue'}}>
+            <ColorContext.Consumer>
+                {({color}) => (
+                    <div>{color}</div>
+                )}
+            </ColorContext.Consumer>
+            </ColorContext.Provider>
         </Container>
     );
 

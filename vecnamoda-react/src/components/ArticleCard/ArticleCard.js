@@ -16,7 +16,7 @@ function ArticleCard({article}) {
                 <Card.Text>
                     This is {article.name}
                 </Card.Text>
-                <Button id={"addArticle"+article.id} variant="primary">Add to card</Button>
+                <Button id={"addArticle"+article.id} variant="primary">Add to cart</Button>
             </Card.Body>
         </Card>
     );

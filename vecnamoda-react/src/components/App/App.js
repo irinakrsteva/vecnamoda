@@ -18,6 +18,7 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import CheckOut from "../CheckOut/CheckOut";
 import Article from "../Article/Article";
 // import SidebarFilter from "../SidebarFilter/SidebarFilter";
+import ColorContext from "../../context/CartContext";
 
 
 import Container from "react-bootstrap/Container";
