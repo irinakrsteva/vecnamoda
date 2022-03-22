@@ -1,6 +1,6 @@
 CREATE TABLE `vecnamoda`.`consignment`
 (
-    `id`            BIGINT NOT NULL,
+    `id`            BIGINT NOT NULL AUTO_INCREMENT,
     `date_received` DATE   NOT NULL,
     `user_id`       BIGINT NOT NULL,
     PRIMARY KEY (`id`)

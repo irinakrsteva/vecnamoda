@@ -1,10 +1,10 @@
 CREATE TABLE `vecnamoda`.`user`
 (
-    `id`       BIGINT                                 NOT NULL,
+    `id`       BIGINT                                 NOT NULL AUTO_INCREMENT,
     `name`     VARCHAR(20)                            NULL,
     `username` VARCHAR(50)                            NULL,
     `email`    VARCHAR(50)                            NOT NULL,
-    `password` VARCHAR(50)                            NOT NULL,
+    `password` VARCHAR(60)                            NOT NULL,
     `role`     ENUM ('admin', 'employee', 'customer') NOT NULL,
     `status`   ENUM ('normal', 'banned')              NOT NULL,
     PRIMARY KEY (`id`)

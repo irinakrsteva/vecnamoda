@@ -1,7 +1,7 @@
 CREATE TABLE `vecnamoda`.`brand`
 (
-    `id`  INT         NOT NULL,
-    `name`      VARCHAR(20) NULL,
+    `id`   INT         NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(20) NULL,
     PRIMARY KEY (`id`)
 );
 

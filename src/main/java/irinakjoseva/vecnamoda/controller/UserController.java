@@ -5,6 +5,7 @@ import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.service.UserService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,13 +15,14 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("api/users")
 public class UserController {
+
     private final UserService service;
 
     public UserController(UserService service) {
         this.service = service;
     }
 
-    @GetMapping({ "/hello" })
+    @GetMapping({"/hello"})
     public ResponseEntity firstPage() {
         return ResponseEntity.ok("Hello world");
     }
@@ -36,4 +38,10 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping(value = "/current")
+    public ResponseEntity<User> getCurrent(Authentication authentication) {
+        return ResponseEntity.ok(
+                ((HashMap<String, User>) authentication.getDetails()).get("account")
+        );
+    }
 }

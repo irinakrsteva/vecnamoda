@@ -1,6 +1,6 @@
 CREATE TABLE `vecnamoda`.`article`
 (
-    `id`          BIGINT                              NOT NULL,
+    `id`          BIGINT                              NOT NULL AUTO_INCREMENT,
     `price`       DECIMAL(16, 2)                      NOT NULL,
     `condition`   ENUM ('good', 'great', 'excellent') NULL,
     `status`      ENUM ('available', 'sold')          NOT NULL,

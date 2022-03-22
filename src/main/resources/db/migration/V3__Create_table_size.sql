@@ -1,6 +1,6 @@
 CREATE TABLE `vecnamoda`.`size`
 (
-    `id`       INT         NOT NULL,
+    `id`       INT         NOT NULL AUTO_INCREMENT,
     `standard` VARCHAR(20) NULL,
     `value`    VARCHAR(20) NULL,
     PRIMARY KEY (`id`)

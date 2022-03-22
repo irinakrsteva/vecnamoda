@@ -1,6 +1,6 @@
 CREATE TABLE `vecnamoda`.`order`
 (
-    `id`             BIGINT   NOT NULL,
+    `id`             BIGINT   NOT NULL AUTO_INCREMENT,
     `status`         ENUM ('pending', 'fulfilled',
         'cancelled', 'pending_refund',
         'refunded')           NOT NULL,

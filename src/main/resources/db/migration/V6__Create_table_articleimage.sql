@@ -1,9 +1,9 @@
 CREATE TABLE `vecnamoda`.`article_image`
 (
-    `id` BIGINT       NOT NULL,
-    `name`            VARCHAR(20)  NULL,
-    `path`            VARCHAR(500) NULL,
-    `article_id`      BIGINT       NOT NULL,
+    `id`         BIGINT       NOT NULL AUTO_INCREMENT,
+    `name`       VARCHAR(20)  NULL,
+    `path`       VARCHAR(500) NULL,
+    `article_id` BIGINT       NOT NULL,
     PRIMARY KEY (`id`)
 );
 

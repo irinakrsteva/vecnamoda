@@ -1,6 +1,6 @@
 CREATE TABLE `vecnamoda`.`color`
 (
-    `id`  INT         NOT NULL,
+    `id`        INT         NOT NULL AUTO_INCREMENT,
     `name`      VARCHAR(20) NULL,
     `hex_value` VARCHAR(6)  NOT NULL,
     PRIMARY KEY (`id`)
