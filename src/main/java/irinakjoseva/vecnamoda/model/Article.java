@@ -160,9 +160,9 @@ public class Article {
 
     public enum Condition {
 
-        GOOD("good"),
-        GREAT("great"),
-        EXCELLENT("excellent");
+        GOOD("GOOD"),
+        GREAT("GREAT"),
+        EXCELLENT("EXCELLENT");
 
         String condition;
 
@@ -172,8 +172,8 @@ public class Article {
 
     }
     public enum Status {
-        AVAILABLE("available"),
-        SOLD("sold");
+        AVAILABLE("AVAILABLE"),
+        SOLD("SOLD");
 
         String status;
 

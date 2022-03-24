@@ -13,23 +13,21 @@ import java.util.stream.Collectors;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-    private final ArticleRepository repository;
+    private final ArticleRepository articleRepository;
 
     public ArticleServiceImpl(ArticleRepository repository) {
-        this.repository = repository;
+        this.articleRepository = repository;
     }
 
+    @Override
     public List<Article> getAllAvailableArticles() {
-        return this.repository.findAll().stream().
-                filter(article -> article
-                            .getStatus().equals(Article.Status.AVAILABLE)
-                )
-                .collect(Collectors.toList());
+        return this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
     }
 
+    @Override
     public Article saveArticle(ArticleDto dto) throws IOException {
         Article article = new Article(); //...
-        return repository.save(article);
+        return articleRepository.save(article);
     }
 
 }

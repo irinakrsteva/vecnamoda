@@ -36,24 +36,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .exceptionHandling()
-                    .authenticationEntryPoint(((request, response, authException) -> {
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                    }))
-                .and()
-                .addFilter(
-                        new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProperties))
-                    .addFilterAfter(
-                            new JwtTokenAuthenticationFilter(jwtProperties, userDetailsService),
-                            UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, jwtProperties.getUri())
-                        .permitAll()
-                    .antMatchers(HttpMethod.OPTIONS)
-                        .permitAll()
-                    .antMatchers(getPublicPaths())
-                        .permitAll()
-                    .anyRequest().authenticated();
+                .authorizeRequests().anyRequest().permitAll();
+//                .exceptionHandling()
+//                    .authenticationEntryPoint(((request, response, authException) -> {
+//                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+//                    }))
+//                .and()
+//                .addFilter(
+//                        new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProperties))
+//                    .addFilterAfter(
+//                            new JwtTokenAuthenticationFilter(jwtProperties, userDetailsService),
+//                            UsernamePasswordAuthenticationFilter.class)
+//                .authorizeRequests()
+//                    .antMatchers(HttpMethod.POST, jwtProperties.getUri())
+//                        .permitAll()
+//                    .antMatchers(HttpMethod.OPTIONS)
+//                        .permitAll()
+//                    .antMatchers(getPublicPaths())
+//                        .permitAll()
+//                    .anyRequest().authenticated();
 
     }
 

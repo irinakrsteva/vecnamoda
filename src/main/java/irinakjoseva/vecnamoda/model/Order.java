@@ -39,11 +39,11 @@ public class Order {
 
 
     public enum Status {
-        PENDING("pending"),
-        FULFILLED("fulfilled"),
-        CANCELLED("cancelled"),
-        PENDINGREFUND("pending_refund"),
-        REFUNDED("refunded");
+        PENDING("PENDING"),
+        FULFILLED("FULFILLED"),
+        CANCELLED("CANCELLED"),
+        PENDING_REFUND("PENDING_REFUND"),
+        REFUNDED("REFUNDED");
 
         String status;
 

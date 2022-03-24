@@ -151,17 +151,17 @@ public class User implements UserDetails {
 
 
     public enum Role {
-        ADMIN("admin"),
-        EMPLOYEE("employee"),
-        CUSTOMER("customer");
+        ADMIN("ADMIN"),
+        EMPLOYEE("EMPLOYEE"),
+        CUSTOMER("CUSTOMER");
 
         String role;
         Role(String role) { this.role = role; }
     }
 
     public enum Status {
-        NORMAL("normal"),
-        BANNED("banned");
+        NORMAL("NORMAL"),
+        BANNED("BANNED");
 
         String status;
         Status(String status) { this.status = status; }

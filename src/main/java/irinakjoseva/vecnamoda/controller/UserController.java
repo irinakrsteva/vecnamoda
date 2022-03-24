@@ -4,6 +4,7 @@ import irinakjoseva.vecnamoda.service.dto.UserDto;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.service.impl.UserServiceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,11 @@ import java.util.HashMap;
 @RequestMapping("api/users")
 public class UserController {
 
-    private final UserServiceImpl service;
+    @Autowired
+    private final UserServiceImpl userService;
 
-    public UserController(UserServiceImpl service) {
-        this.service = service;
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
     }
 
     @GetMapping({"/hello"})
@@ -28,19 +30,27 @@ public class UserController {
 
     @PostMapping(value = "/register")
     public ResponseEntity save(@RequestBody @Valid UserDto userDto) {
-        return ResponseEntity.ok(this.service.save(userDto));
+        return ResponseEntity.ok(this.userService.save(userDto));
     }
 
     @GetMapping(value = "/{username}")
     public ResponseEntity<User> getByUsername(@PathVariable("username") String username) {
-        User user = this.service.getByUsername(username);
+        User user = this.userService.getByUsername(username);
         return ResponseEntity.ok(user);
     }
-
     @GetMapping(value = "/current")
     public ResponseEntity<User> getCurrent(Authentication authentication) {
         return ResponseEntity.ok(
                 ((HashMap<String, User>) authentication.getDetails()).get("account")
         );
     }
+
+    // ??????????????
+    @DeleteMapping(value = "/delete/{id}")
+    //@PreAuthorize("hasAuthority(\"" + Constants.USER_ROLE + "\")")
+    public ResponseEntity delete(@PathVariable ("id") Long id) {
+        this.userService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

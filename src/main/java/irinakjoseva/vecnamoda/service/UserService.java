@@ -9,4 +9,7 @@ public interface UserService {
 
     User getByUsername(String username);
 
+    void delete(Long id);
+
+
 }
