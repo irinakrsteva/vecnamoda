@@ -1,15 +1,20 @@
 import React, {useState} from "react";
 import "./Register.css";
 
+import {useNavigate} from "react-router-dom";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/cjs/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Link} from "react-router-dom";
+import {registerUser} from "../../service/userService";
 
 
 function Register() {
+    const navigate = useNavigate();
+
     const [nameState, setNameState] = useState("");
     const [usernameState, setUsernameState] = useState("");
     const [emailState, setEmailState] = useState("");
@@ -100,7 +105,18 @@ function Register() {
 
     let submit = (event) => {
         event.preventDefault();
-
+        const user = {
+            name: nameState,
+            username: usernameState,
+            email: emailState,
+            password: passwordState
+        }
+        registerUser(user).then(() => {
+            console.log("User registered: " + usernameState);
+            navigate("/login");
+        }).catch(() => {
+            console.log("Error registering");
+        });
     }
 
     return (
@@ -137,7 +153,7 @@ function Register() {
                             <Form.Check onChange={onCheckChange} type="checkbox" label={(<>I accept the <a href="#">Terms and Conditions</a></>)}/>
                         </Form.Group>
                         <Form.Group style={{display: 'flex', justifyContent: 'flex-end'}}>
-                            <Button type="submit" variant="primary">Register</Button>
+                            <Button type="submit" disabled={!checkValid()} onClick={submit} variant="primary">Register</Button>
                             <Button as={Link} to={"/login"} variant="secondary" className="ms-2">Login</Button>
                         </Form.Group>
                     </Form>
