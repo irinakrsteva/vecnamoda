@@ -18,20 +18,17 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import CheckOut from "../CheckOut/CheckOut";
 import Article from "../Article/Article";
 // import SidebarFilter from "../SidebarFilter/SidebarFilter";
-import ColorContext from "../../context/CartContext";
+import {CartProvider} from "../../context/CartContext";
 
 
 import Container from "react-bootstrap/Container";
 import AddArticle from "../AddArticle/AddArticle";
 
-
-const CartContext = React.createContext({items: [], total: 0});
-
 function App() {
     // const [cart, setCart] = useState({items:[], total:0});
 
     return (
-        <CartContext.Provider value={ { items: [], total: 0 } }>
+        <CartProvider>
             <Container id={global}>
                 <Router>
                     <Menu/>
@@ -52,7 +49,7 @@ function App() {
                     </Routes>
                 </Router>
             </Container>
-        </CartContext.Provider>
+        </CartProvider>
     );
 
 }

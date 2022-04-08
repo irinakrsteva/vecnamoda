@@ -1,13 +1,20 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
+import {CartContext, CartProvider} from "../../context/CartContext";
 
 function ArticleCard({article}) {
+    let cart = useContext(CartContext);
+
+    function handleAddToCart() {
+        cart.addItemToCart(article);
+        console.log("adding" + article.id);
+        console.log(cart.items);
+    }
 
     return (
-        <Card >
+        <Card>
             <Link to={"/shop/" + article.id} key={article.id}>
                 <Card.Img variant="top" src="holder.js/100px180"/>
             </Link>
@@ -16,7 +23,7 @@ function ArticleCard({article}) {
                 <Card.Text>
                     This is {article.name}
                 </Card.Text>
-                <Button id={"addArticle"+article.id} variant="primary">Add to cart</Button>
+                <Button id={"addArticle"+article.id} onClick={() => handleAddToCart()} variant="primary">Add to cart</Button>
             </Card.Body>
         </Card>
     );

@@ -1,28 +1,82 @@
-import React, {useRef, useState} from "react";
+import React, {createContext, useRef, useState} from "react";
 
-const state = {
+const defaultValue = {
     items: [],
-    total: 0
-};
+    addItemToCart: () => {},
+    removeItemFromCart: () => {},
+    getCartTotal: () => {},
+    clearCart: () => {}
+}
+export const CartContext = createContext(defaultValue);
 
-const CartContext = React.createContext(state);
+export const CartProvider = ({children}) => {
 
-export function CartProvider(props) {
-    const [cartState, setCartState] = useState(state);
-    const children = useRef(null);
+    const [items, setItems] = useState([]);
 
-    return(
-        <CartContext.Provider value={cartState}>
+    const addItemToCart = (cartItem) => {
+        if(!items.find(item => item.id === cartItem.id)) { // cannot duplicate single article
+            setItems([...items, cartItem]);
+        }
+    }
 
-        </CartContext.Provider>
-    );
+    const removeItemFromCart = (cartItem) => {
+        setItems(items.filter(item => item.id !== cartItem.id));
+    }
+
+    const getCartTotal = () => {
+        return items.reduce(((total, item) => total + item.price), 0);
+    }
+
+    const clearCart = () => {
+        setItems([]);
+    }
+
+    const value = {
+        items,
+        addItemToCart,
+        removeItemFromCart,
+        getCartTotal,
+        clearCart
+    };
+
+    return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
-const colorState = {
-    color: 'red',
-    changeColor: () => {}
-};
-const ColorContext = React.createContext(colorState);
+export const CartConsumer = CartContext.Consumer;
 
-export default ColorContext;
+
+//
+// const cart = {
+//     items: [],
+//     total: 0
+// };
+// const updateCart = () => {};
+//
+// const CartContext = React.createContext(cart);
+//
+// export function CartProvider(props) {
+//     const [cartState, setCartState] = useState(cart);
+//     const [updateCartState, setUpdateCartState] = useState(updateCart);
+//
+//     return(
+//         <CartContext.Provider value={cartState}>
+//             {props.children}
+//         </CartContext.Provider>
+//     );
+// }
+//
+// export const CartConsumer = CartContext.Consumer;
+//
+// export const withCartContext = (Component) => {
+//
+// }
+
+
+// const colorState = {
+//     color: 'red',
+//     changeColor: () => {}
+// };
+// const ColorContext = React.createContext(colorState);
+//
+// export default ColorContext;
 
