@@ -1,11 +1,38 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import {Container, Form} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext";
 
 function Login() {
+
+    let auth = useContext(AuthContext);
+
+    let [username, setUsername] = useState();
+    let [password, setPassword] = useState();
+
+    let login = (event) => {
+        event.preventDefault();
+        const user = {
+            username: username,
+            password: password
+        };
+        auth.login(user).then(() => {
+            console.log("Successfully logged in: " + username);
+        }).catch(() => {
+            console.log("Could not log in: " + username);
+        });
+    }
+
+    let onUsernameChange = (event) => {
+        setUsername(event.target.value);
+    }
+
+    let onPasswordChange = (event) => {
+        setPassword(event.target.value);
+    }
 
     return (
         <Container className="mt-3">
@@ -14,14 +41,14 @@ function Login() {
                     <Form>
                         <Form.Group className="mb-2" controlId="formUsername">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control/>
+                            <Form.Control onChange={onUsernameChange} />
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password"/>
+                            <Form.Control onChange={onPasswordChange} type="password"/>
                         </Form.Group>
                         <Form.Group style={{display: 'flex', justifyContent: 'flex-end'}}>
-                            <Button type="submit" variant="primary">Login</Button>
+                            <Button type="submit" variant="primary" onClick={login}>Login</Button>
                             <Button as={Link} to={"/register"} variant="secondary" className="ms-2">Register</Button>
                         </Form.Group>
                     </Form>

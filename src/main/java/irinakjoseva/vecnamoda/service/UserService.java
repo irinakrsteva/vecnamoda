@@ -1,11 +1,12 @@
 package irinakjoseva.vecnamoda.service;
 
 import irinakjoseva.vecnamoda.model.User;
-import irinakjoseva.vecnamoda.service.dto.UserDto;
+import irinakjoseva.vecnamoda.controller.dto.UserDto;
+import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
 
 public interface UserService {
 
-    User save(UserDto userDto);
+    User register(UserDto userDto) throws UserAlreadyExistsException;
 
     User getByUsername(String username);
 

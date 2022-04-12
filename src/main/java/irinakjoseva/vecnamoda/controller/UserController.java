@@ -1,7 +1,8 @@
 package irinakjoseva.vecnamoda.controller;
 
-import irinakjoseva.vecnamoda.service.dto.UserDto;
+import irinakjoseva.vecnamoda.controller.dto.UserDto;
 import irinakjoseva.vecnamoda.model.User;
+import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
 import irinakjoseva.vecnamoda.service.impl.UserServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity save(@RequestBody @Valid UserDto userDto) {
-        return ResponseEntity.ok(this.userService.save(userDto));
+    public ResponseEntity save(@RequestBody @Valid UserDto userDto) throws UserAlreadyExistsException {
+        return ResponseEntity.ok(userService.register(userDto));
     }
 
     @GetMapping(value = "/{username}")
@@ -38,8 +39,8 @@ public class UserController {
         User user = this.userService.getByUsername(username);
         return ResponseEntity.ok(user);
     }
-    @GetMapping(value = "/current")
-    public ResponseEntity<User> getCurrent(Authentication authentication) {
+    @GetMapping(value = "/authenticated")
+    public ResponseEntity<User> getAuthenticatedUser(Authentication authentication) {
         return ResponseEntity.ok(
                 ((HashMap<String, User>) authentication.getDetails()).get("account")
         );

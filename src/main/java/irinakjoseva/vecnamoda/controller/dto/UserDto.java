@@ -1,4 +1,4 @@
-package irinakjoseva.vecnamoda.service.dto;
+package irinakjoseva.vecnamoda.controller.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

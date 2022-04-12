@@ -1,4 +1,4 @@
-package irinakjoseva.vecnamoda.service.dto;
+package irinakjoseva.vecnamoda.controller.dto;
 
 import irinakjoseva.vecnamoda.model.Article;
 

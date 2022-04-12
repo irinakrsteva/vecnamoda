@@ -36,25 +36,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests().anyRequest().permitAll();
-//                .exceptionHandling()
-//                    .authenticationEntryPoint(((request, response, authException) -> {
-//                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-//                    }))
-//                .and()
-//                .addFilter(
-//                        new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProperties))
-//                    .addFilterAfter(
-//                            new JwtTokenAuthenticationFilter(jwtProperties, userDetailsService),
-//                            UsernamePasswordAuthenticationFilter.class)
-//                .authorizeRequests()
-//                    .antMatchers(HttpMethod.POST, jwtProperties.getUri())
-//                        .permitAll()
-//                    .antMatchers(HttpMethod.OPTIONS)
-//                        .permitAll()
-//                    .antMatchers(getPublicPaths())
-//                        .permitAll()
-//                    .anyRequest().authenticated();
+//                .authorizeRequests().anyRequest().permitAll();
+                .exceptionHandling()
+                    .authenticationEntryPoint(((request, response, authException) -> {
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                    }))
+                .and()
+                .addFilter(
+                        new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProperties))
+                    .addFilterAfter(
+                            new JwtTokenAuthenticationFilter(jwtProperties, userDetailsService),
+                            UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, jwtProperties.getUri())
+                        .permitAll()
+                    .antMatchers(HttpMethod.OPTIONS)
+                        .permitAll()
+                    .antMatchers(getPublicPaths())
+                        .permitAll()
+                    .anyRequest().authenticated();
 
     }
 
@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new String[]{
                 "/api/users/hello",
                 "/api/users/register",
-                "/api/article/public" // ? supposedly something like this should be implemented
+//                "/api/article/public" // ? supposedly something like this should be implemented
         };
     }
 

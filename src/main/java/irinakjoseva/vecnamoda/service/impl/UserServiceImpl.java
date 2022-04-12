@@ -1,9 +1,10 @@
 package irinakjoseva.vecnamoda.service.impl;
 
 import irinakjoseva.vecnamoda.service.UserService;
-import irinakjoseva.vecnamoda.service.dto.UserDto;
+import irinakjoseva.vecnamoda.controller.dto.UserDto;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.UserRepository;
+import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,15 +21,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(UserDto userDto) {
+    public User register(UserDto userDto) throws UserAlreadyExistsException {
+        if(userRepository.existsByEmailIgnoreCase(userDto.email) || userRepository.existsByUsernameIgnoreCase(userDto.username)) {
+            throw new UserAlreadyExistsException();
+        }
         User user = new User(userDto.name, userDto.username, userDto.email, encoder.encode(userDto.password), User.Role.CUSTOMER);
         return userRepository.save(user);
     }
 
     @Override
     public User getByUsername(String username) {
-        return userRepository.findOneByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(""));
+        return userRepository.findOneByUsernameIgnoreCase(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Username " + username + " not found."));
     }
 
     @Override

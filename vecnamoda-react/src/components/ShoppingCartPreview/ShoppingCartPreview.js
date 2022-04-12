@@ -6,10 +6,6 @@ import {Link} from "react-router-dom";
 import {CartContext} from "../../context/CartContext";
 
 function ShoppingCartPreview(props) {
-    // const {cartState,
-    //     setCartState,
-    //     updateCartState,
-    //     setUpdateCartState} = useContext(CartContext);
 
     let cart = useContext(CartContext);
 

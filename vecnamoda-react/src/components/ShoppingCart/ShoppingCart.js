@@ -6,11 +6,6 @@ import {CartContext} from "../../context/CartContext";
 
 function ShoppingCart() {
     const navigate = useNavigate();
-    // const cartContext = useContext(CartProvider)
-    const { cartState,
-            setCartState,
-            updateCartState,
-            setUpdateCartState } = useContext(CartContext);
 
     return(
         // <cartContext.Consumer>

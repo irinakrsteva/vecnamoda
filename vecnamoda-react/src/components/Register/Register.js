@@ -15,13 +15,13 @@ import {registerUser} from "../../service/userService";
 function Register() {
     const navigate = useNavigate();
 
-    const [nameState, setNameState] = useState("");
-    const [usernameState, setUsernameState] = useState("");
-    const [emailState, setEmailState] = useState("");
-    const [passwordState, setPasswordState] = useState("");
-    const [confirmPasswordState, setConfirmPasswordState] = useState("");
-    const [checkedState, setCheckedState] = useState(false);
-    const [formErrorsState, setFormErrorsState] = useState({
+    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [checked, setChecked] = useState(false);
+    const [formErrors, setFormErrors] = useState({
         nameValid: null,
         userNameValid: null,
         emailValid: null,
@@ -30,89 +30,90 @@ function Register() {
     });
 
     let onNameChange = (event) => {
-        const name = event.target.value;
-        setNameState(name);
+        let name = event.target.value;
+        setName(name);
         if (name && name.length <= 50) {
-            setFormErrorsState({...formErrorsState, nameValid: ""});
+            setFormErrors({...formErrors, nameValid: ""});
         } else {
-            setFormErrorsState({...formErrorsState, nameValid: "Name cannot exceed 50 characters"});
+            setFormErrors({...formErrors, nameValid: "Name must be between 1 and 50 characters"});
         }
     }
 
     let onUsernameChange = (event) => {
-        const username = event.target.value;
-        setUsernameState(username);
+        let username = event.target.value;
+        setUsername(username);
         if (username && username.length > 2 && username.length <= 50) {
-            setFormErrorsState({...formErrorsState, userNameValid: ""});
+            setFormErrors({...formErrors, userNameValid: ""});
         } else {
             if (username.length < 2) {
-                setFormErrorsState({...formErrorsState, userNameValid: "Username must be at least 3 characters"});
+                setFormErrors({...formErrors, userNameValid: "Username must be at least 3 characters"});
             } else {
-                setFormErrorsState({...formErrorsState, userNameValid: "Username cannot exceed 50 characters"});
+                setFormErrors({...formErrors, userNameValid: "Username cannot exceed 50 characters"});
             }
         }
     }
 
     let onEmailChange = (event) => {
-        const email = event.target.value;
         const regex = /.+@.+\..+/;
-        setEmailState(email);
+        let email = event.target.value;
+        setEmail(email);
         if (email && email.match(regex)) {
-            setFormErrorsState({...formErrorsState, emailValid: ""});
+            setFormErrors({...formErrors, emailValid: ""});
         } else {
-            setFormErrorsState({...formErrorsState, emailValid: "Please enter a valid email address"});
+            setFormErrors({...formErrors, emailValid: "Please enter a valid email address"});
         }
     }
 
     let onPasswordChange = (event) => {
-        const password = event.target.value;
-        setPasswordState(password);
+        let password = event.target.value;
+        setPassword(password);
         if (password && password.length >= 6 && password.length <= 50) {
-            setFormErrorsState({...formErrorsState, passwordValid: ""});
+            setFormErrors({...formErrors, passwordValid: ""});
         } else {
             if (password.length < 6) {
-                setFormErrorsState({...formErrorsState, passwordValid: "Password must be at least 6 characters"});
+                setFormErrors({...formErrors, passwordValid: "Password must be at least 6 characters"});
             } else {
-                setFormErrorsState({...formErrorsState, passwordValid: "Password cannot exceed 50 characters"});
+                setFormErrors({...formErrors, passwordValid: "Password cannot exceed 50 characters"});
             }
         }
     }
 
     let onConfirmPasswordChange = (event) => {
-        const confirmPassword = event.target.value;
-        setConfirmPasswordState(confirmPassword);
-        if (confirmPassword && confirmPassword === passwordState) {
-            setFormErrorsState({...formErrorsState, confirmPasswordValid: ""});
+        let confirmPassword = event.target.value;
+        setConfirmPassword(confirmPassword);
+        if (confirmPassword && confirmPassword === password) {
+            setFormErrors({...formErrors, confirmPasswordValid: ""});
         } else {
-            setFormErrorsState({...formErrorsState, confirmPasswordValid: "Passwords don't match"});
+            setFormErrors({...formErrors, confirmPasswordValid: "Passwords don't match"});
         }
     }
 
     let onCheckChange = (event) => {
-        const checked = event.target.checked;
-        setCheckedState(checked);
+        let checked = event.target.checked;
+        setChecked(checked);
     }
 
     let checkValid = () => {
-        return (formErrorsState.nameValid === "" &&
-                formErrorsState.userNameValid === "" &&
-                formErrorsState.emailValid === "" &&
-                formErrorsState.passwordValid === "" &&
-                formErrorsState.confirmPasswordValid === "" &&
-                checkedState === true
+        return (formErrors.nameValid === "" &&
+                formErrors.userNameValid === "" &&
+                formErrors.emailValid === "" &&
+                formErrors.passwordValid === "" &&
+                formErrors.confirmPasswordValid === "" &&
+                checked === true
         );
     }
 
-    let submit = (event) => {
+    let register = (event) => {
+        console.log("Registering...");
         event.preventDefault();
         const user = {
-            name: nameState,
-            username: usernameState,
-            email: emailState,
-            password: passwordState
+            name: name,
+            username: username,
+            email: email,
+            password: password
         }
         registerUser(user).then(() => {
-            console.log("User registered: " + usernameState);
+            console.log("User registered: " + username);
             navigate("/login");
         }).catch(() => {
             console.log("Error registering");
@@ -127,33 +128,33 @@ function Register() {
                         <Form.Group className="mb-2" controlId="formName">
                             <Form.Label>Name</Form.Label>
                             <Form.Control onChange={onNameChange}/>
-                            <p className="formError">{formErrorsState.nameValid}</p>
+                            <p className="formError">{formErrors.nameValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control onChange={onUsernameChange}/>
-                            <p className="formError">{formErrorsState.userNameValid}</p>
+                            <p className="formError">{formErrors.userNameValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formEmail">
                             <Form.Label>Email</Form.Label>
                             <Form.Control onChange={onEmailChange} type="email"/>
-                            <p className="formError">{formErrorsState.emailValid}</p>
+                            <p className="formError">{formErrors.emailValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control onChange={onPasswordChange} type="password"/>
-                            <p className="formError">{formErrorsState.passwordValid}</p>
+                            <p className="formError">{formErrors.passwordValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formConfirmPassword">
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control onChange={onConfirmPasswordChange} type="password"/>
-                            <p className="formError">{formErrorsState.confirmPasswordValid}</p>
+                            <p className="formError">{formErrors.confirmPasswordValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formCheck">
                             <Form.Check onChange={onCheckChange} type="checkbox" label={(<>I accept the <a href="#">Terms and Conditions</a></>)}/>
                         </Form.Group>
                         <Form.Group style={{display: 'flex', justifyContent: 'flex-end'}}>
-                            <Button type="submit" disabled={!checkValid()} onClick={submit} variant="primary">Register</Button>
+                            <Button type="submit" disabled={!checkValid()} onClick={register} variant="primary">Register</Button>
                             <Button as={Link} to={"/login"} variant="secondary" className="ms-2">Login</Button>
                         </Form.Group>
                     </Form>

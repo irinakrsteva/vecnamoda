@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
@@ -7,9 +7,12 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import ShoppingCartPreview from "../ShoppingCartPreview/ShoppingCartPreview";
+import {AuthContext} from "../../context/AuthContext";
 
 function Menu() {
     const [cartPreviewShow, setCartPreviewShow] = React.useState(false);
+
+    const auth = useContext(AuthContext);
 
     return (
         <Navbar sticky="top" id="menu" bg="light" expand="lg">
@@ -36,15 +39,22 @@ function Menu() {
                         </Form>
 
                         <Nav className="nav ms-lg-auto">
-                            <Nav.Item>
-                                <Nav.Link as={Link} to="/register">Register</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
+
+                            { auth.isAuthenticated ? (
+                                <Nav.Item>
+                                    <Nav.Link as={Link} to="/account">My account</Nav.Link>
+                                </Nav.Item>
+                            ) : (
+                                <>
+                                <Nav.Item>
+                                    <Nav.Link as={Link} to="/register">Register</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
                                 <Nav.Link as={Link} to="/login">Log in</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link as={Link} to="/account">My account</Nav.Link>
-                            </Nav.Item>
+                                </Nav.Item>
+                                </>
+                            )}
+
                             <Nav.Item>
                                 <Nav.Link as={Button} onClick={() => setCartPreviewShow(true)}>Shopping Cart</Nav.Link>
                             </Nav.Item>

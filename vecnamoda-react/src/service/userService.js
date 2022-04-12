@@ -9,3 +9,7 @@ export const registerUser = (user) => {
 export const getUserByUsername = (username) => {
     return axios.get(`${apiUri}/${username}`);
 }
+
+export const getAuthenticatedUser = () => {
+    return axios.get(`${apiUri}/authenticated`);
+}

@@ -23,32 +23,35 @@ import {CartProvider} from "../../context/CartContext";
 
 import Container from "react-bootstrap/Container";
 import AddArticle from "../AddArticle/AddArticle";
+import {AuthProvider} from "../../context/AuthContext";
 
 function App() {
     // const [cart, setCart] = useState({items:[], total:0});
 
     return (
         <CartProvider>
-            <Container id={global}>
-                <Router>
-                    <Menu/>
-                    <Routes>
-                        <Route path="/" element={<Intro/>}/>
-                        <Route path="/shop" element={<Shop/>}/>
-                        <Route path="/sell" element={<Sell/>}/>
-                        <Route path="/register" element={<Register/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/account" element={<Account/>}/>
-                        <Route path="/about" element={<About/>}/>
-                        <Route path="/myitems" element={<MyItems/>}/>
-                        <Route path="/myorders" element={<MyOrders/>}/>
-                        <Route path="/shoppingcart" element={<ShoppingCart/>}/>
-                        <Route path="/checkout" element={<CheckOut/>}/>
-                        <Route path="/shop/:id" element={<Article/>}/>
-                        <Route path="/addarticle" element={<AddArticle/>}/>
-                    </Routes>
-                </Router>
-            </Container>
+            <AuthProvider>
+                <Container id={global}>
+                    <Router>
+                        <Menu/>
+                        <Routes>
+                            <Route path="/" element={<Intro/>}/>
+                            <Route path="/shop" element={<Shop/>}/>
+                            <Route path="/sell" element={<Sell/>}/>
+                            <Route path="/register" element={<Register/>}/>
+                            <Route path="/login" element={<Login/>}/>
+                            <Route path="/account" element={<Account/>}/>
+                            <Route path="/about" element={<About/>}/>
+                            <Route path="/myitems" element={<MyItems/>}/>
+                            <Route path="/myorders" element={<MyOrders/>}/>
+                            <Route path="/shoppingcart" element={<ShoppingCart/>}/>
+                            <Route path="/checkout" element={<CheckOut/>}/>
+                            <Route path="/shop/:id" element={<Article/>}/>
+                            <Route path="/addarticle" element={<AddArticle/>}/>
+                        </Routes>
+                    </Router>
+                </Container>
+            </AuthProvider>
         </CartProvider>
     );
 

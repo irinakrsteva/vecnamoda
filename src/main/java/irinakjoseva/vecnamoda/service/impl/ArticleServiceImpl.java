@@ -1,14 +1,15 @@
 package irinakjoseva.vecnamoda.service.impl;
 
 import irinakjoseva.vecnamoda.model.Article;
+import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.ArticleRepository;
 import irinakjoseva.vecnamoda.service.ArticleService;
-import irinakjoseva.vecnamoda.service.dto.ArticleDto;
+import irinakjoseva.vecnamoda.controller.dto.ArticleDto;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -24,8 +25,8 @@ public class ArticleServiceImpl implements ArticleService {
         return this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
     }
 
-    @Override
-    public Article saveArticle(ArticleDto dto) throws IOException {
+    @Transactional
+    public Article saveArticle(ArticleDto articleDto, User user) throws IOException {
         Article article = new Article(); //...
         return articleRepository.save(article);
     }
