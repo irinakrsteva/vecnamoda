@@ -32,7 +32,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         // tokens are passed in auth header:
         String header = request.getHeader(jwtProperties.getHeader());
         // validate the header and check the prefix:
-        if (header == null || !header.startsWith(jwtProperties.getHeader())) {
+        if (header == null || !header.startsWith(jwtProperties.getPrefix())) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -48,13 +48,13 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                     .getBody();
             String username = claims.getSubject();
             if (username != null) {
-                final User account = userDetailsService.loadUserByUsername(username);
+                final User user = userDetailsService.loadUserByUsername(username);
                 // create auth object to represent authenticated user:
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                        username, null, account.getAuthorities()
+                        username, null, user.getAuthorities()
                 );
                 Map<String, Object> details = new HashMap<>();
-                details.put("account", account);
+                details.put("user", user);
                 auth.setDetails(details);
                 // authenticate user:
                 SecurityContextHolder.getContext().setAuthentication(auth);

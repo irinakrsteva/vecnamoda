@@ -1,9 +1,9 @@
-package irinakjoseva.vecnamoda.controller.dto;
+package irinakjoseva.vecnamoda.dto.post;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class UserDto {
+public class UserPostDto {
     public String name;
 
     @NotBlank

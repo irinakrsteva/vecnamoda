@@ -1,31 +1,40 @@
 package irinakjoseva.vecnamoda.service.impl;
 
+import irinakjoseva.vecnamoda.dto.get.UserGetDto;
+import irinakjoseva.vecnamoda.dto.mapper.UserMapper;
 import irinakjoseva.vecnamoda.service.UserService;
-import irinakjoseva.vecnamoda.controller.dto.UserDto;
+import irinakjoseva.vecnamoda.dto.post.UserPostDto;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.UserRepository;
 import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.HashMap;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
+    private final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, UserMapper userMapper) {
         this.userRepository = repository;
+        this.userMapper = userMapper;
         this.encoder = new BCryptPasswordEncoder();
     }
 
+    // TODO Maybe should create user through UserMapper
+    // But need builder pattern to encode pass
     @Override
-    public User register(UserDto userDto) throws UserAlreadyExistsException {
-        if(userRepository.existsByEmailIgnoreCase(userDto.email) || userRepository.existsByUsernameIgnoreCase(userDto.username)) {
+    public User register(UserPostDto userPostDto) throws UserAlreadyExistsException {
+        if(userRepository.existsByEmailIgnoreCase(userPostDto.email) || userRepository.existsByUsernameIgnoreCase(userPostDto.username)) {
             throw new UserAlreadyExistsException();
         }
-        User user = new User(userDto.name, userDto.username, userDto.email, encoder.encode(userDto.password), User.Role.CUSTOMER);
+        User user = new User(userPostDto.name, userPostDto.username, userPostDto.email, encoder.encode(userPostDto.password), User.Role.CUSTOMER);
         return userRepository.save(user);
     }
 
@@ -33,6 +42,12 @@ public class UserServiceImpl implements UserService {
     public User getByUsername(String username) {
         return userRepository.findOneByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username " + username + " not found."));
+    }
+
+    @Override
+    public UserGetDto getAuthenticatedUser(Authentication authentication) {
+        User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
+        return (userMapper.toGetDto(user));
     }
 
     @Override

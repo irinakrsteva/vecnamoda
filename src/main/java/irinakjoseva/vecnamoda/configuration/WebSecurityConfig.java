@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
@@ -34,27 +37,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
 //                .authorizeRequests().anyRequest().permitAll();
                 .exceptionHandling()
-                    .authenticationEntryPoint(((request, response, authException) -> {
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                    }))
+                .authenticationEntryPoint(((request, response, authException) -> {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                }))
                 .and()
                 .addFilter(
-                        new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProperties))
-                    .addFilterAfter(
-                            new JwtTokenAuthenticationFilter(jwtProperties, userDetailsService),
-                            UsernamePasswordAuthenticationFilter.class)
+                        new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProperties)
+                )
+                .addFilterAfter(
+                        new JwtTokenAuthenticationFilter(jwtProperties, userDetailsService),
+                        UsernamePasswordAuthenticationFilter.class
+                )
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, jwtProperties.getUri())
-                        .permitAll()
-                    .antMatchers(HttpMethod.OPTIONS)
-                        .permitAll()
-                    .antMatchers(getPublicPaths())
-                        .permitAll()
-                    .anyRequest().authenticated();
+                .antMatchers(HttpMethod.POST, jwtProperties.getUri())
+                .permitAll()
+                .antMatchers(HttpMethod.OPTIONS)
+                .permitAll()
+                .antMatchers(getPublicPaths())
+                .permitAll()
+                .anyRequest().authenticated();
 
     }
 

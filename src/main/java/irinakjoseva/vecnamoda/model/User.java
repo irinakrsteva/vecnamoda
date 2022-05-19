@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -42,6 +43,10 @@ public class User implements UserDetails {
     private float balance;
 
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses;
+
+
     public User() {}
 
     public User(String name, String username, String email, String password, Role role) {
@@ -53,6 +58,7 @@ public class User implements UserDetails {
         this.status = Status.NORMAL;
         this.balance = 0;
     }
+
 
     public Long getId() {
         return id;
@@ -70,26 +76,6 @@ public class User implements UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -100,21 +86,6 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority admin = new SimpleGrantedAuthority(Role.ADMIN.name());
-        SimpleGrantedAuthority employee = new SimpleGrantedAuthority(Role.EMPLOYEE.name());
-        SimpleGrantedAuthority customer = new SimpleGrantedAuthority(Role.CUSTOMER.name());
-
-        List<SimpleGrantedAuthority> roles = new ArrayList();
-
-        roles.add(admin);
-        roles.add(employee);
-        roles.add(customer);
-
-        return roles;
     }
 
     public String getPassword() {
@@ -150,6 +121,49 @@ public class User implements UserDetails {
     }
 
 
+    public void addAddress(Address address) {
+        addresses.add(address);
+        address.setUser(this);
+    }
+
+    public void removeAddress(Address address) {
+        addresses.remove(address);
+        address.setUser(null);
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> roles = new ArrayList();
+
+        SimpleGrantedAuthority role = new SimpleGrantedAuthority(getRole().role);
+        roles.add(role);
+
+        return roles;
+    }
+
+
     public enum Role {
         ADMIN("ADMIN"),
         EMPLOYEE("EMPLOYEE"),
@@ -166,4 +180,5 @@ public class User implements UserDetails {
         String status;
         Status(String status) { this.status = status; }
     }
+
 }

@@ -1,16 +1,20 @@
 package irinakjoseva.vecnamoda.service;
 
+import irinakjoseva.vecnamoda.dto.get.UserGetDto;
 import irinakjoseva.vecnamoda.model.User;
-import irinakjoseva.vecnamoda.controller.dto.UserDto;
+import irinakjoseva.vecnamoda.dto.post.UserPostDto;
 import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
+import org.springframework.security.core.Authentication;
 
 public interface UserService {
 
-    User register(UserDto userDto) throws UserAlreadyExistsException;
+    User register(UserPostDto userPostDto) throws UserAlreadyExistsException;
 
     User getByUsername(String username);
 
-    void delete(Long id);
+    // TODO: Use mapper through service? Passing authentication doesn't work?
+    UserGetDto getAuthenticatedUser(Authentication authentication);
 
+    void delete(Long id);
 
 }

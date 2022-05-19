@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:application.yml")
 public class JwtProperties {
 
-    @Value("${security.jwt.uri:/auth/**}")
+    @Value("${security.jwt.uri:/login/**}")
     private String Uri;
 
     @Value("${security.jwt.header:Authorization}")

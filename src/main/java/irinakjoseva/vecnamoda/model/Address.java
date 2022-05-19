@@ -23,16 +23,16 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     public Address() {}
 
-    public Address(String address, String city, String country, String postalCode, User userId) {
+    public Address(String address, String city, String country, String postalCode, User user) {
         this.address = address;
         this.city = city;
         this.country = country;
         this.postalCode = postalCode;
-        this.userId = userId;
+        this.user = user;
     }
 
     public Long getId() {
@@ -71,11 +71,11 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User userId) {
+        this.user = userId;
     }
 }

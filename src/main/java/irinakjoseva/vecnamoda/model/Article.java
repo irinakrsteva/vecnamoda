@@ -1,17 +1,19 @@
 package irinakjoseva.vecnamoda.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "article")
 public class Article {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "price")
-    private float price;
+    private Float price;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "condition")
@@ -26,50 +28,60 @@ public class Article {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category categoryId;
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "size_id")
-    private Size sizeId;
+    private Size size;
 
     @ManyToOne
     @JoinColumn(name = "color_id")
-    private Color colorId;
+    private Color color;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
-    private Brand brandId;
+    private Brand brand;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order orderId;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "consignment_id")
-    private Consignment consignmentId;
+    private Consignment consignment;
 
     @ManyToOne
     @JoinColumn(name = "payment_id")
-    private Payment paymentId;
+    private Payment payment;
 
-    public Article() {}
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ArticleImage> articleImages;
+
+
+    public Article() { }
 
     public Article(Float price, Condition condition, Status status, String description,
-                   Category categoryId, Size sizeId, Color colorId, Brand brandId,
-                   Order orderId, Consignment consignmentId, Payment paymentId) {
+                   Category category, Size size, Color color, Brand brand, Consignment consignment) {
+
         this.price = price;
         this.condition = condition;
         this.status = status;
         this.description = description;
-    }
+        this.category = category;
+        this.size = size;
+        this.color = color;
+        this.brand = brand;
+        this.consignment = consignment;
 
+    }
 
 
     public Long getId() {
         return id;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
@@ -101,60 +113,71 @@ public class Article {
         this.description = description;
     }
 
-    public Category getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Category categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public Size getSizeId() {
-        return sizeId;
+    public Size getSize() {
+        return size;
     }
 
-    public void setSizeId(Size sizeId) {
-        this.sizeId = sizeId;
+    public void setSize(Size size) {
+        this.size = size;
     }
 
-    public Color getColorId() {
-        return colorId;
+    public Color getColor() {
+        return color;
     }
 
-    public void setColorId(Color colorId) {
-        this.colorId = colorId;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
-    public Brand getBrandId() {
-        return brandId;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrandId(Brand brandId) {
-        this.brandId = brandId;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
-    public Order getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Consignment getConsignmentId() {
-        return consignmentId;
+    public Consignment getConsignment() {
+        return consignment;
     }
 
-    public void setConsignmentId(Consignment consignmentId) {
-        this.consignmentId = consignmentId;
+    public void setConsignment(Consignment consignment) {
+        this.consignment = consignment;
     }
 
-    public Payment getPaymentId() {
-        return paymentId;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setPaymentId(Payment paymentId) {
-        this.paymentId = paymentId;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+
+    public void addArticleImage(ArticleImage articleImage) {
+        articleImages.add(articleImage);
+        articleImage.setArticle(this);
+    }
+
+    public void removeArticleImage(ArticleImage articleImage) {
+        articleImages.remove(articleImage);
+
     }
 
 
@@ -171,7 +194,9 @@ public class Article {
         }
 
     }
+
     public enum Status {
+
         AVAILABLE("AVAILABLE"),
         SOLD("SOLD");
 

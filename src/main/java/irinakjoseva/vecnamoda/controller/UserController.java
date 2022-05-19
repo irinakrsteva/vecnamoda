@@ -1,12 +1,15 @@
 package irinakjoseva.vecnamoda.controller;
 
-import irinakjoseva.vecnamoda.controller.dto.UserDto;
+import irinakjoseva.vecnamoda.dto.get.UserGetDto;
+import irinakjoseva.vecnamoda.dto.mapper.UserMapper;
+import irinakjoseva.vecnamoda.dto.post.UserPostDto;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
 import irinakjoseva.vecnamoda.service.impl.UserServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +20,15 @@ import java.util.HashMap;
 @RequestMapping("api/users")
 public class UserController {
 
-    @Autowired
+//    @Autowired
     private final UserServiceImpl userService;
 
-    public UserController(UserServiceImpl userService) {
+//    @Autowired
+    private final UserMapper userMapper;
+
+    public UserController(UserServiceImpl userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping({"/hello"})
@@ -30,8 +37,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity save(@RequestBody @Valid UserDto userDto) throws UserAlreadyExistsException {
-        return ResponseEntity.ok(userService.register(userDto));
+    public ResponseEntity save(@RequestBody @Valid UserPostDto userPostDto) throws UserAlreadyExistsException {
+        return ResponseEntity.ok(userService.register(userPostDto));
     }
 
     @GetMapping(value = "/{username}")
@@ -39,19 +46,21 @@ public class UserController {
         User user = this.userService.getByUsername(username);
         return ResponseEntity.ok(user);
     }
+
     @GetMapping(value = "/authenticated")
-    public ResponseEntity<User> getAuthenticatedUser(Authentication authentication) {
-        return ResponseEntity.ok(
-                ((HashMap<String, User>) authentication.getDetails()).get("account")
-        );
+    public ResponseEntity<UserGetDto> getAuthenticatedUser(Authentication authentication) {
+        User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
+        return ResponseEntity.ok(this.userMapper.toGetDto(user));
     }
 
+
+
     // ??????????????
-    @DeleteMapping(value = "/delete/{id}")
-    //@PreAuthorize("hasAuthority(\"" + Constants.USER_ROLE + "\")")
-    public ResponseEntity delete(@PathVariable ("id") Long id) {
-        this.userService.delete(id);
-        return ResponseEntity.ok().build();
-    }
+//    @DeleteMapping(value = "/delete/{id}")
+//    @PreAuthorize("hasAuthority(" + User.Role.ADMIN ")")
+//    public ResponseEntity delete(@PathVariable ("id") Long id) {
+//        this.userService.delete(id);
+//        return ResponseEntity.ok().build();
+//    }
 
 }

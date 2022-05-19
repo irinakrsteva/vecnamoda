@@ -1,7 +1,7 @@
 package irinakjoseva.vecnamoda.service;
 
 import irinakjoseva.vecnamoda.model.Article;
-import irinakjoseva.vecnamoda.controller.dto.ArticleDto;
+import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
 import irinakjoseva.vecnamoda.model.User;
 
 import java.io.IOException;
@@ -11,6 +11,6 @@ public interface ArticleService {
 
     List<Article> getAllAvailableArticles();
 
-    Article saveArticle(ArticleDto articleDto, User user) throws IOException;
+    Article saveArticle(ArticlePostDto articlePostDto, User user) throws IOException;
 
 }

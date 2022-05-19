@@ -1,18 +1,18 @@
-package irinakjoseva.vecnamoda.controller.dto;
+package irinakjoseva.vecnamoda.dto.post;
 
 import irinakjoseva.vecnamoda.model.Article;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-public class ArticleDto {
+public class ArticlePostDto {
 
-    @NotBlank
-    public float price;
+    @NotNull
+    public Float price;
 
-    @NotBlank
+    @NotNull
     public Article.Condition condition;
 
-    @NotBlank
+    @NotNull
     public Article.Status status;
 
     public String description;
@@ -25,10 +25,6 @@ public class ArticleDto {
 
     public Long brandId;
 
-    public Long orderId;
-
     public Long consignmentId;
-
-    public Long paymentId;
 
 }
