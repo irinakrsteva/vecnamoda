@@ -14,19 +14,19 @@ export const AuthContext = createContext(defaultValue);
 
 export const AuthProvider = ({children}) => {
 
-    let [isAuthenticated, setIsAuthenticated] = useState();
-    let [loggedInUser, setLoggedInUser] = useState();
+    let [isAuthenticated, setIsAuthenticated] = useState(false);
+    let [loggedInUser, setLoggedInUser] = useState(null);
 
     let login = async (user) => {
         return new Promise((resolve, reject) => {
             authenticateUser(user).then(response => {
-                const bearer = response.headers.authorization; // get user info from auth header from http request
-                setAccessToken(bearer); // use user info to create token for user
+                const bearer = response.headers.authorization;
+                setAccessToken(bearer);
                 setIsAuthenticated(true);
-                getAuthenticatedUser().then(userResponse => { // how do we get current this way ??? how does it work
-                    setLoggedInUser(userResponse.data);
+                getAuthenticatedUser().then(userResponse => {
+                    setLoggedInUser(userResponse.data); // UserGetDto: { email, name, username, role }
+                    console.log("Logging in user: ", userResponse.data);
                 });
-                console.log("Logged in user: " + user);
                 resolve();
             }).catch(reason => { // if login fails
                 console.log(reason);
@@ -50,4 +50,4 @@ export const AuthProvider = ({children}) => {
 
 }
 
-export const AuthConsumer = AuthContext.Consumer;
+// export const AuthConsumer = AuthContext.Consumer;

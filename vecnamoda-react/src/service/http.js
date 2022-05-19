@@ -15,7 +15,7 @@ axios.interceptors.request.use(authenticationInterceptor);
 
 const globalErrorHandler = (error) => {
 
-    if (error.response && error.response.status === 401) {
+    if (error.response && error.response.status === 401) { // Unauthorized
         clearAccessToken(); //?
     }
 

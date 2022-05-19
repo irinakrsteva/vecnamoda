@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 import Container from "react-bootstrap/Container";
@@ -13,6 +13,14 @@ function Menu() {
     const [cartPreviewShow, setCartPreviewShow] = React.useState(false);
 
     const auth = useContext(AuthContext);
+    const nav = useNavigate();
+
+    function onLogout() {
+        auth.logout();
+        nav("../");
+    }
+
+    let isAuthenticated = auth.isAuthenticated;
 
     return (
         <Navbar sticky="top" id="menu" bg="light" expand="lg">
@@ -40,10 +48,15 @@ function Menu() {
 
                         <Nav className="nav ms-lg-auto">
 
-                            { auth.isAuthenticated ? (
+                            { isAuthenticated ? (
+                                <>
                                 <Nav.Item>
                                     <Nav.Link as={Link} to="/account">My account</Nav.Link>
                                 </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link as={Button} onClick={() => {onLogout()}}>Log out</Nav.Link>
+                                </Nav.Item>
+                                </>
                             ) : (
                                 <>
                                 <Nav.Item>

@@ -3,12 +3,14 @@ import {Container, Form} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
+// import axios from "axios";
 
 function Login() {
 
     let auth = useContext(AuthContext);
+    let nav = useNavigate();
 
     let [username, setUsername] = useState();
     let [password, setPassword] = useState();
@@ -20,9 +22,10 @@ function Login() {
             password: password
         };
         auth.login(user).then(() => {
-            console.log("Successfully logged in: " + username);
+            console.log("Attempted to login " + username);
+            nav("../");
         }).catch(() => {
-            console.log("Could not log in: " + username);
+            console.log("Could not attempt login " + username);
         });
     }
 
@@ -33,6 +36,16 @@ function Login() {
     let onPasswordChange = (event) => {
         setPassword(event.target.value);
     }
+
+    //
+    // let testRequest = () => {
+    //     axios.post('/login', {
+    //         username: 'testuser3',
+    //         password: 'password'
+    //     })
+    //         .then((response) => console.log(response))
+    //         .catch((error) => console.log(error));
+    // }
 
     return (
         <Container className="mt-3">
@@ -54,6 +67,11 @@ function Login() {
                     </Form>
                 </Col>
             </Row>
+
+            {/*<Button onClick={testRequest}>*/}
+            {/*    Test Request*/}
+            {/*</Button>*/}
+
         </Container>
     );
 

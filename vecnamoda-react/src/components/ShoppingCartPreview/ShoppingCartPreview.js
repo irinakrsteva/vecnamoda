@@ -11,7 +11,7 @@ function ShoppingCartPreview(props) {
 
     function renderArticlesInsideShoppingCartPreview() {
         let previewContent = [];
-        for (let i in cart.items) { // for ciklus korisen bidejki se koristi i
+        for (let i in cart.items) { 
             previewContent.push(
                 <tr key={"cartItem" + i}>
                     <td>{i}</td>
