@@ -1,6 +1,7 @@
 package irinakjoseva.vecnamoda.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -13,11 +14,11 @@ public class Article {
     private Long id;
 
     @Column(name = "price")
-    private Float price;
+    private Double price;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "condition")
-    private Condition condition;
+    @Column(name = "article_condition")
+    private Condition articleCondition;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -43,8 +44,8 @@ public class Article {
     private Brand brand;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "purchase_id")
+    private Purchase purchase;
 
     @ManyToOne
     @JoinColumn(name = "consignment_id")
@@ -61,11 +62,11 @@ public class Article {
 
     public Article() { }
 
-    public Article(Float price, Condition condition, Status status, String description,
+    public Article(Double price, Condition articleCondition, Status status, String description,
                    Category category, Size size, Color color, Brand brand, Consignment consignment) {
 
         this.price = price;
-        this.condition = condition;
+        this.articleCondition = articleCondition;
         this.status = status;
         this.description = description;
         this.category = category;
@@ -74,6 +75,8 @@ public class Article {
         this.brand = brand;
         this.consignment = consignment;
 
+        this.purchase = null;
+
     }
 
 
@@ -81,20 +84,20 @@ public class Article {
         return id;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Condition getCondition() {
-        return condition;
+    public Condition getArticleCondition() {
+        return articleCondition;
     }
 
-    public void setCondition(Condition condition) {
-        this.condition = condition;
+    public void setArticleCondition(Condition condition) {
+        this.articleCondition = condition;
     }
 
     public Status getStatus() {
@@ -145,12 +148,12 @@ public class Article {
         this.brand = brand;
     }
 
-    public Order getOrder() {
-        return order;
+    public Purchase getPurchase() {
+        return purchase;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
     }
 
     public Consignment getConsignment() {
@@ -177,7 +180,7 @@ public class Article {
 
     public void removeArticleImage(ArticleImage articleImage) {
         articleImages.remove(articleImage);
-
+        articleImage.setArticle(null);
     }
 
 

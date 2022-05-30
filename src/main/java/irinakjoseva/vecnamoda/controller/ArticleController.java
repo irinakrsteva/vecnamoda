@@ -35,9 +35,9 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('EMPLOYEE') || hasRole('ADMIN')")
-    public void saveArticle(@RequestBody @Valid ArticlePostDto articlePostDto, Authentication authentication) throws IOException {
-        this.articleService.saveArticle(articlePostDto, ((HashMap<String, User>) authentication.getDetails()).get("account"));
+//    @PreAuthorize("hasRole('EMPLOYEE') or hasRole('ADMIN')")
+    public void saveArticle(@RequestBody @Valid ArticlePostDto articlePostDto) throws IOException {
+        this.articleService.saveArticle(articlePostDto);
     }
 
 

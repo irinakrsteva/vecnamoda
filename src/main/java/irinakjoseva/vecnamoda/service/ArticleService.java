@@ -11,6 +11,6 @@ public interface ArticleService {
 
     List<Article> getAllAvailableArticles();
 
-    Article saveArticle(ArticlePostDto articlePostDto, User user) throws IOException;
+    Article saveArticle(ArticlePostDto articlePostDto) throws IOException;
 
 }

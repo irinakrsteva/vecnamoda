@@ -17,8 +17,8 @@ public interface ArticleMapper  {
 
     ArticlePostDto toPostDto(Article article);
 
-    Article GetDtoToModel(ArticleGetDto articleGetDto);
+    Article getDtoToModel(ArticleGetDto articleGetDto);
 
-    Article PostDtoToModel(ArticlePostDto articlePostDto);
+    Article postDtoToModel(ArticlePostDto articlePostDto);
 
 }

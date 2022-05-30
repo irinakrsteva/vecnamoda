@@ -4,6 +4,8 @@ import irinakjoseva.vecnamoda.model.Article;
 
 public class ArticleGetDto {
 
+    public Long id;
+    
     public float price;
 
     public Article.Condition condition;

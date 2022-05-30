@@ -30,13 +30,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override // ?
-    public Article saveArticle(ArticlePostDto articlePostDto, User user) throws IOException {
-        Article article = articleMapper.PostDtoToModel(articlePostDto);
+    public Article saveArticle(ArticlePostDto articlePostDto) throws IOException {
+        Article article = articleMapper.postDtoToModel(articlePostDto);
         return articleRepository.save(article);
     }
 
 
-
+    // TODO
     // Create articles (list) + add consignment to all of them
+    // Recreate DB without resserved words (condition, decscription, status...)
 
 }
