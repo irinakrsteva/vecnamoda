@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "Order")
-public class Order {
+@Table(name = "purchase")
+public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -39,7 +39,7 @@ public class Order {
     private Address address;
 
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Article> articles;
 
 
@@ -102,12 +102,12 @@ public class Order {
 
     public void addArticle(Article article) {
         articles.add(article);
-        article.setOrder(this);
+        article.setPurchase(this);
     }
 
     public void removeArticle(Article article) {
         articles.remove(article);
-        article.setOrder(null);
+        article.setPurchase(null);
     }
 
 
