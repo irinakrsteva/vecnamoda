@@ -8,7 +8,7 @@ public class ArticleGetDto {
     
     public float price;
 
-    public Article.Condition condition;
+    public Article.Condition articleCondition;
 
     public Article.Status status;
 
@@ -22,7 +22,7 @@ public class ArticleGetDto {
 
     public Long brandId;
 
-    public Long orderId;
+    public Long purchaseId;
 
     public Long consignmentId;
 

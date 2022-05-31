@@ -10,7 +10,7 @@ public class ArticlePostDto {
     public Float price;
 
     @NotNull
-    public Article.Condition condition;
+    public Article.Condition articleCondition;
 
     @NotNull
     public Article.Status status;
