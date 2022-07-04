@@ -19,7 +19,7 @@ import java.util.Map;
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtProperties jwtProperties;
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     public JwtTokenAuthenticationFilter(JwtProperties jwtProperties, UserDetailsServiceImpl userDetailsService) {
         this.jwtProperties = jwtProperties;

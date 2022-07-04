@@ -1,7 +1,7 @@
 import React from "react";
 import {Container} from "react-bootstrap";
 
-function Article({id}) {
+function ArticleView({id}) {
     return (
         <Container className="mt-3">
             This article has id {id};
@@ -9,4 +9,4 @@ function Article({id}) {
     );
 }
 
-export default Article;
+export default ArticleView;

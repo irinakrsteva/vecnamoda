@@ -1,21 +1,39 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import {authenticateUser} from "../service/authService";
-import {clearAccessToken, setAccessToken} from "../service/browserStorageService";
+import {clearAccessToken, getAccessToken, setAccessToken} from "../service/browserStorageService";
 import {getAuthenticatedUser} from "../service/userService";
+import {Spinner} from "react-bootstrap";
 
 const defaultValue = {
-    login: () => {},
-    logout: () => {},
+    login: () => {
+    },
+    logout: () => {
+    },
+    loggedInUser: null,
     isAuthenticated: false,
-    loggedInUser: null
 };
 
 export const AuthContext = createContext(defaultValue);
 
 export const AuthProvider = ({children}) => {
 
-    let [isAuthenticated, setIsAuthenticated] = useState(false);
+    let [isAuthenticated, setIsAuthenticated] = useState(!!getAccessToken());
     let [loggedInUser, setLoggedInUser] = useState(null);
+
+    useEffect(() => {
+        if (isAuthenticated && !loggedInUser) {
+            getAuthenticatedUser().then(response => {
+                // --- test delayed response ---
+                // setTimeout(() => {
+                //     setLoggedInUser(response.data);
+                // }, 10000)
+                setLoggedInUser(response.data);
+                // console.log(response.data);
+            }).catch(reason => {
+                setIsAuthenticated(false);
+            });
+        }
+    });
 
     let login = async (user) => {
         return new Promise((resolve, reject) => {
@@ -30,7 +48,7 @@ export const AuthProvider = ({children}) => {
                 resolve();
             }).catch(reason => { // if login fails
                 console.log(reason);
-                reject();
+                reject(reason);
             });
         });
     }
@@ -46,8 +64,11 @@ export const AuthProvider = ({children}) => {
         isAuthenticated: isAuthenticated,
         loggedInUser: loggedInUser
     }
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 
+    if (isAuthenticated && !loggedInUser) {
+        return (<Spinner animation="grow" />)
+    }
+    return (<AuthContext.Provider value={value}>{children}</AuthContext.Provider>);
 }
 
 // export const AuthConsumer = AuthContext.Consumer;

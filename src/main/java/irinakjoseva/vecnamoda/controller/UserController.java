@@ -32,19 +32,19 @@ public class UserController {
     }
 
     @GetMapping({"/hello"})
-    public ResponseEntity firstPage() {
+    public ResponseEntity<String> firstPage() {
         return ResponseEntity.ok("Hello world");
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity save(@RequestBody @Valid UserPostDto userPostDto) throws UserAlreadyExistsException {
+    public ResponseEntity<UserGetDto> save(@RequestBody @Valid UserPostDto userPostDto) throws UserAlreadyExistsException {
         return ResponseEntity.ok(userService.register(userPostDto));
     }
 
     @GetMapping(value = "/{username}")
-    public ResponseEntity<User> getByUsername(@PathVariable("username") String username) {
-        User user = this.userService.getByUsername(username);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserGetDto> getByUsername(@PathVariable("username") String username) {
+        UserGetDto userGetDto = this.userService.getByUsername(username);
+        return ResponseEntity.ok(userGetDto);
     }
 
     @GetMapping(value = "/authenticated")

@@ -5,7 +5,6 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
-// import axios from "axios";
 
 function Login() {
 
@@ -14,6 +13,8 @@ function Login() {
 
     let [username, setUsername] = useState();
     let [password, setPassword] = useState();
+
+    let [errorLoggingIn, setErrorLoggingIn] = useState("");
 
     let login = (event) => {
         event.preventDefault();
@@ -25,7 +26,8 @@ function Login() {
             console.log("Attempted to login " + username);
             nav("../");
         }).catch(() => {
-            console.log("Could not attempt login " + username);
+            setErrorLoggingIn("Incorrect username and/or password!");
+            console.log("Failed to log in " + username);
         });
     }
 
@@ -36,16 +38,6 @@ function Login() {
     let onPasswordChange = (event) => {
         setPassword(event.target.value);
     }
-
-    //
-    // let testRequest = () => {
-    //     axios.post('/login', {
-    //         username: 'testuser3',
-    //         password: 'password'
-    //     })
-    //         .then((response) => console.log(response))
-    //         .catch((error) => console.log(error));
-    // }
 
     return (
         <Container className="mt-3">
@@ -60,6 +52,7 @@ function Login() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control onChange={onPasswordChange} type="password"/>
                         </Form.Group>
+                        <p className="formError"> { errorLoggingIn } </p>
                         <Form.Group style={{display: 'flex', justifyContent: 'flex-end'}}>
                             <Button type="submit" variant="primary" onClick={login}>Login</Button>
                             <Button as={Link} to={"/register"} variant="secondary" className="ms-2">Register</Button>
@@ -67,11 +60,6 @@ function Login() {
                     </Form>
                 </Col>
             </Row>
-
-            {/*<Button onClick={testRequest}>*/}
-            {/*    Test Request*/}
-            {/*</Button>*/}
-
         </Container>
     );
 

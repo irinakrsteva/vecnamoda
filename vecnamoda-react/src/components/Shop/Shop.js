@@ -11,11 +11,11 @@ function Shop() {
     const navigate = useNavigate();
 
     const articles = [
-        {id: 1, price: 900, name: "Article 1"},
-        {id: 2, price: 1000, name: "Article 2"},
-        {id: 3, price: 1500, name: "Article 3"},
-        {id: 4, price: 600, name: "Article 4"},
-        {id: 5, price: 2100, name: "Article 5"}
+        {id: 1, price: 900, name: "ArticleView 1"},
+        {id: 2, price: 1000, name: "ArticleView 2"},
+        {id: 3, price: 1500, name: "ArticleView 3"},
+        {id: 4, price: 600, name: "ArticleView 4"},
+        {id: 5, price: 2100, name: "ArticleView 5"}
     ]
 
     function renderArticles() {
@@ -26,7 +26,7 @@ function Shop() {
                     <ArticleCard article={articles[i]}/>
                 </Col>
 
-                // <Link to={"/shop/" + articles[i].id} key={articles[i].id}>Article {articles[i].id}</Link>
+                // <Link to={"/shop/" + articles[i].id} key={articles[i].id}>ArticleView {articles[i].id}</Link>
             );
         }
         return rendered;

@@ -1,15 +1,13 @@
 package irinakjoseva.vecnamoda.service.impl;
 
+import irinakjoseva.vecnamoda.dto.get.ArticleGetDto;
 import irinakjoseva.vecnamoda.dto.mapper.ArticleMapper;
 import irinakjoseva.vecnamoda.model.Article;
-import irinakjoseva.vecnamoda.model.Consignment;
-import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.ArticleRepository;
 import irinakjoseva.vecnamoda.service.ArticleService;
 import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,14 +23,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getAllAvailableArticles() {
-        return this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
+    public List<ArticleGetDto> getAllAvailableArticles() {
+        List<Article> articles = this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
+        return articleMapper.toGetDtos(articles);
     }
 
     @Override // ?
-    public Article saveArticle(ArticlePostDto articlePostDto) throws IOException {
+    public ArticleGetDto saveArticle(ArticlePostDto articlePostDto) throws IOException {
         Article article = articleMapper.postDtoToModel(articlePostDto);
-        return articleRepository.save(article);
+        articleRepository.save(article);
+        return articleMapper.toGetDto(article);
     }
 
 

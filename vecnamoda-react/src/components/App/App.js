@@ -10,13 +10,13 @@ import Shop from "../Shop/Shop";
 import Sell from "../Sell/Sell";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import Account from "../Account/Account";
+import MyAccount from "../MyAccount/MyAccount";
 import About from "../About/About";
 import MyItems from "../MyItems/MyItems";
 import MyOrders from "../MyOrders/MyOrders";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import CheckOut from "../CheckOut/CheckOut";
-import Article from "../Article/Article";
+import ArticleView from "../ArticleView/ArticleView";
 // import SidebarFilter from "../SidebarFilter/SidebarFilter";
 import {CartProvider} from "../../context/CartContext";
 
@@ -24,6 +24,8 @@ import {CartProvider} from "../../context/CartContext";
 import Container from "react-bootstrap/Container";
 import AddArticle from "../AddArticle/AddArticle";
 import {AuthProvider} from "../../context/AuthContext";
+import ProtectedRoute from "../../utils/components/ProtectedRoute";
+import {addArticle} from "../../service/articleService";
 
 function App() {
     // const [cart, setCart] = useState({items:[], total:0});
@@ -40,14 +42,14 @@ function App() {
                             <Route path="/sell" element={<Sell/>}/>
                             <Route path="/register" element={<Register/>}/>
                             <Route path="/login" element={<Login/>}/>
-                            <Route path="/account" element={<Account/>}/>
+                            <Route path="/account" element={<MyAccount/>}/>
                             <Route path="/about" element={<About/>}/>
                             <Route path="/myitems" element={<MyItems/>}/>
                             <Route path="/myorders" element={<MyOrders/>}/>
                             <Route path="/shoppingcart" element={<ShoppingCart/>}/>
                             <Route path="/checkout" element={<CheckOut/>}/>
-                            <Route path="/shop/:id" element={<Article/>}/>
-                            <Route path="/addarticle" element={<AddArticle/>}/>
+                            <Route path="/shop/:id" element={<ArticleView/>}/>
+                            <Route path="/addarticle" element={<ProtectedRoute><AddArticle/></ProtectedRoute>}/>
                         </Routes>
                     </Router>
                 </Container>
