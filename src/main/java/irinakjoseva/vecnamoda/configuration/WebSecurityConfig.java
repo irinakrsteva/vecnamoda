@@ -72,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new String[]{
                 "/api/users/hello",
                 "/api/users/register",
+                "/api/consignments"
 //                "/api/article/public" // ? supposedly something like this should be implemented
         };
     }

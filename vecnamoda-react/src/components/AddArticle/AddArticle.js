@@ -22,10 +22,10 @@ function AddArticle() {
     let onPriceChange = (event) => {
         let price = event.target.value;
         setPrice(price);
-        if (price > 0 && price <= 9999.99) {
+        if (price > 0 && price <= 99999.99) {
             setFormErrors({...formErrors, priceValid: ""});
         } else {
-            setFormErrors({...formErrors, priceValid: "Price cannot be this value"});
+            setFormErrors({...formErrors, priceValid: "Price can only be between 0 and 99999.99"});
         }
     }
 

@@ -28,3 +28,5 @@ public class ArticlePostDto {
     public Long consignmentId;
 
 }
+
+// @TODO: backend validation for posting article

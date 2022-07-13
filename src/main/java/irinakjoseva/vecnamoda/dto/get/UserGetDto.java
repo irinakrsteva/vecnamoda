@@ -4,6 +4,8 @@ import irinakjoseva.vecnamoda.model.User;
 
 public class UserGetDto {
 
+    public Long id;
+
     public String name;
 
     public String username;

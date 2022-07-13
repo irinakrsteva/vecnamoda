@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ConsignmentRepository extends JpaRepository<Consignment, Long> {
 
+    Consignment getByToken(String token);
+
 }

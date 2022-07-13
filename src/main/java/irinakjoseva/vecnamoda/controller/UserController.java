@@ -4,12 +4,9 @@ import irinakjoseva.vecnamoda.dto.get.UserGetDto;
 import irinakjoseva.vecnamoda.dto.mapper.UserMapper;
 import irinakjoseva.vecnamoda.dto.post.UserPostDto;
 import irinakjoseva.vecnamoda.model.User;
+import irinakjoseva.vecnamoda.service.UserService;
 import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
-import irinakjoseva.vecnamoda.service.impl.UserServiceImpl;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +18,12 @@ import java.util.HashMap;
 public class UserController {
 
 //    @Autowired
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
 //    @Autowired
     private final UserMapper userMapper;
 
-    public UserController(UserServiceImpl userService, UserMapper userMapper) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }

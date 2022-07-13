@@ -3,6 +3,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,9 @@ public class Consignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "token")
+    private String token;
 
     @Column(name = "date_received")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
@@ -28,10 +32,10 @@ public class Consignment {
 
     public Consignment() {}
 
-    public Consignment(User user, List<Article> articles) {
-        this.dateReceived = LocalDateTime.now();
+    public Consignment(User user, String token) {
         this.user = user;
-        this.articles = articles;
+        this.articles = new ArrayList<>();
+        this.token = token;
     }
 
     public Long getId() {
@@ -69,5 +73,11 @@ public class Consignment {
         article.setConsignment(null);
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
