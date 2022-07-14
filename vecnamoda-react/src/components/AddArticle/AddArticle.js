@@ -3,10 +3,9 @@ import {Container} from "react-bootstrap";
 import {AuthContext} from "../../context/AuthContext";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Select from 'react-select'
+
 //ONLY FOR EMPLOYEES/ADMINS
 
 function AddArticle() {

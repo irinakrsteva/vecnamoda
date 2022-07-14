@@ -1,6 +1,5 @@
 package irinakjoseva.vecnamoda.model;
 
-import javassist.Loader;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
