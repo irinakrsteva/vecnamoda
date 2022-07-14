@@ -1,8 +1,6 @@
 package irinakjoseva.vecnamoda.controller;
 
 import irinakjoseva.vecnamoda.service.BlobService;
-import org.hibernate.result.Output;
-import org.hibernate.result.Outputs;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,7 +35,7 @@ public class BlobController {
                 .map(bytes -> {
                     try {
                         OutputStream outputStream = response.getOutputStream();
-                        for(byte b : bytes) {
+                        for (byte b : bytes) {
                             outputStream.write(b);
                         }
                     } catch (IOException e) {

@@ -3,8 +3,6 @@ package irinakjoseva.vecnamoda.dto.mapper;
 import irinakjoseva.vecnamoda.dto.get.ColorGetDto;
 import irinakjoseva.vecnamoda.dto.post.ColorPostDto;
 import irinakjoseva.vecnamoda.model.Color;
-import irinakjoseva.vecnamoda.repository.CategoryRepository;
-import irinakjoseva.vecnamoda.service.ColorService;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -20,4 +18,5 @@ public interface ColorMapper {
     Color postDtoToModel(ColorPostDto colorPostDto);
 
     ColorGetDto toGetDto(Color color);
+
 }

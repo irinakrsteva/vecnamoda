@@ -5,13 +5,12 @@ import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
 import irinakjoseva.vecnamoda.model.Article;
 import irinakjoseva.vecnamoda.service.CategoryService;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {CategoryService.class})
-public interface ArticleMapper  {
+public interface ArticleMapper {
 
     ArticleMapper mapper = Mappers.getMapper(ArticleMapper.class);
 

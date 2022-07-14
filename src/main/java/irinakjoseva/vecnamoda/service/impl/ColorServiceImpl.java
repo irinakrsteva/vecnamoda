@@ -8,7 +8,6 @@ import irinakjoseva.vecnamoda.repository.ColorRepository;
 import irinakjoseva.vecnamoda.service.ColorService;
 import org.springframework.stereotype.Service;
 
-import java.awt.image.ImageProducer;
 import java.util.List;
 
 @Service

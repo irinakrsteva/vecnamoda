@@ -2,7 +2,6 @@ package irinakjoseva.vecnamoda.controller;
 
 import irinakjoseva.vecnamoda.dto.get.ColorGetDto;
 import irinakjoseva.vecnamoda.dto.post.ColorPostDto;
-import irinakjoseva.vecnamoda.model.Color;
 import irinakjoseva.vecnamoda.service.impl.ColorServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

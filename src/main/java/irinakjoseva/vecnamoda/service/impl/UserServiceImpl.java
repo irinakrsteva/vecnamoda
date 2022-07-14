@@ -2,10 +2,10 @@ package irinakjoseva.vecnamoda.service.impl;
 
 import irinakjoseva.vecnamoda.dto.get.UserGetDto;
 import irinakjoseva.vecnamoda.dto.mapper.UserMapper;
-import irinakjoseva.vecnamoda.service.UserService;
 import irinakjoseva.vecnamoda.dto.post.UserPostDto;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.UserRepository;
+import irinakjoseva.vecnamoda.service.UserService;
 import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     // But need builder pattern to encode pass
     @Override
     public UserGetDto register(UserPostDto userPostDto) throws UserAlreadyExistsException {
-        if(userRepository.existsByEmailIgnoreCase(userPostDto.email) || userRepository.existsByUsernameIgnoreCase(userPostDto.username)) {
+        if (userRepository.existsByEmailIgnoreCase(userPostDto.email) || userRepository.existsByUsernameIgnoreCase(userPostDto.username)) {
             throw new UserAlreadyExistsException();
         }
         User user = new User(userPostDto.name, userPostDto.username, userPostDto.email, encoder.encode(userPostDto.password), User.Role.CUSTOMER);

@@ -46,7 +46,8 @@ public class User implements UserDetails {
     private List<Address> addresses;
 
 
-    public User() {}
+    public User() {
+    }
 
     public User(String name, String username, String email, String password, Role role) {
         this.name = name;
@@ -169,7 +170,10 @@ public class User implements UserDetails {
         CUSTOMER("CUSTOMER");
 
         String role;
-        Role(String role) { this.role = role; }
+
+        Role(String role) {
+            this.role = role;
+        }
     }
 
     public enum Status {
@@ -177,7 +181,10 @@ public class User implements UserDetails {
         BANNED("BANNED");
 
         String status;
-        Status(String status) { this.status = status; }
+
+        Status(String status) {
+            this.status = status;
+        }
     }
 
 }

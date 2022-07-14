@@ -17,10 +17,10 @@ import java.util.HashMap;
 @RequestMapping("api/users")
 public class UserController {
 
-//    @Autowired
+    //    @Autowired
     private final UserService userService;
 
-//    @Autowired
+    //    @Autowired
     private final UserMapper userMapper;
 
     public UserController(UserService userService, UserMapper userMapper) {
@@ -49,7 +49,6 @@ public class UserController {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
         return ResponseEntity.ok(this.userMapper.toGetDto(user));
     }
-
 
 
     // ??????????????

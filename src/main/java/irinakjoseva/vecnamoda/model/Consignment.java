@@ -1,4 +1,5 @@
 package irinakjoseva.vecnamoda.model;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -30,7 +31,8 @@ public class Consignment {
     private List<Article> articles;
 
 
-    public Consignment() {}
+    public Consignment() {
+    }
 
     public Consignment(User user, String token) {
         this.user = user;

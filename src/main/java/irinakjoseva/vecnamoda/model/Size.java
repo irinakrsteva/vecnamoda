@@ -1,7 +1,5 @@
 package irinakjoseva.vecnamoda.model;
 
-import org.hibernate.annotations.GeneratorType;
-
 import javax.persistence.*;
 import java.util.List;
 
