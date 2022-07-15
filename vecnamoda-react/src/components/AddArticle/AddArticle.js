@@ -11,8 +11,16 @@ import Select from 'react-select'
 function AddArticle() {
 
     const auth = useContext(AuthContext);
+    const conditions = [
+        { value: 'EXCELLENT', label: 'Excellent' },
+        { value: 'GREAT', label: 'Great' },
+        { value: 'GOOD', label: 'Good' }
+    ];
 
     const [price, setPrice] = useState(0.00);
+    const [condition, setCondition] = useState(conditions[0]);
+    const [color, setColor] = useState('');
+
     const [formErrors, setFormErrors] = useState({
         priceValid: null
     });
@@ -28,21 +36,36 @@ function AddArticle() {
         }
     }
 
+    let onConditionChange = (event) => {
+        let condition = event.value;
+        setCondition(condition);
+    }
+
+    let onColorChange = (event) => {
+        let color = event.value;
+        setColor(color);
+    }
+
     return (
         <Container className="mt-3">
 
             <Row>
                 <Col lg={{span: 5, offset: 3}} sm={{span:8, offset:2}}>
                     <Form>
-                        <Form.Group className="mb-2" controlId="formName">
+                        <Form.Group className="price mb-2" controlId="formName">
                             <Form.Label>Price</Form.Label>
                             <Form.Control onChange={onPriceChange}/>
                             <p className="formError">{formErrors.priceValid}</p>
                         </Form.Group>
 
-                        <Form.Group className="mb-2" controlId="formName">
+                        <Form.Group className="condition mb-2" controlId="formName">
+                            <Form.Label>Condition</Form.Label>
+                            <Select options={conditions} onChange={onConditionChange}/>
+                        </Form.Group>
+
+                        <Form.Group className="color mb-2" controlId="formName">
                             <Form.Label>Color</Form.Label>
-                            <Select options={colors}/>
+                            <Select onchange={onColorChange} options={colors}/>
                         </Form.Group>
 
                     </Form>

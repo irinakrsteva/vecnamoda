@@ -28,7 +28,7 @@ public class BlobServiceImpl implements BlobService {
             bytes[i] = primitiveBytes[i];
         }
 
-        Blob blob = new Blob(bytes);
+        Blob blob = new Blob(bytes, file.getName(), file.getContentType(), file.getSize());
 
         return blobRepository.save(blob);
     }
