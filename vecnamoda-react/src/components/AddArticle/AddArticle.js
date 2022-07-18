@@ -63,10 +63,10 @@ function AddArticle() {
                             <Select options={conditions} onChange={onConditionChange}/>
                         </Form.Group>
 
-                        <Form.Group className="color mb-2" controlId="formName">
-                            <Form.Label>Color</Form.Label>
-                            <Select onchange={onColorChange} options={colors}/>
-                        </Form.Group>
+                        {/*<Form.Group className="color mb-2" controlId="formName">*/}
+                        {/*    <Form.Label>Color</Form.Label>*/}
+                        {/*    <Select onchange={onColorChange} options={colors}/>*/}
+                        {/*</Form.Group>*/}
 
                     </Form>
                 </Col>

@@ -30,11 +30,14 @@ public class ConsignmentController {
         return ResponseEntity.ok(consignmentService.saveConsignment(user));
     }
 
-    @PostMapping(value = "/{token}")
-    public ResponseEntity<ArticleGetDto> addArticle(@PathVariable("token") String token, ArticlePostDto articlePostDto) {
-        Consignment consignment = consignmentService.getByToken(token);
-        return ResponseEntity.ok(consignmentService.addArticle(consignment, articlePostDto));
+    @GetMapping
+    public ResponseEntity<ConsignmentGetDto> getConsignment(Long id) {
+        return ResponseEntity.ok(consignmentService.getById(id));
+    }
 
+    @PostMapping(value = "/addarticle")
+    public ResponseEntity<ArticleGetDto> addArticle(Long consignmentId, ArticlePostDto articlePostDto) {
+        return ResponseEntity.ok(consignmentService.addArticle(consignmentId, articlePostDto));
     }
 
     @GetMapping

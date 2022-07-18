@@ -47,8 +47,9 @@ public class ConsignmentServiceImpl implements ConsignmentService {
 
     // TODO why this gabe me empty article back :'(
     @Override
-    public ArticleGetDto addArticle(Consignment consignment, ArticlePostDto articlePostDto) {
+    public ArticleGetDto addArticle(Long consignmentId, ArticlePostDto articlePostDto) {
         Article article = articleMapper.postDtoToModel(articlePostDto);
+        Consignment consignment = consignmentRepository.getById(consignmentId);
         consignment.addArticle(article);
 
         return articleMapper.toGetDto(article);
@@ -59,5 +60,11 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     public List<ConsignmentGetDto> getAllConsignments() {
         List<Consignment> consignments = consignmentRepository.findAll();
         return consignmentMapper.toGetDtos(consignments);
+    }
+
+    @Override
+    public ConsignmentGetDto getById(Long id) {
+        Consignment consignment = consignmentRepository.getById(id);
+        return consignmentMapper.toGetDto(consignment);
     }
 }
