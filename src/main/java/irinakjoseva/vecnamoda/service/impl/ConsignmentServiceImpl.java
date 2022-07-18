@@ -10,10 +10,12 @@ import irinakjoseva.vecnamoda.model.Consignment;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.ConsignmentRepository;
 import irinakjoseva.vecnamoda.service.ConsignmentService;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -41,8 +43,15 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public Consignment getByToken(String token) {
-        return consignmentRepository.getByToken(token);
+    public ConsignmentGetDto getByToken(String token) {
+        Consignment consignment = consignmentRepository.getByToken(token);
+        return consignmentMapper.toGetDto(consignment);
+    }
+
+    @Override
+    public ConsignmentGetDto getById(Long id) {
+        Consignment consignment = consignmentRepository.getById(id);
+        return consignmentMapper.toGetDto(consignment);
     }
 
     // TODO why this gabe me empty article back :'(
@@ -53,7 +62,14 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         consignment.addArticle(article);
 
         return articleMapper.toGetDto(article);
+    }
 
+    @Override
+    public List<ArticleGetDto> getArticles(Long consignmentId) {
+        Consignment consignment = consignmentRepository.getById(consignmentId);
+        List<Article> articles = consignment.getArticles();
+
+        return articleMapper.toGetDtos(articles);
     }
 
     @Override
@@ -62,9 +78,4 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         return consignmentMapper.toGetDtos(consignments);
     }
 
-    @Override
-    public ConsignmentGetDto getById(Long id) {
-        Consignment consignment = consignmentRepository.getById(id);
-        return consignmentMapper.toGetDto(consignment);
-    }
 }

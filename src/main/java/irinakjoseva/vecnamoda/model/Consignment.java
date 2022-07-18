@@ -75,6 +75,10 @@ public class Consignment {
         article.setConsignment(null);
     }
 
+    public List<Article> getArticles() {
+        return this.articles;
+    }
+
     public String getToken() {
         return token;
     }

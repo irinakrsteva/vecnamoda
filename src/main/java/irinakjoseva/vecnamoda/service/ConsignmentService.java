@@ -15,11 +15,14 @@ public interface ConsignmentService {
 
     ConsignmentGetDto saveConsignment(User user);
 
-    Consignment getByToken(String token);
+    ConsignmentGetDto getByToken(String token);
 
     ArticleGetDto addArticle(Long consignmentId, ArticlePostDto articlePostDto);
+
+    List<ArticleGetDto> getArticles(Long consignmentId);
 
     List<ConsignmentGetDto> getAllConsignments();
 
     ConsignmentGetDto getById(Long id);
+
 }

@@ -6,8 +6,8 @@ public class ConsignmentGetDto {
 
     public Long id;
 
-//    public Date
-
     public User user;
+
+    // public Date date;
 
 }
