@@ -7,5 +7,5 @@ export const createConsignment = () => {
 }
 
 export const getConsignmentByToken = (token) => {
-    return axios.get(`${apiUri}/${token}`);
+    return axios.get(`${apiUri}/getbytoken/${token}`);
 }

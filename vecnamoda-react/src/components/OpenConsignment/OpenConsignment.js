@@ -31,9 +31,9 @@ function OpenConsignment() {
     let openConsignment = (event) => {
         console.log("trying to open consignment " + token);
         event.preventDefault();
-        let consignment = getConsignmentByToken(token).then(() => {
-            setConsignmentId(consignment.id);
-            console.log("Found consignment id: " + consignmentId);
+        getConsignmentByToken(token).then( consignment => {
+            setConsignmentId(consignment.data.id);
+            console.log("Found consignment : " + JSON.stringify(consignment.data.id));
         }).catch(() => {
             console.log("Could not retrieve consignment");
         });
