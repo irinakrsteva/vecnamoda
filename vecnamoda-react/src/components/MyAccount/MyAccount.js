@@ -29,10 +29,10 @@ function MyAccount() {
         if (auth.isAuthenticated && auth.loggedInUser.role === 'CUSTOMER')
             return (
                 <>
-                    <Link to="myitems">My items</Link>
+                    <Link to="../myitems">My items</Link>
                     <br/>
                     <br/>
-                    <Link to="myorders">My orders</Link>
+                    <Link to="../myorders">My orders</Link>
                     <br/>
                     <br/>
                     <a href="#">Unsubscribe</a>
@@ -44,8 +44,11 @@ function MyAccount() {
     let renderEmployeeAccount = () => {
         return (
             <>
+                {/*<br/>*/}
+                {/*<Link to="../addarticle">Add new article</Link>*/}
                 <br/>
-                <Link to="../addarticle">Add new article</Link>
+                <br/>
+                <Link to="../manageconsignment">Open a consignment</Link>
             </>
         );
     }

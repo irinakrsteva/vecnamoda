@@ -1,8 +1,8 @@
 import './App.css';
-import React, {useState} from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 import Menu from "../Menu/Menu"
 import Intro from "../Intro/Intro";
@@ -19,15 +19,12 @@ import CheckOut from "../CheckOut/CheckOut";
 import ArticleView from "../ArticleView/ArticleView";
 // import SidebarFilter from "../SidebarFilter/SidebarFilter";
 import {CartProvider} from "../../context/CartContext";
-
-
 import Container from "react-bootstrap/Container";
 import AddArticle from "../AddArticle/AddArticle";
 import {AuthProvider} from "../../context/AuthContext";
 import ProtectedRoute from "../../utils/components/ProtectedRoute";
-import {addArticle} from "../../service/articleService";
-import OpenConsignment from "../OpenConsignment/OpenConsignment";
-import AddToConsignment from "../ManageConsignment/ManageConsignment";
+import ManageConsignment from "../ManageConsignment/ManageConsignment";
+import Consignment from "../Consignment/Consignment";
 
 function App() {
     // const [cart, setCart] = useState({items:[], total:0});
@@ -52,8 +49,8 @@ function App() {
                             <Route path="/checkout" element={<CheckOut/>}/>
                             <Route path="/shop/:id" element={<ArticleView/>}/>
                             <Route path="/addarticle" element={<ProtectedRoute><AddArticle/></ProtectedRoute>}/>
-                            <Route path="/openconsignment" element={<OpenConsignment/>}/>
-                            <Route path="/:token" element={<AddToConsignment/>}/>
+                            <Route path="/manageconsignment" element={<ManageConsignment/>}/>
+                            <Route path="/:token" element={<Consignment/>}/>
                         </Routes>
                     </Router>
                 </Container>

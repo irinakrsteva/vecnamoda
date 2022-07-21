@@ -1,12 +1,14 @@
 package irinakjoseva.vecnamoda.dto.response;
 
-import irinakjoseva.vecnamoda.model.User;
+import java.util.List;
 
 public class ConsignmentResponseDto {
 
     public Long id;
 
-    public User user;
+    public UserResponseDto user;
+
+    public List<ArticleResponseDto> articles;
 
     // public Date date;
 

@@ -15,9 +15,37 @@ function Menu() {
     const auth = useContext(AuthContext);
     const nav = useNavigate();
 
-    function onLogout() {
+    let onLogout = () => {
         auth.logout();
         nav("../");
+    }
+
+    let renderUnloggedMenu = () => {
+        return (
+            <>
+                <Nav.Item>
+                    <Nav.Link className="mx-1" as={Link} to="/register">Register</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link className="mx-1" as={Link} to="/login">Log in</Nav.Link>
+                </Nav.Item>
+            </>
+        );
+    }
+
+    let renderLoggedMenu = () => {
+        return (
+            <>
+                <Nav.Item>
+                    <Nav.Link className="mx-1" as={Link} to="/account">My account</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link className="mx-1" as={Button} onClick={() => {
+                        onLogout()
+                    }}>Log out</Nav.Link>
+                </Nav.Item>
+            </>
+        );
     }
 
     let isAuthenticated = auth.isAuthenticated;
@@ -48,29 +76,14 @@ function Menu() {
 
                         <Nav className="nav ms-lg-auto">
 
-                            { isAuthenticated ? (
-                                <>
-                                <Nav.Item>
-                                    <Nav.Link as={Link} to="/account">My account</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link as={Button} onClick={() => {onLogout()}}>Log out</Nav.Link>
-                                </Nav.Item>
-                                </>
-                            ) : (
-                                <>
-                                <Nav.Item>
-                                    <Nav.Link as={Link} to="/register">Register</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                <Nav.Link as={Link} to="/login">Log in</Nav.Link>
-                                </Nav.Item>
-                                </>
-                            )}
+                            {isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu()}
 
                             <Nav.Item>
-                                <Nav.Link as={Button} onClick={() => setCartPreviewShow(true)}>Shopping Cart</Nav.Link>
+                                <Nav.Link as={Button} onClick={() => setCartPreviewShow(true)}>
+                                    Shopping Cart
+                                </Nav.Link>
                             </Nav.Item>
+
                         </Nav>
                     </Nav>
                 </Navbar.Collapse>
