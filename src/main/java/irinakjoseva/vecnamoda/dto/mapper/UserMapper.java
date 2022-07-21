@@ -1,7 +1,7 @@
 package irinakjoseva.vecnamoda.dto.mapper;
 
-import irinakjoseva.vecnamoda.dto.get.UserGetDto;
-import irinakjoseva.vecnamoda.dto.post.UserPostDto;
+import irinakjoseva.vecnamoda.dto.response.UserResponseDto;
+import irinakjoseva.vecnamoda.dto.request.UserRequestDto;
 import irinakjoseva.vecnamoda.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,12 +11,12 @@ public interface UserMapper {
 
     UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
-    UserGetDto toGetDto(User user);
+    UserResponseDto toGetDto(User user);
 
-    UserPostDto toPostDto(User user);
+    UserRequestDto toPostDto(User user);
 
-    User getDtoToModel(UserGetDto dto);
+    User getDtoToModel(UserResponseDto dto);
 
-    User postDtoToModel(UserPostDto dto);
+    User postDtoToModel(UserRequestDto dto);
 
 }

@@ -1,8 +1,8 @@
-package irinakjoseva.vecnamoda.dto.post;
+package irinakjoseva.vecnamoda.dto.request;
 
 import javax.validation.constraints.NotNull;
 
-public class ColorPostDto {
+public class ColorRequestDto {
 
     @NotNull
     public String name;

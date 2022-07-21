@@ -1,8 +1,8 @@
 package irinakjoseva.vecnamoda.service.impl;
 
-import irinakjoseva.vecnamoda.dto.get.ColorGetDto;
+import irinakjoseva.vecnamoda.dto.request.ColorRequestDto;
+import irinakjoseva.vecnamoda.dto.response.ColorResponseDto;
 import irinakjoseva.vecnamoda.dto.mapper.ColorMapper;
-import irinakjoseva.vecnamoda.dto.post.ColorPostDto;
 import irinakjoseva.vecnamoda.model.Color;
 import irinakjoseva.vecnamoda.repository.ColorRepository;
 import irinakjoseva.vecnamoda.service.ColorService;
@@ -22,13 +22,13 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public List<ColorGetDto> getAllColors() {
+    public List<ColorResponseDto> getAllColors() {
         List<Color> colors = colorRepository.findAll();
         return colorMapper.toGetDtos(colors);
     }
 
     @Override
-    public ColorGetDto addColor(ColorPostDto colorPostDto) {
+    public ColorResponseDto addColor(ColorRequestDto colorPostDto) {
         Color color = colorMapper.postDtoToModel(colorPostDto);
         colorRepository.save(color);
         return colorMapper.toGetDto(color);

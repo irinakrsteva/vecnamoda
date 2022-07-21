@@ -1,6 +1,6 @@
-package irinakjoseva.vecnamoda.dto.get;
+package irinakjoseva.vecnamoda.dto.response;
 
-public class ColorGetDto {
+public class ColorResponseDto {
 
     public Long id;
 

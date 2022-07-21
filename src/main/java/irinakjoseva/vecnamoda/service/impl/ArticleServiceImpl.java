@@ -1,8 +1,8 @@
 package irinakjoseva.vecnamoda.service.impl;
 
-import irinakjoseva.vecnamoda.dto.get.ArticleGetDto;
+import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
+import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
 import irinakjoseva.vecnamoda.dto.mapper.ArticleMapper;
-import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
 import irinakjoseva.vecnamoda.model.Article;
 import irinakjoseva.vecnamoda.repository.ArticleRepository;
 import irinakjoseva.vecnamoda.service.ArticleService;
@@ -23,13 +23,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleGetDto> getAllAvailableArticles() {
+    public List<ArticleResponseDto> getAllAvailableArticles() {
         List<Article> articles = this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
         return articleMapper.toGetDtos(articles);
     }
 
     @Override // ?
-    public ArticleGetDto saveArticle(ArticlePostDto articlePostDto) throws IOException {
+    public ArticleResponseDto saveArticle(ArticleRequestDto articlePostDto) throws IOException {
         Article article = articleMapper.postDtoToModel(articlePostDto);
         articleRepository.save(article);
         return articleMapper.toGetDto(article);

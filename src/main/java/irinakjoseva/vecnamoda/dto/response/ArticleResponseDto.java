@@ -1,8 +1,8 @@
-package irinakjoseva.vecnamoda.dto.get;
+package irinakjoseva.vecnamoda.dto.response;
 
 import irinakjoseva.vecnamoda.model.Article;
 
-public class ArticleGetDto {
+public class ArticleResponseDto {
 
     public Long id;
     

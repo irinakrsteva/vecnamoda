@@ -1,21 +1,19 @@
 package irinakjoseva.vecnamoda.service.impl;
 
-import irinakjoseva.vecnamoda.dto.get.ArticleGetDto;
-import irinakjoseva.vecnamoda.dto.get.ConsignmentGetDto;
+import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
+import irinakjoseva.vecnamoda.dto.response.ConsignmentResponseDto;
 import irinakjoseva.vecnamoda.dto.mapper.ArticleMapper;
 import irinakjoseva.vecnamoda.dto.mapper.ConsignmentMapper;
-import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
+import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.model.Article;
 import irinakjoseva.vecnamoda.model.Consignment;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.ConsignmentRepository;
 import irinakjoseva.vecnamoda.service.ConsignmentService;
-import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -33,7 +31,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Transactional
-    public ConsignmentGetDto saveConsignment(User user) {
+    public ConsignmentResponseDto saveConsignment(User user) {
         UUID token = UUID.randomUUID();
 
         Consignment consignment = new Consignment(user, token.toString());
@@ -43,20 +41,20 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public ConsignmentGetDto getByToken(String token) {
+    public ConsignmentResponseDto getByToken(String token) {
         Consignment consignment = consignmentRepository.getByToken(token);
         return consignmentMapper.toGetDto(consignment);
     }
 
     @Override
-    public ConsignmentGetDto getById(Long id) {
+    public ConsignmentResponseDto getById(Long id) {
         Consignment consignment = consignmentRepository.getById(id);
         return consignmentMapper.toGetDto(consignment);
     }
 
     // TODO why this gabe me empty article back :'(
     @Override
-    public ArticleGetDto addArticle(Long consignmentId, ArticlePostDto articlePostDto) {
+    public ArticleResponseDto addArticle(Long consignmentId, ArticleRequestDto articlePostDto) {
         Article article = articleMapper.postDtoToModel(articlePostDto);
         Consignment consignment = consignmentRepository.getById(consignmentId);
         consignment.addArticle(article);
@@ -65,7 +63,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public List<ArticleGetDto> getArticles(Long consignmentId) {
+    public List<ArticleResponseDto> getArticles(Long consignmentId) {
         Consignment consignment = consignmentRepository.getById(consignmentId);
         List<Article> articles = consignment.getArticles();
 
@@ -73,7 +71,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public List<ConsignmentGetDto> getAllConsignments() {
+    public List<ConsignmentResponseDto> getAllConsignments() {
         List<Consignment> consignments = consignmentRepository.findAll();
         return consignmentMapper.toGetDtos(consignments);
     }

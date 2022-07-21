@@ -1,9 +1,9 @@
-package irinakjoseva.vecnamoda.dto.post;
+package irinakjoseva.vecnamoda.dto.request;
 
 
 import javax.validation.constraints.NotBlank;
 
-public class CategoryPostDto {
+public class CategoryRequestDto {
 
     @NotBlank
     public String name;

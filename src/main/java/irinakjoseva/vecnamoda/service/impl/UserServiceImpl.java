@@ -1,8 +1,8 @@
 package irinakjoseva.vecnamoda.service.impl;
 
-import irinakjoseva.vecnamoda.dto.get.UserGetDto;
+import irinakjoseva.vecnamoda.dto.request.UserRequestDto;
+import irinakjoseva.vecnamoda.dto.response.UserResponseDto;
 import irinakjoseva.vecnamoda.dto.mapper.UserMapper;
-import irinakjoseva.vecnamoda.dto.post.UserPostDto;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.UserRepository;
 import irinakjoseva.vecnamoda.service.UserService;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     // TODO Maybe should create user through UserMapper
     // But need builder pattern to encode pass
     @Override
-    public UserGetDto register(UserPostDto userPostDto) throws UserAlreadyExistsException {
+    public UserResponseDto register(UserRequestDto userPostDto) throws UserAlreadyExistsException {
         if (userRepository.existsByEmailIgnoreCase(userPostDto.email) || userRepository.existsByUsernameIgnoreCase(userPostDto.username)) {
             throw new UserAlreadyExistsException();
         }
@@ -40,14 +40,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserGetDto getByUsername(String username) {
+    public UserResponseDto getByUsername(String username) {
         User user = userRepository.findOneByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username " + username + " not found."));
         return userMapper.toGetDto(user);
     }
 
     @Override
-    public UserGetDto getAuthenticatedUser(Authentication authentication) {
+    public UserResponseDto getAuthenticatedUser(Authentication authentication) {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
         return userMapper.toGetDto(user);
     }

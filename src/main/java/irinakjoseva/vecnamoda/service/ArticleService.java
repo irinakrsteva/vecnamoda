@@ -1,15 +1,15 @@
 package irinakjoseva.vecnamoda.service;
 
-import irinakjoseva.vecnamoda.dto.get.ArticleGetDto;
-import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
+import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
+import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
 
 import java.io.IOException;
 import java.util.List;
 
 public interface ArticleService {
 
-    List<ArticleGetDto> getAllAvailableArticles();
+    List<ArticleResponseDto> getAllAvailableArticles();
 
-    ArticleGetDto saveArticle(ArticlePostDto articlePostDto) throws IOException;
+    ArticleResponseDto saveArticle(ArticleRequestDto articlePostDto) throws IOException;
 
 }

@@ -1,7 +1,7 @@
 package irinakjoseva.vecnamoda.dto.mapper;
 
-import irinakjoseva.vecnamoda.dto.get.ArticleGetDto;
-import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
+import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
+import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.model.Article;
 import irinakjoseva.vecnamoda.service.CategoryService;
 import org.mapstruct.Mapper;
@@ -14,13 +14,13 @@ public interface ArticleMapper {
 
     ArticleMapper mapper = Mappers.getMapper(ArticleMapper.class);
 
-    ArticleGetDto toGetDto(Article article);
+    ArticleResponseDto toGetDto(Article article);
 
-    ArticlePostDto toPostDto(Article article);
+    ArticleRequestDto toPostDto(Article article);
 
-    Article getDtoToModel(ArticleGetDto articleGetDto);
+    Article getDtoToModel(ArticleResponseDto articleGetDto);
 
-    Article postDtoToModel(ArticlePostDto articlePostDto);
+    Article postDtoToModel(ArticleRequestDto articlePostDto);
 
-    List<ArticleGetDto> toGetDtos(List<Article> articles);
+    List<ArticleResponseDto> toGetDtos(List<Article> articles);
 }

@@ -1,10 +1,10 @@
-package irinakjoseva.vecnamoda.dto.post;
+package irinakjoseva.vecnamoda.dto.request;
 
 import irinakjoseva.vecnamoda.model.Article;
 
 import javax.validation.constraints.NotNull;
 
-public class ArticlePostDto {
+public class ArticleRequestDto {
 
     @NotNull
     public Float price;

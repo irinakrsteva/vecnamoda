@@ -1,8 +1,8 @@
 package irinakjoseva.vecnamoda.controller;
 
-import irinakjoseva.vecnamoda.dto.get.ArticleGetDto;
-import irinakjoseva.vecnamoda.dto.get.ConsignmentGetDto;
-import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
+import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
+import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
+import irinakjoseva.vecnamoda.dto.response.ConsignmentResponseDto;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.service.ConsignmentService;
 import org.springframework.http.ResponseEntity;
@@ -24,33 +24,33 @@ public class ConsignmentController {
 
     @PostMapping
 //    @PreAuthorize("hasRole('CUSTOMER')")
-    public ResponseEntity<ConsignmentGetDto> save(Authentication authentication) {
+    public ResponseEntity<ConsignmentResponseDto> save(Authentication authentication) {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
         return ResponseEntity.ok(consignmentService.saveConsignment(user));
     }
 
     @GetMapping(value = "/getbytoken/{token}")
-    public ResponseEntity<ConsignmentGetDto> getByToken(@PathVariable("token") String token) {
+    public ResponseEntity<ConsignmentResponseDto> getByToken(@PathVariable("token") String token) {
         return ResponseEntity.ok(consignmentService.getByToken(token));
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ConsignmentGetDto> getById(@PathVariable("id") Long id) {
+    public ResponseEntity<ConsignmentResponseDto> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(consignmentService.getById(id));
     }
 
     @PostMapping(value = "/{consignmentId}/articles")
-    public ResponseEntity<ArticleGetDto> addArticle(Long consignmentId, ArticlePostDto articlePostDto) {
+    public ResponseEntity<ArticleResponseDto> addArticle(Long consignmentId, ArticleRequestDto articlePostDto) {
         return ResponseEntity.ok(consignmentService.addArticle(consignmentId, articlePostDto));
     }
 
     @GetMapping(value = "/{consignmentId}/articles")
-    public ResponseEntity<List<ArticleGetDto>> getAllArticles(Long consignmentId) {
+    public ResponseEntity<List<ArticleResponseDto>> getAllArticles(Long consignmentId) {
         return ResponseEntity.ok(consignmentService.getArticles(consignmentId));
     }
 
     @GetMapping
-    public ResponseEntity<List<ConsignmentGetDto>> getAllConsignments() {
+    public ResponseEntity<List<ConsignmentResponseDto>> getAllConsignments() {
         return ResponseEntity.ok(consignmentService.getAllConsignments());
     }
 

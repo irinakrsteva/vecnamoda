@@ -1,9 +1,8 @@
 package irinakjoseva.vecnamoda.service;
 
-import irinakjoseva.vecnamoda.dto.get.ArticleGetDto;
-import irinakjoseva.vecnamoda.dto.get.ConsignmentGetDto;
-import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
-import irinakjoseva.vecnamoda.model.Consignment;
+import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
+import irinakjoseva.vecnamoda.dto.response.ConsignmentResponseDto;
+import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.model.User;
 
 import java.util.List;
@@ -13,16 +12,16 @@ import java.util.List;
 
 public interface ConsignmentService {
 
-    ConsignmentGetDto saveConsignment(User user);
+    ConsignmentResponseDto saveConsignment(User user);
 
-    ConsignmentGetDto getByToken(String token);
+    ConsignmentResponseDto getByToken(String token);
 
-    ArticleGetDto addArticle(Long consignmentId, ArticlePostDto articlePostDto);
+    ArticleResponseDto addArticle(Long consignmentId, ArticleRequestDto articlePostDto);
 
-    List<ArticleGetDto> getArticles(Long consignmentId);
+    List<ArticleResponseDto> getArticles(Long consignmentId);
 
-    List<ConsignmentGetDto> getAllConsignments();
+    List<ConsignmentResponseDto> getAllConsignments();
 
-    ConsignmentGetDto getById(Long id);
+    ConsignmentResponseDto getById(Long id);
 
 }

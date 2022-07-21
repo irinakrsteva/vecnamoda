@@ -1,6 +1,6 @@
 package irinakjoseva.vecnamoda.dto.mapper;
 
-import irinakjoseva.vecnamoda.dto.get.ConsignmentGetDto;
+import irinakjoseva.vecnamoda.dto.response.ConsignmentResponseDto;
 import irinakjoseva.vecnamoda.model.Consignment;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -12,10 +12,10 @@ public interface ConsignmentMapper {
 
     ConsignmentMapper mapper = Mappers.getMapper(ConsignmentMapper.class);
 
-    ConsignmentGetDto toGetDto(Consignment consignment);
+    ConsignmentResponseDto toGetDto(Consignment consignment);
 
-    Consignment getDtoToModel(ConsignmentGetDto dto);
+    Consignment getDtoToModel(ConsignmentResponseDto dto);
 
-    List<ConsignmentGetDto> toGetDtos(List<Consignment> consignments);
+    List<ConsignmentResponseDto> toGetDtos(List<Consignment> consignments);
 
 }

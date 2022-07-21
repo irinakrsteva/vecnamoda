@@ -1,8 +1,8 @@
-package irinakjoseva.vecnamoda.dto.get;
+package irinakjoseva.vecnamoda.dto.response;
 
 import irinakjoseva.vecnamoda.model.User;
 
-public class ConsignmentGetDto {
+public class ConsignmentResponseDto {
 
     public Long id;
 

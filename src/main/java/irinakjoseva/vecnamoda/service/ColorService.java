@@ -1,14 +1,14 @@
 package irinakjoseva.vecnamoda.service;
 
-import irinakjoseva.vecnamoda.dto.get.ColorGetDto;
-import irinakjoseva.vecnamoda.dto.post.ColorPostDto;
+import irinakjoseva.vecnamoda.dto.request.ColorRequestDto;
+import irinakjoseva.vecnamoda.dto.response.ColorResponseDto;
 
 import java.util.List;
 
 public interface ColorService {
 
-    public List<ColorGetDto> getAllColors();
+    public List<ColorResponseDto> getAllColors();
 
-    public ColorGetDto addColor(ColorPostDto colorPostDto);
+    public ColorResponseDto addColor(ColorRequestDto colorPostDto);
 
 }

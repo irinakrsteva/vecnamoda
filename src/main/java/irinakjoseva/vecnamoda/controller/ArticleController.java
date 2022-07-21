@@ -1,7 +1,7 @@
 package irinakjoseva.vecnamoda.controller;
 
-import irinakjoseva.vecnamoda.dto.get.ArticleGetDto;
-import irinakjoseva.vecnamoda.dto.post.ArticlePostDto;
+import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
+import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
 import irinakjoseva.vecnamoda.service.impl.ArticleServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +22,13 @@ public class ArticleController {
 
     // TODO Make pageable from service?
     @GetMapping("/public")
-    public ResponseEntity<List<ArticleGetDto>> getArticles() {
+    public ResponseEntity<List<ArticleResponseDto>> getArticles() {
         return ResponseEntity.ok(this.articleService.getAllAvailableArticles());
     }
 
     @PostMapping("/add")
 //    @PreAuthorize("hasRole('EMPLOYEE') or hasRole('ADMIN')")
-    public ResponseEntity<ArticleGetDto> save (@RequestBody @Valid ArticlePostDto articlePostDto) throws IOException {
+    public ResponseEntity<ArticleResponseDto> save (@RequestBody @Valid ArticleRequestDto articlePostDto) throws IOException {
         return ResponseEntity.ok(this.articleService.saveArticle(articlePostDto));
     }
 

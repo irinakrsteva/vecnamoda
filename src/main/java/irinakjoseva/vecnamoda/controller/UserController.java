@@ -1,8 +1,8 @@
 package irinakjoseva.vecnamoda.controller;
 
-import irinakjoseva.vecnamoda.dto.get.UserGetDto;
+import irinakjoseva.vecnamoda.dto.request.UserRequestDto;
+import irinakjoseva.vecnamoda.dto.response.UserResponseDto;
 import irinakjoseva.vecnamoda.dto.mapper.UserMapper;
-import irinakjoseva.vecnamoda.dto.post.UserPostDto;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.service.UserService;
 import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
@@ -34,18 +34,18 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<UserGetDto> save(@RequestBody @Valid UserPostDto userPostDto) throws UserAlreadyExistsException {
+    public ResponseEntity<UserResponseDto> save(@RequestBody @Valid UserRequestDto userPostDto) throws UserAlreadyExistsException {
         return ResponseEntity.ok(userService.register(userPostDto));
     }
 
     @GetMapping(value = "/{username}")
-    public ResponseEntity<UserGetDto> getByUsername(@PathVariable("username") String username) {
-        UserGetDto userGetDto = this.userService.getByUsername(username);
+    public ResponseEntity<UserResponseDto> getByUsername(@PathVariable("username") String username) {
+        UserResponseDto userGetDto = this.userService.getByUsername(username);
         return ResponseEntity.ok(userGetDto);
     }
 
     @GetMapping(value = "/authenticated")
-    public ResponseEntity<UserGetDto> getAuthenticatedUser(Authentication authentication) {
+    public ResponseEntity<UserResponseDto> getAuthenticatedUser(Authentication authentication) {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
         return ResponseEntity.ok(this.userMapper.toGetDto(user));
     }
