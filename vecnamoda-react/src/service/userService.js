@@ -1,6 +1,6 @@
 import axios from "./http.js";
 
-const apiUri = "api/users";
+const apiUri = "/api/users";
 
 export const registerUser = (user) => {
     return axios.post(`${apiUri}/register`, user);

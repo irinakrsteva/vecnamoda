@@ -50,7 +50,7 @@ function App() {
                             <Route path="/shop/:id" element={<ArticleView/>}/>
                             <Route path="/addarticle" element={<ProtectedRoute><AddArticle/></ProtectedRoute>}/>
                             <Route path="/manageconsignment" element={<ManageConsignment/>}/>
-                            <Route path="/:token" element={<Consignment/>}/>
+                            <Route path="/consignments/:token" element={<Consignment/>}/>
                         </Routes>
                     </Router>
                 </Container>

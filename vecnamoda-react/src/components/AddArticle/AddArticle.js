@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Container} from "react-bootstrap";
+import {Container, Modal} from "react-bootstrap";
 import {AuthContext} from "../../context/AuthContext";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -54,8 +54,11 @@ function AddArticle() {
     }
 
     return (
-        <Container className="mt-3">
-
+        // <Modal>
+        //     <Modal.header closeButton>
+        //         Add new article
+        //     </Modal.header>
+        <div>
             <Row>
                 <Col lg={{span: 5, offset: 3}} sm={{span: 8, offset: 2}}>
                     <Form>
@@ -90,8 +93,8 @@ function AddArticle() {
                     </Form>
                 </Col>
             </Row>
-
-        </Container>
+        </div>
+        // </Modal>
     );
 
 }

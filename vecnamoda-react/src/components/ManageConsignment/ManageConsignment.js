@@ -39,7 +39,7 @@ function ManageConsignment() {
     }
 
     let manageConsignment = () => {
-        navigate("../"+token);
+        navigate("../consignments/"+token);
     }
 
     return (

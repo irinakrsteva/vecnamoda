@@ -1,6 +1,6 @@
 import axios from "./http.js";
 
-const apiUri = "api/consignments";
+const apiUri = "/api/consignments";
 
 export const createConsignment = () => {
     return axios.post(`${apiUri}`);
@@ -11,5 +11,9 @@ export const getConsignmentByToken = (token) => {
 }
 
 export const getArticlesInConsignment = (id) => {
+    return axios.get(`${apiUri}/${id}/articles`);
+}
+
+export const postArticleToConsignment = (id, article) => {
     return axios.get(`${apiUri}/${id}/articles`);
 }
