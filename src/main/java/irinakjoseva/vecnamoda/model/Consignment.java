@@ -1,5 +1,6 @@
 package irinakjoseva.vecnamoda.model;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -86,4 +87,11 @@ public class Consignment {
     public void setToken(String token) {
         this.token = token;
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "Consignment id: [" + this.getId() + "], made by user: [" + this.getUser().getUsername() + "]";
+//    }
+
 }

@@ -24,14 +24,14 @@ public class ColorServiceImpl implements ColorService {
     @Override
     public List<ColorResponseDto> getAllColors() {
         List<Color> colors = colorRepository.findAll();
-        return colorMapper.toGetDtos(colors);
+        return colorMapper.toResponseDtos(colors);
     }
 
     @Override
     public ColorResponseDto addColor(ColorRequestDto colorPostDto) {
-        Color color = colorMapper.postDtoToModel(colorPostDto);
+        Color color = colorMapper.requestDtoToModel(colorPostDto);
         colorRepository.save(color);
-        return colorMapper.toGetDto(color);
+        return colorMapper.toResponseDto(color);
     }
 
 }

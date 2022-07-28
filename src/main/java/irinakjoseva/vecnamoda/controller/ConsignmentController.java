@@ -31,17 +31,17 @@ public class ConsignmentController {
 
     @GetMapping(value = "/getbytoken/{token}")
     public ResponseEntity<ConsignmentResponseDto> getByToken(@PathVariable("token") String token) {
-        return ResponseEntity.ok(consignmentService.getByToken(token));
+        return ResponseEntity.ok(consignmentService.findByToken(token));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ConsignmentResponseDto> getById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(consignmentService.getById(id));
+        return ResponseEntity.ok(consignmentService.findById(id));
     }
 
     @PostMapping(value = "/{consignmentId}/articles")
-    public ResponseEntity<ArticleResponseDto> addArticle(Long consignmentId, ArticleRequestDto articlePostDto) {
-        return ResponseEntity.ok(consignmentService.addArticle(consignmentId, articlePostDto));
+    public ResponseEntity<ArticleResponseDto> addArticle(Long consignmentId, ArticleRequestDto articleRequestDto) {
+        return ResponseEntity.ok(consignmentService.addArticle(consignmentId, articleRequestDto));
     }
 
     @GetMapping(value = "/{consignmentId}/articles")

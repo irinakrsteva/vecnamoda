@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 
 //ONLY FOR EMPLOYEES/ADMINS
 
-function ManageConsignment() {
+function FindConsignment() {
 
     const navigate = useNavigate();
 
@@ -77,4 +77,4 @@ function ManageConsignment() {
 
 }
 
-export default ManageConsignment;
+export default FindConsignment;

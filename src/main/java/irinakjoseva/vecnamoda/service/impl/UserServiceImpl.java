@@ -36,20 +36,20 @@ public class UserServiceImpl implements UserService {
         }
         User user = new User(userPostDto.name, userPostDto.username, userPostDto.email, encoder.encode(userPostDto.password), User.Role.CUSTOMER);
         userRepository.save(user);
-        return userMapper.toGetDto(user);
+        return userMapper.toResponseDto(user);
     }
 
     @Override
     public UserResponseDto getByUsername(String username) {
         User user = userRepository.findOneByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username " + username + " not found."));
-        return userMapper.toGetDto(user);
+        return userMapper.toResponseDto(user);
     }
 
     @Override
     public UserResponseDto getAuthenticatedUser(Authentication authentication) {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
-        return userMapper.toGetDto(user);
+        return userMapper.toResponseDto(user);
     }
 
     @Override

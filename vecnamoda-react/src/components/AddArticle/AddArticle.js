@@ -6,10 +6,13 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Select from 'react-select'
 import ImageUploader from 'react-images-upload';
+import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
+import {addArticle} from "../../service/articleService";
 
 //ONLY FOR EMPLOYEES/ADMINS
 
-function AddArticle() {
+function AddArticle(props) {
 
     const auth = useContext(AuthContext);
     const conditions = [
@@ -17,17 +20,22 @@ function AddArticle() {
         {value: 'GREAT', label: 'Great'},
         {value: 'GOOD', label: 'Good'}
     ];
+    const [pictures, setPictures] = useState([]);
+    // const colors = [];
 
     const [price, setPrice] = useState(0.00);
     const [condition, setCondition] = useState(conditions[0]);
-    const [pictures, setPictures] = useState([]);
     const status = 'AVAILABLE';
-    const [color, setColor] = useState('');
+    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState(null);
+    const [size, setSize] = useState(null);
+    const [color, setColor] = useState(null);
+    const [brand, setBrand] = useState(null);
+    const consignmentId = props.consignmentid;
 
     const [formErrors, setFormErrors] = useState({
         priceValid: null
     });
-    const colors = [];
 
     let onPriceChange = (event) => {
         let price = event.target.value;
@@ -44,21 +52,47 @@ function AddArticle() {
         setCondition(condition);
     }
 
-    let onColorChange = (event) => {
-        let color = event.value;
-        setColor(color);
-    }
+    // let onColorChange = (event) => {
+    //     let color = event.value;
+    //     setColor(color);
+    // }
 
     let onDrop = picture => {
         setPictures([...pictures, picture]);
     }
 
+    let postArticle = () => {
+        let article = {
+            price: price,
+            articleCondition: condition,
+            status: status,
+            description: description,
+            categoryId: category,
+            sizeId: size,
+            colorId: color,
+            brandId: brand,
+            consignmentId: consignmentId
+        };
+        console.log("Trying to add a new article: " + JSON.stringify(article));
+
+        addArticle(article).then(article => {
+                console.log("Added article " + JSON.stringify(article.data));
+            }
+        ).catch(error => {
+                console.log(error);
+            }
+        );
+
+        props.onHide();
+    }
+
     return (
-        // <Modal>
-        //     <Modal.header closeButton>
-        //         Add new article
-        //     </Modal.header>
-        <div>
+        <Modal {...props} size="lg" centered>
+            <Modal.Header closeButton>
+                Add new article to {consignmentId}
+            </Modal.Header>
+
+            <Modal.Body>
             <Row>
                 <Col lg={{span: 5, offset: 3}} sm={{span: 8, offset: 2}}>
                     <Form>
@@ -73,28 +107,34 @@ function AddArticle() {
                             <Select options={conditions} onChange={onConditionChange}/>
                         </Form.Group>
 
-                        <Form.Group className="color mb-2" controlId="formName">
-                            <Form.Label>Color (ignore please for now)</Form.Label>
-                            <Select onchange={onColorChange} options={colors}/>
-                        </Form.Group>
+                        {/*<Form.Group className="color mb-2" controlId="formName">*/}
+                        {/*    <Form.Label>Color (ignore please for now)</Form.Label>*/}
+                        {/*    <Select onchange={onColorChange} options={colors}/>*/}
+                        {/*</Form.Group>*/}
 
-                        <Form.Group>
-                            <Form.Label>Upload image</Form.Label>
-                            <ImageUploader
-                                withIcon={true}
-                                withPreview={true}
-                                buttonText="Choose image"
-                                onChange={onDrop}
-                                imgExtension={[".jpg", ".jpeg", ".gif", ".png"]}
-                                maxFileSize={5242880}
-                            />
-                        </Form.Group>
+                        {/*<Form.Group>*/}
+                        {/*    <Form.Label>Upload image</Form.Label>*/}
+                        {/*    <ImageUploader*/}
+                        {/*        withIcon={true}*/}
+                        {/*        withPreview={true}*/}
+                        {/*        buttonText="Choose image"*/}
+                        {/*        onChange={onDrop}*/}
+                        {/*        imgExtension={[".jpg", ".jpeg", ".gif", ".png"]}*/}
+                        {/*        maxFileSize={5242880}*/}
+                        {/*    />*/}
+                        {/*</Form.Group>*/}
 
                     </Form>
                 </Col>
             </Row>
-        </div>
-        // </Modal>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={postArticle}>Add article</Button>
+            </Modal.Footer>
+
+        </Modal>
     );
 
 }

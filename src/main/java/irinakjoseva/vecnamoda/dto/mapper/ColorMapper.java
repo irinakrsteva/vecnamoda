@@ -13,10 +13,10 @@ public interface ColorMapper {
 
     ColorMapper mapper = Mappers.getMapper(ColorMapper.class);
 
-    List<ColorResponseDto> toGetDtos(List<Color> colors);
+    List<ColorResponseDto> toResponseDtos(List<Color> colors);
 
-    Color postDtoToModel(ColorRequestDto colorPostDto);
+    Color requestDtoToModel(ColorRequestDto colorRequestDto);
 
-    ColorResponseDto toGetDto(Color color);
+    ColorResponseDto toResponseDto(Color color);
 
 }

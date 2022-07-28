@@ -47,7 +47,7 @@ public class UserController {
     @GetMapping(value = "/authenticated")
     public ResponseEntity<UserResponseDto> getAuthenticatedUser(Authentication authentication) {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
-        return ResponseEntity.ok(this.userMapper.toGetDto(user));
+        return ResponseEntity.ok(this.userMapper.toResponseDto(user));
     }
 
 

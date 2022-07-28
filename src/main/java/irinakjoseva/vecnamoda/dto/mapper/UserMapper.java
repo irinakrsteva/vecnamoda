@@ -11,12 +11,12 @@ public interface UserMapper {
 
     UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
-    UserResponseDto toGetDto(User user);
+    UserResponseDto toResponseDto(User user);
 
-    UserRequestDto toPostDto(User user);
+    UserRequestDto toRequestDto(User user);
 
-    User getDtoToModel(UserResponseDto dto);
+    User responseDtoToModel(UserResponseDto dto);
 
-    User postDtoToModel(UserRequestDto dto);
+    User requestDtoToModel(UserRequestDto dto);
 
 }

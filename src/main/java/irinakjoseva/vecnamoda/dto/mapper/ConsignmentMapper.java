@@ -12,10 +12,10 @@ public interface ConsignmentMapper {
 
     ConsignmentMapper mapper = Mappers.getMapper(ConsignmentMapper.class);
 
-    ConsignmentResponseDto toGetDto(Consignment consignment);
+    ConsignmentResponseDto toResponseDto(Consignment consignment);
 
-    Consignment getDtoToModel(ConsignmentResponseDto dto);
+    Consignment responseDtoToModel(ConsignmentResponseDto dto);
 
-    List<ConsignmentResponseDto> toGetDtos(List<Consignment> consignments);
+    List<ConsignmentResponseDto> toResponseDtos(List<Consignment> consignments);
 
 }

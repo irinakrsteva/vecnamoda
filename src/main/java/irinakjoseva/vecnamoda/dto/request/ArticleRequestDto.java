@@ -25,6 +25,7 @@ public class ArticleRequestDto {
 
     public Long brandId;
 
+    @NotNull
     public Long consignmentId;
 
 }

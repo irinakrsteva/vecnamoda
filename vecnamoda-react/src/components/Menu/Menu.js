@@ -10,7 +10,7 @@ import ShoppingCartPreview from "../ShoppingCartPreview/ShoppingCartPreview";
 import {AuthContext} from "../../context/AuthContext";
 
 function Menu() {
-    const [cartPreviewShow, setCartPreviewShow] = React.useState(false);
+    const [showCartPreview, setShowCartPreview] = React.useState(false);
 
     const auth = useContext(AuthContext);
     const nav = useNavigate();
@@ -79,7 +79,7 @@ function Menu() {
                             {isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu()}
 
                             <Nav.Item>
-                                <Nav.Link as={Button} onClick={() => setCartPreviewShow(true)}>
+                                <Nav.Link as={Button} onClick={() => setShowCartPreview(true)}>
                                     Shopping Cart
                                 </Nav.Link>
                             </Nav.Item>
@@ -90,17 +90,16 @@ function Menu() {
             </Container>
 
             <ShoppingCartPreview
-                show={cartPreviewShow}
-                onHide={() => setCartPreviewShow(false)}
-                content={[
-                    {id: 1, price: 900, name: "ArticleView 1"},
-                    {id: 2, price: 1000, name: "ArticleView 2"},
-                    {id: 3, price: 1500, name: "ArticleView 3"},
-                    {id: 4, price: 600, name: "ArticleView 4"},
-                    {id: 5, price: 2100, name: "ArticleView 5"}
-                ]}
-            >
-            </ShoppingCartPreview>
+                show={showCartPreview}
+                onHide={() => setShowCartPreview(false)}
+                // content={[
+                //     {id: 1, price: 900, name: "ArticleView 1"},
+                //     {id: 2, price: 1000, name: "ArticleView 2"},
+                //     {id: 3, price: 1500, name: "ArticleView 3"},
+                //     {id: 4, price: 600, name: "ArticleView 4"},
+                //     {id: 5, price: 2100, name: "ArticleView 5"}
+                // ]}
+            />
         </Navbar>
     );
 }

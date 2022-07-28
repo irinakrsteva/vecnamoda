@@ -25,14 +25,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleResponseDto> getAllAvailableArticles() {
         List<Article> articles = this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
-        return articleMapper.toGetDtos(articles);
+        return articleMapper.toResponseDtos(articles);
     }
 
     @Override // ?
     public ArticleResponseDto saveArticle(ArticleRequestDto articlePostDto) throws IOException {
-        Article article = articleMapper.postDtoToModel(articlePostDto);
+        Article article = articleMapper.requestDtoToModel(articlePostDto);
         articleRepository.save(article);
-        return articleMapper.toGetDto(article);
+        return articleMapper.toResponseDto(article);
     }
 
 

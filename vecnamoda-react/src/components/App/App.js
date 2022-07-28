@@ -23,7 +23,7 @@ import Container from "react-bootstrap/Container";
 import AddArticle from "../AddArticle/AddArticle";
 import {AuthProvider} from "../../context/AuthContext";
 import ProtectedRoute from "../../utils/components/ProtectedRoute";
-import ManageConsignment from "../ManageConsignment/ManageConsignment";
+import FindConsignment from "../FindConsignment/FindConsignment";
 import Consignment from "../Consignment/Consignment";
 
 function App() {
@@ -48,8 +48,8 @@ function App() {
                             <Route path="/shoppingcart" element={<ShoppingCart/>}/>
                             <Route path="/checkout" element={<CheckOut/>}/>
                             <Route path="/shop/:id" element={<ArticleView/>}/>
-                            <Route path="/addarticle" element={<ProtectedRoute><AddArticle/></ProtectedRoute>}/>
-                            <Route path="/manageconsignment" element={<ManageConsignment/>}/>
+                            {/*<Route path="/addarticle" element={<ProtectedRoute><AddArticle/></ProtectedRoute>}/>*/}
+                            <Route path="/manageconsignment" element={<FindConsignment/>}/>
                             <Route path="/consignments/:token" element={<Consignment/>}/>
                         </Routes>
                     </Router>

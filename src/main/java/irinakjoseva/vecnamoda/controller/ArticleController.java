@@ -28,8 +28,8 @@ public class ArticleController {
 
     @PostMapping("/add")
 //    @PreAuthorize("hasRole('EMPLOYEE') or hasRole('ADMIN')")
-    public ResponseEntity<ArticleResponseDto> save (@RequestBody @Valid ArticleRequestDto articlePostDto) throws IOException {
-        return ResponseEntity.ok(this.articleService.saveArticle(articlePostDto));
+    public ResponseEntity<ArticleResponseDto> save (@RequestBody @Valid ArticleRequestDto articleRequestDto) throws IOException {
+        return ResponseEntity.ok(this.articleService.saveArticle(articleRequestDto));
     }
 
 

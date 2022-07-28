@@ -5,15 +5,18 @@ import Row from "react-bootstrap/Row";
 import {useParams} from "react-router-dom";
 import {getArticlesInConsignment, getConsignmentByToken} from "../../service/consignmentService";
 import Button from "react-bootstrap/Button";
+import AddArticle from "../AddArticle/AddArticle";
 
 //ONLY FOR EMPLOYEES/ADMINS
 
 function Consignment() {
 
-    let {token} = useParams();
+    const {token} = useParams();
 
-    let [consignment, setConsignment] = useState(null);
-    let [articles, setArticles] = useState([]);
+    const [showAddArticle, setShowAddArticle] = useState(false);
+
+    const [consignment, setConsignment] = useState(null);
+    const [articles, setArticles] = useState([]);
 
     useEffect(() => {
         if(!consignment) {
@@ -26,14 +29,10 @@ function Consignment() {
         }
         if(consignment && consignment.id && articles === []) {
             getArticlesInConsignment(consignment.id).then(articles => {
-                setArticles(articles);
-            }).catch(() => {});
+                setArticles(articles.data);
+            }).catch(err => console.log(err));
         }
     });
-
-    let openArticleForm = () => {
-
-    }
 
     // console.log(consignment.user)
     console.log(articles);
@@ -47,9 +46,21 @@ function Consignment() {
                     Created by user: {consignment ? consignment.user.username : ""}
                     <br/>
                     <br/>
-                    <Button onClick={openArticleForm}>Add new article</Button>
+                    <Button onClick={() => setShowAddArticle(true)}>Add new article</Button>
                 </Col>
             </Row>
+            <Row>
+                <Col lg={{span: 5, offset: 3}} sm={{span: 8, offset: 2}}>
+                    {articles}
+                </Col>
+            </Row>
+
+            <AddArticle
+                show={showAddArticle}
+                onHide={() => setShowAddArticle(false)}
+                consignmentid={consignment ? consignment.id : null}
+                // content={[]}
+            />
         </Container>
     );
 
