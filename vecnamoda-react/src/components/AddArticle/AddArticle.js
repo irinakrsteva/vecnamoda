@@ -1,18 +1,16 @@
 import React, {useContext, useState} from "react";
-import {Container, Modal} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import {AuthContext} from "../../context/AuthContext";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Select from 'react-select'
-import ImageUploader from 'react-images-upload';
 import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
 import {addArticle} from "../../service/articleService";
 
 //ONLY FOR EMPLOYEES/ADMINS
 
-function AddArticle(props) {
+function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
 
     const auth = useContext(AuthContext);
     const conditions = [
@@ -31,7 +29,7 @@ function AddArticle(props) {
     const [size, setSize] = useState(null);
     const [color, setColor] = useState(null);
     const [brand, setBrand] = useState(null);
-    const consignmentId = props.consignmentid;
+    const consignmentId = consignmentid;
 
     const [formErrors, setFormErrors] = useState({
         priceValid: null
@@ -73,64 +71,61 @@ function AddArticle(props) {
             brandId: brand,
             consignmentId: consignmentId
         };
-        console.log("Trying to add a new article: " + JSON.stringify(article));
 
-        addArticle(article).then(article => {
-                console.log("Added article " + JSON.stringify(article.data));
-            }
-        ).catch(error => {
-                console.log(error);
-            }
-        );
-
-        props.onHide();
+        onAdd(article).then(() => onHide());
     }
 
     return (
-        <Modal {...props} size="lg" centered>
+        <Modal
+            onHide={onHide}
+            show={show}
+            size="lg"
+            centered
+            {...restProps}
+        >
             <Modal.Header closeButton>
                 Add new article to {consignmentId}
             </Modal.Header>
 
             <Modal.Body>
-            <Row>
-                <Col lg={{span: 5, offset: 3}} sm={{span: 8, offset: 2}}>
-                    <Form>
-                        <Form.Group className="price mb-2" controlId="formName">
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control onChange={onPriceChange}/>
-                            <p className="formError">{formErrors.priceValid}</p>
-                        </Form.Group>
+                <Row>
+                    <Col lg={{span: 5, offset: 3}} sm={{span: 8, offset: 2}}>
+                        <Form>
+                            <Form.Group className="price mb-2" controlId="formName">
+                                <Form.Label>Price</Form.Label>
+                                <Form.Control onChange={onPriceChange}/>
+                                <p className="formError">{formErrors.priceValid}</p>
+                            </Form.Group>
 
-                        <Form.Group className="condition mb-2" controlId="formName">
-                            <Form.Label>Condition</Form.Label>
-                            <Select options={conditions} onChange={onConditionChange}/>
-                        </Form.Group>
+                            <Form.Group className="condition mb-2" controlId="formName">
+                                <Form.Label>Condition</Form.Label>
+                                <Select options={conditions} onChange={onConditionChange}/>
+                            </Form.Group>
 
-                        {/*<Form.Group className="color mb-2" controlId="formName">*/}
-                        {/*    <Form.Label>Color (ignore please for now)</Form.Label>*/}
-                        {/*    <Select onchange={onColorChange} options={colors}/>*/}
-                        {/*</Form.Group>*/}
+                            {/*<Form.Group className="color mb-2" controlId="formName">*/}
+                            {/*    <Form.Label>Color (ignore please for now)</Form.Label>*/}
+                            {/*    <Select onchange={onColorChange} options={colors}/>*/}
+                            {/*</Form.Group>*/}
 
-                        {/*<Form.Group>*/}
-                        {/*    <Form.Label>Upload image</Form.Label>*/}
-                        {/*    <ImageUploader*/}
-                        {/*        withIcon={true}*/}
-                        {/*        withPreview={true}*/}
-                        {/*        buttonText="Choose image"*/}
-                        {/*        onChange={onDrop}*/}
-                        {/*        imgExtension={[".jpg", ".jpeg", ".gif", ".png"]}*/}
-                        {/*        maxFileSize={5242880}*/}
-                        {/*    />*/}
-                        {/*</Form.Group>*/}
+                            {/*<Form.Group>*/}
+                            {/*    <Form.Label>Upload image</Form.Label>*/}
+                            {/*    <ImageUploader*/}
+                            {/*        withIcon={true}*/}
+                            {/*        withPreview={true}*/}
+                            {/*        buttonText="Choose image"*/}
+                            {/*        onChange={onDrop}*/}
+                            {/*        imgExtension={[".jpg", ".jpeg", ".gif", ".png"]}*/}
+                            {/*        maxFileSize={5242880}*/}
+                            {/*    />*/}
+                            {/*</Form.Group>*/}
 
-                    </Form>
-                </Col>
-            </Row>
+                        </Form>
+                    </Col>
+                </Row>
             </Modal.Body>
 
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={onHide}>Close</Button>
                 <Button onClick={postArticle}>Add article</Button>
             </Modal.Footer>
 

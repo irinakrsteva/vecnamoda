@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import SidebarFilter from "../SidebarFilter/SidebarFilter";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ArticleCard from "./ArticleCard";
+import ArticlePreview from "../ArticlePreview/ArticlePreview";
+import {CartContext} from "../../context/CartContext";
 
 function Shop() {
     const navigate = useNavigate();
+    let cart = useContext(CartContext);
 
     const articles = [
         {id: 1, price: 900, name: "ArticleView 1"},
@@ -18,12 +20,16 @@ function Shop() {
         {id: 5, price: 2100, name: "ArticleView 5"}
     ]
 
-    function renderArticles() {
+    let onAdd = (article) => {
+        cart.addItemToCart(article);
+    }
+
+    let renderArticles = () => {
         let rendered = []
         for (let i in articles) {
             rendered.push(
                 <Col key={"article" + i} xl={4} md={6}>
-                    <ArticleCard article={articles[i]}/>
+                    <ArticlePreview article={articles[i]} onAddToCart={onAdd}/>
                 </Col>
 
                 // <Link to={"/shop/" + articles[i].id} key={articles[i].id}>ArticleView {articles[i].id}</Link>

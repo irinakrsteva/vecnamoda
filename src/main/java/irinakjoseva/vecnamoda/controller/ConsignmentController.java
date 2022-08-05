@@ -39,14 +39,9 @@ public class ConsignmentController {
         return ResponseEntity.ok(consignmentService.findById(id));
     }
 
-    @PostMapping(value = "/{consignmentId}/articles")
-    public ResponseEntity<ArticleResponseDto> addArticle(Long consignmentId, ArticleRequestDto articleRequestDto) {
-        return ResponseEntity.ok(consignmentService.addArticle(consignmentId, articleRequestDto));
-    }
-
-    @GetMapping(value = "/{consignmentId}/articles")
-    public ResponseEntity<List<ArticleResponseDto>> getAllArticles(Long consignmentId) {
-        return ResponseEntity.ok(consignmentService.getArticles(consignmentId));
+    @GetMapping(value = "/{id}/articles")
+    public ResponseEntity<List<ArticleResponseDto>> getAllArticles(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(consignmentService.getArticles(id));
     }
 
     @GetMapping

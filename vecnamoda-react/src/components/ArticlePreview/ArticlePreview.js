@@ -4,29 +4,32 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import {CartContext, CartProvider} from "../../context/CartContext";
 
-function ArticleCard({article}) {
-    let cart = useContext(CartContext);
+function ArticlePreview({article, onAddToCart = null}) {
 
     function handleAddToCart() {
-        cart.addItemToCart(article);
-        console.log("adding" + article.id);
-        console.log(cart.items);
+        onAddToCart(article);
     }
 
     return (
-        <Card>
+        <Card className={"mb-3"}>
             <Link to={"/shop/" + article.id} key={article.id}>
-                <Card.Img variant="top" src="holder.js/100px180"/>
+                <Card.Img variant="top" src=""/>
             </Link>
             <Card.Body>
                 <Card.Title>{article.price} DEN</Card.Title>
                 <Card.Text>
-                    This is {article.name}
+                    This is the description of the article with id {article.id}.
                 </Card.Text>
-                <Button id={"addArticle"+article.id} onClick={() => handleAddToCart()} variant="primary">Add to cart</Button>
+
+                {onAddToCart ?
+                    <Button id={"addArticle" + article.id} onClick={() => handleAddToCart()} variant="primary">Add to
+                        cart</Button>
+                    :
+                    <></>
+                }
             </Card.Body>
         </Card>
     );
 }
 
-export default ArticleCard;
+export default ArticlePreview;

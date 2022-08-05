@@ -197,7 +197,7 @@ public class Article {
 
     }
 
-    public enum Status {
+    public enum Status { // TODO: add status Draft article for when creating consignment
 
         AVAILABLE("AVAILABLE"),
         SOLD("SOLD");
@@ -208,6 +208,7 @@ public class Article {
             this.status = status;
         }
     }
+
 
 
 }

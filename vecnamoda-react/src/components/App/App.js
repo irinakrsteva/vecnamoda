@@ -25,6 +25,7 @@ import {AuthProvider} from "../../context/AuthContext";
 import ProtectedRoute from "../../utils/components/ProtectedRoute";
 import FindConsignment from "../FindConsignment/FindConsignment";
 import Consignment from "../Consignment/Consignment";
+import NewConsignment from "../Sell/NewConsignment";
 
 function App() {
     // const [cart, setCart] = useState({items:[], total:0});
@@ -48,9 +49,9 @@ function App() {
                             <Route path="/shoppingcart" element={<ShoppingCart/>}/>
                             <Route path="/checkout" element={<CheckOut/>}/>
                             <Route path="/shop/:id" element={<ArticleView/>}/>
-                            {/*<Route path="/addarticle" element={<ProtectedRoute><AddArticle/></ProtectedRoute>}/>*/}
                             <Route path="/manageconsignment" element={<FindConsignment/>}/>
-                            <Route path="/consignments/:token" element={<Consignment/>}/>
+                            <Route path="/consignment/:token" element={<Consignment/>}/>
+                            <Route path="/new_consignment/:token" element={<NewConsignment/>}/>
                         </Routes>
                     </Router>
                 </Container>

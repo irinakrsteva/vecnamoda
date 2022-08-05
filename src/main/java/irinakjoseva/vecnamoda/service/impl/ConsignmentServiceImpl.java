@@ -58,16 +58,6 @@ public class ConsignmentServiceImpl implements ConsignmentService {
                 .orElse(null);
     }
 
-    // TODO why this gabe me empty article back :'(
-    @Override
-    public ArticleResponseDto addArticle(Long consignmentId, ArticleRequestDto articlePostDto) {
-        Article article = articleMapper.requestDtoToModel(articlePostDto);
-        Consignment consignment = consignmentRepository.getById(consignmentId);
-        consignment.addArticle(article);
-
-        return articleMapper.toResponseDto(article);
-    }
-
     @Override
     public List<ArticleResponseDto> getArticles(Long consignmentId) {
         Consignment consignment = consignmentRepository.getById(consignmentId);
