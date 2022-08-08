@@ -51,7 +51,7 @@ function App() {
                             <Route path="/shop/:id" element={<ArticleView/>}/>
                             <Route path="/manageconsignment" element={<FindConsignment/>}/>
                             <Route path="/consignment/:token" element={<Consignment/>}/>
-                            <Route path="/new_consignment/:token" element={<NewConsignment/>}/>
+                            <Route path="/new-consignment/:token" element={<NewConsignment/>}/>
                         </Routes>
                     </Router>
                 </Container>

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import SidebarFilter from "../SidebarFilter/SidebarFilter";
 import Button from "react-bootstrap/Button";
@@ -7,18 +7,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ArticlePreview from "../ArticlePreview/ArticlePreview";
 import {CartContext} from "../../context/CartContext";
+import {getAvailableArticles} from "../../service/articleService";
 
 function Shop() {
     const navigate = useNavigate();
-    let cart = useContext(CartContext);
+    const cart = useContext(CartContext);
 
-    const articles = [
-        {id: 1, price: 900, name: "ArticleView 1"},
-        {id: 2, price: 1000, name: "ArticleView 2"},
-        {id: 3, price: 1500, name: "ArticleView 3"},
-        {id: 4, price: 600, name: "ArticleView 4"},
-        {id: 5, price: 2100, name: "ArticleView 5"}
-    ]
+    // const articles = [
+    //     {id: 1, price: 900, name: "ArticleView 1"},
+    //     {id: 2, price: 1000, name: "ArticleView 2"},
+    //     {id: 3, price: 1500, name: "ArticleView 3"},
+    //     {id: 4, price: 600, name: "ArticleView 4"},
+    //     {id: 5, price: 2100, name: "ArticleView 5"}
+    // ]
+
+    let [articles, setArticles] = useState(null);
 
     let onAdd = (article) => {
         cart.addItemToCart(article);
@@ -37,6 +40,19 @@ function Shop() {
         }
         return rendered;
     }
+
+    useEffect(() => {
+        let fetchArticles = async () => {
+            return await getAvailableArticles();
+        }
+
+        if(articles === null) {
+            fetchArticles().then(response => {
+                setArticles(response.data);
+            });
+        }
+
+    })
 
     return (
         <Container className="main mt-3">

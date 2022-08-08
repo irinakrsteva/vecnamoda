@@ -6,6 +6,8 @@ import irinakjoseva.vecnamoda.dto.mapper.ArticleMapper;
 import irinakjoseva.vecnamoda.model.Article;
 import irinakjoseva.vecnamoda.repository.ArticleRepository;
 import irinakjoseva.vecnamoda.service.ArticleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -34,6 +36,12 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(article);
         return articleMapper.toResponseDto(article);
     }
+
+//    @Override
+//    public Page<ArticleResponseDto> getAvailableArticles(PageRequest pageRequest) {
+//        Page<Article> articlesPage = articleRepository.findArticlesPageableByStatusEquals(pageRequest, Article.Status.AVAILABLE);
+//        return articlesPage.map(articleMapper::toResponseDto);
+//    }
 
 
     // TODO

@@ -13,19 +13,20 @@ function Sell() {
 
     let openNewConsignment = async () => {
         if (auth.isAuthenticated) {
+            try {
+                let res = await createConsignment();
+                console.log(res.data);
+                nav("../new-consignment/" + res.data.token);
+            } catch (e) {
+                console.log(e);
+            }
 
-            // let res = await createConsignment();
-            // console.log(res.data);
-
-            //TODO: im making bajillion consignments but it is NOT console.logging them.!!! ???
-            //Nor doing anything else from the code btw. not getting it
-
-            createConsignment().then(response => {
-                console.log("Created new consignment!: " + response.data);
-                nav("../new_consignment/" + response.data.token);
-            }).catch(err => {
-                console.log(err);
-            });
+            // createConsignment().then(response => {
+            //     console.log("Created new consignment!: " + response.data);
+            //     nav("../new_consignment/" + response.data.token);
+            // }).catch(err => {
+            //     console.log(err);
+            // });
         } else {
             nav("../`login`");
         }
@@ -77,7 +78,7 @@ function Sell() {
                     <h3>Start here...</h3>
                     <p>Create a new consignment and generate PDF</p>
                     {auth.isAuthenticated ?
-                        <Button onClick={createConsignment}>Create new consignment</Button>
+                        <Button onClick={openNewConsignment}>Create new consignment</Button>
                         :
                         <Button onClick={() => {nav("../login")}}>Log in to start</Button>
                     }

@@ -9,6 +9,7 @@ import {useNavigate, useParams} from "react-router-dom";
 function NewConsignment() {
 
     const {token} = useParams();
+    const auth = useContext(AuthContext);
 
     return (
         <Container className="mt-5">
@@ -16,6 +17,7 @@ function NewConsignment() {
                 <Col align="center">
                     <h3>Your new consignment key is:</h3>
                     <h2>{token}</h2>
+                    <p>Consignment created by: <b>{auth.loggedInUser.username}</b></p>
                 </Col>
             </Row>
         </Container>

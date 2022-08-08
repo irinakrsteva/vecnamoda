@@ -13,6 +13,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     List<Article> findAllByStatusEquals(Article.Status status);
 
-    Page<Article> findArticlesPageableByStatusEquals(Article.Status status, Pageable pageable);
+    List<Article> findTop100ByStatusEquals(Article.Status status);
+
+    Page<Article> findArticlesPageableByStatusEquals(Pageable pageable, Article.Status status);
 
 }

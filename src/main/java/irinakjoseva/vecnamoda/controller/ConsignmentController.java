@@ -49,4 +49,5 @@ public class ConsignmentController {
         return ResponseEntity.ok(consignmentService.getAllConsignments());
     }
 
+
 }
