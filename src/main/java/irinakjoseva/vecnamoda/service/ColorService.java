@@ -9,6 +9,8 @@ public interface ColorService {
 
     public List<ColorResponseDto> getAllColors();
 
-    public ColorResponseDto addColor(ColorRequestDto colorPostDto);
+    public ColorResponseDto getColor(Integer id);
+
+//    public ColorResponseDto addColor(ColorRequestDto colorPostDto);
 
 }

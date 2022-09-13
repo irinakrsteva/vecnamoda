@@ -27,7 +27,7 @@ public class ArticleController {
     }
 
     // TODO Make pageable from service?
-    @GetMapping
+    @GetMapping("/available")
     public ResponseEntity<List<ArticleResponseDto>> getAvailableArticles() {
         return ResponseEntity.ok(this.articleService.getAllAvailableArticles());
     }
@@ -38,17 +38,5 @@ public class ArticleController {
         return ResponseEntity.ok(this.articleService.saveArticle(articleRequestDto));
     }
 
-//    @GetMapping("/available")
-//    public ResponseEntity<List<ConsignmentResponseDto>> getAvailableArticles(Pageable pageable,
-//                                                                             @RequestParam Integer pageNumber,
-//                                                                             @RequestParam Integer pageSize
-//    ) {
-//        Page page = articleService.getAvailableArticles(pageable);
-//    }
-//
-//
-//    public Page<ArticleResponseDto> getAvailableArticles(@NotNull final Pageable pageable) {
-//        return articleService.getAvailableArticles(pageable);
-//    }
 
 }

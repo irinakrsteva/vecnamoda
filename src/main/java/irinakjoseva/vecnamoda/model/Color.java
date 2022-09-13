@@ -10,7 +10,7 @@ public class Color {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -22,12 +22,19 @@ public class Color {
     @OneToMany(mappedBy = "color", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Article> articles;
 
+    public Color() {
+    }
 
-    public int getId() {
+    public Color(String name, String hexValue) {
+        this.name = name;
+        this.hexValue = hexValue;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

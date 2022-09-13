@@ -9,7 +9,7 @@ public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "standard")
     private String standard;
@@ -21,12 +21,24 @@ public class Size {
     @OneToMany(mappedBy = "size", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Article> articles;
 
+    public Size() {}
 
-    public int getId() {
+    public Size(String standard, String value) {
+        this.standard = standard;
+        this.value = value;
+    }
+
+
+    public String getStandardAndValue() {
+        return standard.concat(value);
+    }
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

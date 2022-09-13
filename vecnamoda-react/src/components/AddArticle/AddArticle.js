@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Modal} from "react-bootstrap";
 import {AuthContext} from "../../context/AuthContext";
 import Col from "react-bootstrap/Col";
@@ -6,7 +6,13 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Select from 'react-select'
 import Button from "react-bootstrap/Button";
-import {addArticle} from "../../service/articleService";
+import {render} from "@testing-library/react";
+import {uploadImageFile} from "../../service/imageService";
+import ArticlePreview from "../ArticlePreview/ArticlePreview";
+import Image from "react-bootstrap/Image";
+import {getColors} from "../../service/colorService";
+import {getCategories} from "../../service/categoryService";
+import {getSizes} from "../../service/sizeService";
 
 //ONLY FOR EMPLOYEES/ADMINS
 
@@ -18,22 +24,36 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
         {value: 'GREAT', label: 'Great'},
         {value: 'GOOD', label: 'Good'}
     ];
-    const [pictures, setPictures] = useState([]);
-    // const colors = [];
+    const [categories, setCategories] = useState(null);
+    const [colors, setColors] = useState(null);
+    const [sizes, setSizes] = useState(null);
+
+
+    // ----- initial values ------
 
     const [price, setPrice] = useState(0.00);
     const [condition, setCondition] = useState(conditions[0]);
     const status = 'AVAILABLE';
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState(null);
-    const [size, setSize] = useState(null);
     const [color, setColor] = useState(null);
-    const [brand, setBrand] = useState(null);
+    const [size, setSize] = useState(null);
+    const [brand, setBrand] = useState(null); //ign
+    const [uploadedImages, setUploadedImages] = useState([]);
     const consignmentId = consignmentid;
 
+    // -----
+
     const [formErrors, setFormErrors] = useState({
-        priceValid: null
+        priceValid: null,
+        maxFileSizeExceeded: ""
     });
+
+    let handleHide = () => {
+        setUploadedImages([]);
+        onHide();
+    }
+
 
     let onPriceChange = (event) => {
         let price = event.target.value;
@@ -50,16 +70,70 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
         setCondition(condition);
     }
 
-    // let onColorChange = (event) => {
-    //     let color = event.value;
-    //     setColor(color);
-    // }
+    let handleUploadImage = async (image) => {
+        if (image.size > 4194304) {
+            let maxFileError = "Maximum file size of " + image.name + " exceeded (>1MB)";
+            setFormErrors({...formErrors, maxFileSizeExceeded: maxFileError});
+            throw maxFileError;
+        }
 
-    let onDrop = picture => {
-        setPictures([...pictures, picture]);
+        try {
+            let response = await uploadImageFile(image);
+            console.log("Response data immediately after uploading:", response.data);
+            return response.data;
+        } catch (e) {
+            //Probably... *
+            setFormErrors({
+                ...formErrors,
+                maxFileSizeExceeded: "Maximum file size of " + image.name + " exceeded (>1MB)"
+            });
+            throw e;
+        }
+
     }
 
+    let onImagesChange = (event) => {
+        let images = event.target.files;
+        console.log("All current images in form:", images);
+        setUploadedImages([]);
+        setFormErrors({...formErrors, maxFileSizeExceeded: ""});
+
+        for (let i = 0; i < images.length; i++) {
+            handleUploadImage(images[i]).then(newUploadedImage => {
+                console.log("Saving image info in state:", newUploadedImage);
+                setUploadedImages(uploadedImages => [...uploadedImages, newUploadedImage]);
+            });
+        }
+
+        console.log("All uploadedImages in state:", uploadedImages);
+    };
+
+    let renderPreviewImages = () => {
+        if (uploadedImages.length === 0) return null;
+        return <Row>
+            {uploadedImages.map(uploadedImage =>
+                <Col key={"img" + uploadedImage.id} xl={4} sm={6}>
+                    <Image key={uploadedImage.id} thumbnail="true" src={`/api/images/public/${uploadedImage.id}`}/>
+                </Col>
+            )}
+        </Row>;
+    }
+
+    let onCategoryChange = (e) => {
+        let category = e.target.value;
+        setCategory(category);
+    };
+    let onColorChange = (e) => {
+        let color = e.target.value;
+        setColor(color);
+    };
+    let onSizeChange = (e) => {
+        let size = e.target.value;
+        setSize(size);
+    };
+
     let postArticle = () => {
+        // if()
         let article = {
             price: price,
             articleCondition: condition,
@@ -68,16 +142,70 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
             categoryId: category,
             sizeId: size,
             colorId: color,
-            brandId: brand,
-            consignmentId: consignmentId
+            // brandId: brand,
+            consignmentId: consignmentId,
+            imageIds: uploadedImages.map(img => img.id)
         };
-
-        onAdd(article).then(() => onHide());
+        onAdd(article).then(() => handleHide());
     }
+
+    let getCategoryOptions = () => {
+        if (categories) {
+            return categories.map(c => {
+                return {value: c.id, label: c.name}
+            });
+        } else
+            return [];
+    }
+
+    let getColorOptions = () => {
+        if (colors) {
+            return colors.map(c => {
+                return {value: c.id, label: c.name}
+            });
+        } else
+            return [];
+    }
+
+    let getSizeOptions = () => {
+        if (sizes) {
+            return sizes.map(s => {
+                return {value: s.id, label: (s.standard + " " + s.value)}
+            });
+        } else
+            return [];
+    }
+
+
+    useEffect(() => {
+        renderPreviewImages();
+    });
+
+    useEffect(() => {
+        console.log("Fetching C,C & S");
+        if (categories === null) {
+            getCategories().then(response => {
+                let listCategories = response.data;
+                setCategories(listCategories);
+            }).catch(console.log("Couldn't fetch categories"));
+        }
+        if (colors === null) {
+            getColors().then(response => {
+                let listColors = response.data
+                setColors(listColors);
+            }).catch(console.log("Couldn't fetch colors"));
+        }
+        if (sizes === null) {
+            getSizes().then(response => {
+                let listSizes = response.data;
+                setSizes(listSizes);
+            }).catch(console.log("Couldn't fetch sizes"));
+        }
+    });
 
     return (
         <Modal
-            onHide={onHide}
+            onHide={handleHide}
             show={show}
             size="lg"
             centered
@@ -102,22 +230,32 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
                                 <Select options={conditions} onChange={onConditionChange}/>
                             </Form.Group>
 
-                            {/*<Form.Group className="color mb-2" controlId="formName">*/}
-                            {/*    <Form.Label>Color (ignore please for now)</Form.Label>*/}
-                            {/*    <Select onchange={onColorChange} options={colors}/>*/}
-                            {/*</Form.Group>*/}
+                            <Form.Group className="image mb-2" controlId="formName">
+                                <Form.Label>Images</Form.Label>
+                                <Form.Control type="file" multiple onChange={onImagesChange} accept="image/*"/>
+                                {//TODO look into what is the actual max file size for form data posting (looks to be around 1MB}
+                                }
+                                <p className="formError">{formErrors.maxFileSizeExceeded}</p>
+                                {renderPreviewImages()}
+                            </Form.Group>
 
-                            {/*<Form.Group>*/}
-                            {/*    <Form.Label>Upload image</Form.Label>*/}
-                            {/*    <ImageUploader*/}
-                            {/*        withIcon={true}*/}
-                            {/*        withPreview={true}*/}
-                            {/*        buttonText="Choose image"*/}
-                            {/*        onChange={onDrop}*/}
-                            {/*        imgExtension={[".jpg", ".jpeg", ".gif", ".png"]}*/}
-                            {/*        maxFileSize={5242880}*/}
-                            {/*    />*/}
-                            {/*</Form.Group>*/}
+                            <Form.Group className="category mb-2" controlId="formName">
+                                <Form.Label>Category</Form.Label>
+                                <Select onchange={onCategoryChange}
+                                        options={getCategoryOptions()}/>
+                            </Form.Group>
+
+                            <Form.Group className="color mb-2" controlId="formName">
+                                <Form.Label>Color</Form.Label>
+                                <Select onchange={onColorChange}
+                                        options={getColorOptions()}/>
+                            </Form.Group>
+
+                            <Form.Group className="size mb-2" controlId="formName">
+                                <Form.Label>Size</Form.Label>
+                                <Select onchange={onSizeChange}
+                                        options={getSizeOptions()}/>
+                            </Form.Group>
 
                         </Form>
                     </Col>
@@ -125,7 +263,7 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
             </Modal.Body>
 
             <Modal.Footer>
-                <Button onClick={onHide}>Close</Button>
+                <Button onClick={handleHide}>Close</Button>
                 <Button onClick={postArticle}>Add article</Button>
             </Modal.Footer>
 

@@ -3,9 +3,14 @@ import axios from "./http";
 const apiUri = "/api/colors"
 
 export const getColors = () => {
-    return axios.get(`${apiUri}/getall`);
+    return axios.get(`${apiUri}`);
 }
 
-export const saveColor = (color) => {
-    return axios.post(`${apiUri}/add`);
+export const getColor = (id) => {
+    return axios.get(`${apiUri}/${id}`)
 }
+
+//
+// export const saveColor = (color) => {
+//     return axios.post(`${apiUri}`);
+// }

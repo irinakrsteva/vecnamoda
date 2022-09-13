@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Container} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -8,18 +8,20 @@ import Button from "react-bootstrap/Button";
 import AddArticle from "../AddArticle/AddArticle";
 import {addArticle} from "../../service/articleService";
 import ArticlePreview from "../ArticlePreview/ArticlePreview";
+import {AuthContext} from "../../context/AuthContext";
 
 //ONLY FOR EMPLOYEES/ADMINS
 
 function Consignment() {
 
     const {token} = useParams();
+    const auth = useContext(AuthContext);
 
     const [showAddArticle, setShowAddArticle] = useState(false);
     const [consignment, setConsignment] = useState(null);
 
     useEffect(() => {
-        if (!consignment) {
+        if (!consignment && auth.isAuthenticated) {
             loadConsignment();
         }
     });
@@ -58,6 +60,8 @@ function Consignment() {
     return (
         <Container>
 
+            {!auth.isAuthenticated && <p> Please sign in as employee or admin to view consignments </p>}
+
             {consignment ?
                 <div>
                     <Row className="mt-3 mb-3">
@@ -75,7 +79,9 @@ function Consignment() {
 
                     <AddArticle
                         show={showAddArticle}
-                        onHide={() => setShowAddArticle(false)}
+                        onHide={() => {
+                            setShowAddArticle(false);
+                        }}
                         consignmentid={consignment ? consignment.id : null}
                         onAdd={handleAddArticle}
                         // content={[]}

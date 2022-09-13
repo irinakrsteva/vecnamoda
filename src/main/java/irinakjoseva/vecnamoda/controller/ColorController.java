@@ -19,14 +19,19 @@ public class ColorController {
         this.colorService = colorService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping
     public ResponseEntity<List<ColorResponseDto>> getColors() {
         return ResponseEntity.ok(colorService.getAllColors());
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<ColorResponseDto> addColor(@RequestBody @Valid ColorRequestDto colorRequestDto) {
-        return ResponseEntity.ok(colorService.addColor(colorRequestDto));
+    @GetMapping("/{id}")
+    public ResponseEntity<ColorResponseDto> getColor(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(colorService.getColor(id));
     }
+
+//    @PostMapping("/add")
+//    public ResponseEntity<ColorResponseDto> addColor(@RequestBody @Valid ColorRequestDto colorRequestDto) {
+//        return ResponseEntity.ok(colorService.addColor(colorRequestDto));
+//    }
 
 }

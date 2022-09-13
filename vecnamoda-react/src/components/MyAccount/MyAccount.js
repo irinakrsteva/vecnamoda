@@ -29,10 +29,10 @@ function MyAccount() {
         if (auth.isAuthenticated && auth.loggedInUser.role === 'CUSTOMER')
             return (
                 <>
-                    <Link to="../myitems">My items</Link>
+                    <Link to="../my-items">My items</Link>
                     <br/>
                     <br/>
-                    <Link to="../myorders">My orders</Link>
+                    <Link to="../my-orders">My orders</Link>
                     <br/>
                     <br/>
                     <a href="#">Unsubscribe</a>
@@ -48,7 +48,7 @@ function MyAccount() {
                 {/*<Link to="../addarticle">Add new article</Link>*/}
                 <br/>
                 <br/>
-                <Link to="../manageconsignment">Open a consignment</Link>
+                <Link to="../find-consignment">Open a consignment</Link>
             </>
         );
     }

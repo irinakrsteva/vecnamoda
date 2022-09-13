@@ -45,7 +45,7 @@ public class ConsignmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ConsignmentResponseDto>> getAllConsignments() {
+    public ResponseEntity<List<ConsignmentResponseDto>> getConsignments() {
         return ResponseEntity.ok(consignmentService.getAllConsignments());
     }
 

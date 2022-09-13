@@ -3,6 +3,7 @@ package irinakjoseva.vecnamoda.dto.request;
 import irinakjoseva.vecnamoda.model.Article;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class ArticleRequestDto {
 
@@ -27,6 +28,8 @@ public class ArticleRequestDto {
 
     @NotNull
     public Long consignmentId;
+
+    public List<Long> imageIds;
 
 }
 

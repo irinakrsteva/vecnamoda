@@ -15,6 +15,18 @@ public class ArticleImage {
     @JoinColumn(name = "article_id")
     private Article article;
 
+    @OneToOne
+    @JoinColumn(name = "image_id")
+    private Image image;
+
+    public ArticleImage() {
+    }
+
+    public ArticleImage(Article article, Image image) {
+        this.article = article;
+        this.image = image;
+    }
+
     public Long getId() {
         return id;
     }
@@ -30,4 +42,8 @@ public class ArticleImage {
     public void setArticle(Article article) {
         this.article = article;
     }
+
+    public Image getImage() { return image; }
+
+    public void setImage(Image image) { this.image = image; }
 }

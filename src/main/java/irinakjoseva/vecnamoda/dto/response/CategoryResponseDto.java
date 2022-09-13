@@ -1,11 +1,11 @@
 package irinakjoseva.vecnamoda.dto.response;
 
-public class ColorResponseDto {
+public class CategoryResponseDto {
 
     public Integer id;
 
     public String name;
 
-    public String hexValue;
+    public Long parentCategoryId;
 
 }

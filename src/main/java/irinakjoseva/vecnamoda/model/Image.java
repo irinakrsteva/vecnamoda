@@ -3,13 +3,13 @@ package irinakjoseva.vecnamoda.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "blob")
-public class Blob {
+@Table(name = "image")
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "data")
     private Byte[] data;
@@ -23,22 +23,17 @@ public class Blob {
     @Column(name = "size")
     private Long size;
 
-    public Blob(Byte[] data, String name, String type, Long size) {
+    public Image(Byte[] data, String name, Long size, String type) {
         this.data = data;
         this.name = name;
-        this.type = type;
         this.size = size;
+        this.type = type;
     }
 
-    public Blob() {
-    }
+    public Image() { }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    @Id
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

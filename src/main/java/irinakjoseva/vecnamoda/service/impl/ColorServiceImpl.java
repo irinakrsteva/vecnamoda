@@ -28,10 +28,16 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public ColorResponseDto addColor(ColorRequestDto colorPostDto) {
-        Color color = colorMapper.requestDtoToModel(colorPostDto);
-        colorRepository.save(color);
+    public ColorResponseDto getColor(Integer id) {
+        Color color = colorRepository.getById(id);
         return colorMapper.toResponseDto(color);
     }
+
+//    @Override
+//    public ColorResponseDto addColor(ColorRequestDto colorPostDto) {
+//        Color color = colorMapper.requestDtoToModel(colorPostDto);
+//        colorRepository.save(color);
+//        return colorMapper.toResponseDto(color);
+//    }
 
 }

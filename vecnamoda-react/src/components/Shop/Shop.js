@@ -12,8 +12,8 @@ import {getAvailableArticles} from "../../service/articleService";
 function Shop() {
     const navigate = useNavigate();
     const cart = useContext(CartContext);
-
-    // const articles = [
+    //
+    // const mockArticles = [
     //     {id: 1, price: 900, name: "ArticleView 1"},
     //     {id: 2, price: 1000, name: "ArticleView 2"},
     //     {id: 3, price: 1500, name: "ArticleView 3"},
@@ -31,11 +31,13 @@ function Shop() {
         let rendered = []
         for (let i in articles) {
             rendered.push(
-                <Col key={"article" + i} xl={4} md={6}>
-                    <ArticlePreview article={articles[i]} onAddToCart={onAdd}/>
-                </Col>
+                <>
+                    <Col key={"article" + i} xl={4} md={6}>
+                        <ArticlePreview article={articles[i]} onAddToCart={onAdd}/>
+                    </Col>
 
-                // <Link to={"/shop/" + articles[i].id} key={articles[i].id}>ArticleView {articles[i].id}</Link>
+                    {/*<Link to={"/shop/" + articles[i].id} key={articles[i].id}>ArticleView {articles[i].id}</Link>*/}
+                </>
             );
         }
         return rendered;
@@ -46,7 +48,7 @@ function Shop() {
             return await getAvailableArticles();
         }
 
-        if(articles === null) {
+        if (articles === null) {
             fetchArticles().then(response => {
                 setArticles(response.data);
             });

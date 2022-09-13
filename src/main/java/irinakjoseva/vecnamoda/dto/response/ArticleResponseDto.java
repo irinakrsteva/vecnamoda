@@ -2,6 +2,8 @@ package irinakjoseva.vecnamoda.dto.response;
 
 import irinakjoseva.vecnamoda.model.Article;
 
+import java.util.List;
+
 public class ArticleResponseDto {
 
     public Long id;
@@ -27,5 +29,7 @@ public class ArticleResponseDto {
     public Long consignmentId;
 
     public Long paymentId;
+
+    public List<Long> imageIds;
 
 }

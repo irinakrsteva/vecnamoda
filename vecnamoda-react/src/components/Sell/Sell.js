@@ -20,13 +20,6 @@ function Sell() {
             } catch (e) {
                 console.log(e);
             }
-
-            // createConsignment().then(response => {
-            //     console.log("Created new consignment!: " + response.data);
-            //     nav("../new_consignment/" + response.data.token);
-            // }).catch(err => {
-            //     console.log(err);
-            // });
         } else {
             nav("../`login`");
         }

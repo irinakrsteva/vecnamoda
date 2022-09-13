@@ -44,12 +44,12 @@ function App() {
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/account" element={<MyAccount/>}/>
                             <Route path="/about" element={<About/>}/>
-                            <Route path="/myitems" element={<MyItems/>}/>
-                            <Route path="/myorders" element={<MyOrders/>}/>
-                            <Route path="/shoppingcart" element={<ShoppingCart/>}/>
+                            <Route path="/my-items" element={<MyItems/>}/>
+                            <Route path="/my-orders" element={<MyOrders/>}/>
+                            <Route path="/shopping-cart" element={<ShoppingCart/>}/>
                             <Route path="/checkout" element={<CheckOut/>}/>
                             <Route path="/shop/:id" element={<ArticleView/>}/>
-                            <Route path="/manageconsignment" element={<FindConsignment/>}/>
+                            <Route path="/find-consignment" element={<FindConsignment/>}/>
                             <Route path="/consignment/:token" element={<Consignment/>}/>
                             <Route path="/new-consignment/:token" element={<NewConsignment/>}/>
                         </Routes>

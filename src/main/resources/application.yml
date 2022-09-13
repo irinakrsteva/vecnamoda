@@ -25,6 +25,14 @@ spring:
         dialect: org.hibernate.dialect.MySQL57InnoDBDialect
   mvc:
     log-resolved-exception: true
+  servlet:
+    multipart:
+      max-file-size: 16MB
+      max-request-size: 17MB
+      enabled: true
+
+hibernate:
+  globally_quoted_identifiers: true
 
 security:
   jwt:

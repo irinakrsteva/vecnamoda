@@ -1,7 +1,11 @@
 package irinakjoseva.vecnamoda.model;
 
+import org.mapstruct.Named;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "article")
@@ -62,7 +66,8 @@ public class Article {
     private List<ArticleImage> articleImages;
 
 
-    public Article() { }
+    public Article() {
+    }
 
     public Article(Double price, Condition articleCondition, Status status, String description,
                    Category category, Size size, Color color, Brand brand, Consignment consignment) {
@@ -76,9 +81,17 @@ public class Article {
         this.color = color;
         this.brand = brand;
         this.consignment = consignment;
-
         this.purchase = null;
+        this.articleImages = new ArrayList<>();
 
+    }
+
+    @Named("articleImagesToImageIds")
+    public List<Long> getImageIds() {
+        if(articleImages == null) {
+            return new ArrayList<>();
+        }
+        return articleImages.stream().map(articleImage -> articleImage.getImage().getId()).collect(Collectors.toList());
     }
 
 
@@ -176,6 +189,9 @@ public class Article {
 
 
     public void addArticleImage(ArticleImage articleImage) {
+        if(articleImages == null) {
+            articleImages = new ArrayList<>();
+        }
         articleImages.add(articleImage);
         articleImage.setArticle(this);
     }
@@ -211,7 +227,6 @@ public class Article {
             this.status = status;
         }
     }
-
 
 
 }
