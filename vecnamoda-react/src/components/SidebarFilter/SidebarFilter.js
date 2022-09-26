@@ -4,7 +4,7 @@ import "./SidebarFilter.css";
 function SidebarFilter() {
 
     return(
-        <div className="sidebar">
+        <div className="sidebar bg-primary text-light">
             <ul>
                 <li>1</li>
                 <li>2</li>

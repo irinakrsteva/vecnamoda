@@ -11,7 +11,6 @@ import Sell from "../Sell/Sell";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import MyAccount from "../MyAccount/MyAccount";
-import About from "../About/About";
 import MyItems from "../MyItems/MyItems";
 import MyOrders from "../MyOrders/MyOrders";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
@@ -27,13 +26,15 @@ import FindConsignment from "../FindConsignment/FindConsignment";
 import Consignment from "../Consignment/Consignment";
 import NewConsignment from "../Sell/NewConsignment";
 
+
+
 function App() {
     // const [cart, setCart] = useState({items:[], total:0});
 
     return (
         <CartProvider>
             <AuthProvider>
-                <Container id={global}>
+                <Container id={global} className="text-dark">
                     <Router>
                         <Menu/>
                         <Routes>
@@ -43,7 +44,6 @@ function App() {
                             <Route path="/register" element={<Register/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/account" element={<MyAccount/>}/>
-                            <Route path="/about" element={<About/>}/>
                             <Route path="/my-items" element={<MyItems/>}/>
                             <Route path="/my-orders" element={<MyOrders/>}/>
                             <Route path="/shopping-cart" element={<ShoppingCart/>}/>

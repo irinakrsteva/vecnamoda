@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import {CartContext} from "../../context/CartContext";
+import Image from "react-bootstrap/Image";
 
 function ShoppingCartPreview(props) {
 
@@ -11,11 +12,12 @@ function ShoppingCartPreview(props) {
 
     function renderArticlesInsideShoppingCartPreview() {
         let previewContent = [];
-        for (let i in cart.items) { 
+        for (let i = 0; i < cart.items.length; i++) {
+            console.log(cart.items[i]);
             previewContent.push(
                 <tr key={"cartItem" + i}>
-                    <td>{i}</td>
-                    <td>Image Here</td>
+                    <td>{ i+1 }</td>
+                    <td>{<Image src={`/api/images/public/${ cart.items[i].imageIds[0]}`} />}</td>
                     <td>Category Here</td>
                     <td>{cart.items[i].price}</td>
                     {console.log(cart.items)}

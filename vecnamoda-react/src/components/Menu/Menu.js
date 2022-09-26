@@ -8,6 +8,11 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import ShoppingCartPreview from "../ShoppingCartPreview/ShoppingCartPreview";
 import {AuthContext} from "../../context/AuthContext";
+import {Image} from "react-bootstrap";
+
+import logo from '../../assets/imgs/0logo.png'
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 function Menu() {
     const [showCartPreview, setShowCartPreview] = React.useState(false);
@@ -37,10 +42,10 @@ function Menu() {
         return (
             <>
                 <Nav.Item>
-                    <Nav.Link className="mx-1" as={Link} to="/account">My account</Nav.Link>
+                    <Nav.Link className="mx-1 " as={Link} to="/account">My account</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link className="mx-1" as={Button} onClick={() => {
+                    <Nav.Link className="mx-1 text-white" as={Button} onClick={() => {
                         onLogout()
                     }}>Log out</Nav.Link>
                 </Nav.Item>
@@ -51,42 +56,53 @@ function Menu() {
     let isAuthenticated = auth.isAuthenticated;
 
     return (
-        <Navbar sticky="top" id="menu" bg="light" expand="lg">
-            <Container>
-                <Navbar.Brand as={Link} to="/">
-                    <b>VecnaModa</b>
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="nav container-fluid">
-                        <Nav.Item>
-                            <Nav.Link as={Link} to="/shop">Shop</Nav.Link>
-                        </Nav.Item>
+        <Navbar sticky="top" id="menu" className="bg-light" expand="lg">
+            <Container className="text-dark">
 
-                        <Nav.Item>
-                            <Nav.Link as={Link} to="/sell">Sell</Nav.Link>
-                        </Nav.Item>
+                <Row>
 
-                        <Nav.Item>
-                            <Nav.Link as={Link} to="/about">About</Nav.Link>
-                        </Nav.Item>
-                        <Form className="d-flex">
-                            <FormControl type="search" placeholder="Search" className="me-2"/>
-                        </Form>
+                    <Col lg="2">
+                        <Navbar.Brand as={Link} to="/">
+                            <Image fluid id="logo" src={logo}/>
+                        </Navbar.Brand>
+                    </Col>
 
-                        <Nav className="nav ms-lg-auto">
+                    <Col md="10" className="mt-3">
+                        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
 
-                            {isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu()}
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="nav container-fluid">
+                                <Nav.Item>
+                                    <Nav.Link as={Link} to="/shop">Shop</Nav.Link>
+                                </Nav.Item>
 
-                            <Nav.Item>
-                                <Nav.Link as={Button} onClick={() => setShowCartPreview(true)}>
-                                    Shopping Cart
-                                </Nav.Link>
-                            </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link as={Link} to="/sell">Sell</Nav.Link>
+                                </Nav.Item>
 
-                        </Nav>
-                    </Nav>
-                </Navbar.Collapse>
+                                <Nav.Item>
+                                    <Nav.Link as={Link} to="#">About</Nav.Link>
+                                </Nav.Item>
+                                <Form className="d-flex">
+                                    <FormControl type="search" placeholder="Search" className="me-2"/>
+                                </Form>
+
+                                <Nav className="nav ms-lg-auto">
+
+                                    {isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu()}
+
+                                    <Nav.Item>
+                                        <Nav.Link className="text-white" as={Button} onClick={() => setShowCartPreview(true)}>
+                                            Shopping Cart
+                                        </Nav.Link>
+                                    </Nav.Item>
+
+                                </Nav>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Col>
+
+                </Row>
             </Container>
 
             <ShoppingCartPreview

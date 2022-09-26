@@ -128,27 +128,27 @@ function Register() {
                         <Form.Group className="mb-2" controlId="formName">
                             <Form.Label>Name</Form.Label>
                             <Form.Control onChange={onNameChange}/>
-                            <p className="formError">{formErrors.nameValid}</p>
+                            <p className="formError text-danger">{formErrors.nameValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control onChange={onUsernameChange}/>
-                            <p className="formError">{formErrors.userNameValid}</p>
+                            <p className="formError text-danger">{formErrors.userNameValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formEmail">
                             <Form.Label>Email</Form.Label>
                             <Form.Control onChange={onEmailChange} type="email"/>
-                            <p className="formError">{formErrors.emailValid}</p>
+                            <p className="formError text-danger">{formErrors.emailValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control onChange={onPasswordChange} type="password"/>
-                            <p className="formError">{formErrors.passwordValid}</p>
+                            <p className="formError text-danger">{formErrors.passwordValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formConfirmPassword">
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control onChange={onConfirmPasswordChange} type="password"/>
-                            <p className="formError">{formErrors.confirmPasswordValid}</p>
+                            <p className="formError text-danger">{formErrors.confirmPasswordValid}</p>
                         </Form.Group>
                         <Form.Group className="mb-2" controlId="formCheck">
                             <Form.Check onChange={onCheckChange} type="checkbox" label={(<>I accept the <a href="#">Terms and Conditions</a></>)}/>
