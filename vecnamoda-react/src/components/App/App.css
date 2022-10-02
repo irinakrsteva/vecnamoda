@@ -2,6 +2,10 @@
   box-shadow: none;
 }
 
+.content-container {
+  padding-bottom: 5em;
+}
+
 .App {
   text-align: center;
 }

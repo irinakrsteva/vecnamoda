@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
@@ -8,11 +8,15 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import ShoppingCartPreview from "../ShoppingCartPreview/ShoppingCartPreview";
 import {AuthContext} from "../../context/AuthContext";
-import {Image} from "react-bootstrap";
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import {Image, NavDropdown} from "react-bootstrap";
+
 
 import logo from '../../assets/imgs/0logo.png'
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+
+import './Menu.css';
 
 function Menu() {
     const [showCartPreview, setShowCartPreview] = React.useState(false);
@@ -42,7 +46,7 @@ function Menu() {
         return (
             <>
                 <Nav.Item>
-                    <Nav.Link className="mx-1 " as={Link} to="/account">My account</Nav.Link>
+                    <Nav.Link className="mx-1" as={Link} to="/account">My account</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link className="mx-1 text-white" as={Button} onClick={() => {
@@ -56,54 +60,112 @@ function Menu() {
     let isAuthenticated = auth.isAuthenticated;
 
     return (
-        <Navbar sticky="top" id="menu" className="bg-light" expand="lg">
-            <Container className="text-dark">
+        <>
+            <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className="px-5">
 
-                <Row>
+                <Navbar.Brand as={Link} to="/" >
+                    <Image className="logo" fluid id="logo" src={logo}/>
+                </Navbar.Brand>
 
-                    <Col lg="2">
-                        <Navbar.Brand as={Link} to="/">
-                            <Image fluid id="logo" src={logo}/>
-                        </Navbar.Brand>
-                    </Col>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                <Navbar.Collapse id="responsive-navbar-nav">
 
-                    <Col md="10" className="mt-3">
-                        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Nav className="md-auto">
+                        <Nav.Item>
+                            <Nav.Link as={Link} to="/shop">Shop</Nav.Link>
+                        </Nav.Item>
 
-                        <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="nav container-fluid">
-                                <Nav.Item>
-                                    <Nav.Link as={Link} to="/shop">Shop</Nav.Link>
-                                </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link as={Link} to="/sell">Sell</Nav.Link>
+                        </Nav.Item>
 
-                                <Nav.Item>
-                                    <Nav.Link as={Link} to="/sell">Sell</Nav.Link>
-                                </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link as={Link} to="#">About</Nav.Link>
+                        </Nav.Item>
+                        {/*<NavDropdown title="Dropdown" id="collasible-nav-dropdown">*/}
+                        {/*    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}
+                        {/*    <NavDropdown.Item href="#action/3.2">*/}
+                        {/*        Another action*/}
+                        {/*    </NavDropdown.Item>*/}
+                        {/*    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>*/}
+                        {/*    <NavDropdown.Divider/>*/}
+                        {/*    <NavDropdown.Item href="#action/3.4">*/}
+                        {/*        Separated link*/}
+                        {/*    </NavDropdown.Item>*/}
+                        {/*</NavDropdown>*/}
 
-                                <Nav.Item>
-                                    <Nav.Link as={Link} to="#">About</Nav.Link>
-                                </Nav.Item>
-                                <Form className="d-flex">
-                                    <FormControl type="search" placeholder="Search" className="me-2"/>
-                                </Form>
+                    </Nav>
 
-                                <Nav className="nav ms-lg-auto">
+                    <Form className="d-flex mx-3">
+                        <Form.Control
+                            type="search"
+                            placeholder="Search"
+                            className="me-2"
+                            aria-label="Search"
+                        />
+                    </Form>
 
-                                    {isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu()}
+                    <Nav className="ml-auto">
+                        { isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu() }
 
-                                    <Nav.Item>
-                                        <Nav.Link className="text-white" as={Button} onClick={() => setShowCartPreview(true)}>
-                                            Shopping Cart
-                                        </Nav.Link>
-                                    </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link className="mx-1 text-light" as={Button} onClick={() => setShowCartPreview(true)}>
+                                Shopping Cart
+                            </Nav.Link>
+                        </Nav.Item>
+                    </Nav>
 
-                                </Nav>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Col>
+                </Navbar.Collapse>
 
-                </Row>
-            </Container>
+            </Navbar>
+
+            {/*<Navbar sticky="top" id="menu" className="bg-light" expand="lg">*/}
+
+
+            {/*    <Col md="2">*/}
+            {/*        <Navbar.Brand as={Link} to="/">*/}
+            {/*            <Image fluid id="logo" src={logo}/>*/}
+            {/*        </Navbar.Brand>*/}
+            {/*    </Col>*/}
+
+            {/*    <Navbar.Toggle aria-controls="basic-navbar-nav"/>*/}
+
+            {/*    <Navbar.Collapse id="responsive-navbar-nav">*/}
+            {/*        <Nav className="nav container-fluid ">*/}
+            {/*            <Nav.Item>*/}
+            {/*                <Nav.Link as={Link} to="/shop">Shop</Nav.Link>*/}
+            {/*            </Nav.Item>*/}
+
+            {/*            <Nav.Item>*/}
+            {/*                <Nav.Link as={Link} to="/sell">Sell</Nav.Link>*/}
+            {/*            </Nav.Item>*/}
+
+            {/*            <Nav.Item>*/}
+            {/*                <Nav.Link as={Link} to="#">About</Nav.Link>*/}
+            {/*            </Nav.Item>*/}
+
+            {/*        </Nav>*/}
+
+            {/*        <Form className="d-flex">*/}
+            {/*            <FormControl type="search" placeholder="Search" className="me-3"/>*/}
+            {/*        </Form>*/}
+
+            {/*        <Nav className="nav ms-lg-auto">*/}
+
+                        {/*{isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu()}*/}
+
+                        {/*<Nav.Item>*/}
+                        {/*    <Nav.Link className="text-light" as={Button} onClick={() => setShowCartPreview(true)}>*/}
+                        {/*        Shopping Cart*/}
+                        {/*    </Nav.Link>*/}
+                        {/*</Nav.Item>*/}
+
+            {/*        </Nav>*/}
+            {/*    </Navbar.Collapse>*/}
+
+
+            {/*</Navbar>*/}
+
 
             <ShoppingCartPreview
                 show={showCartPreview}
@@ -116,7 +178,7 @@ function Menu() {
                 //     {id: 5, price: 2100, name: "ArticleView 5"}
                 // ]}
             />
-        </Navbar>
+        </>
     );
 }
 

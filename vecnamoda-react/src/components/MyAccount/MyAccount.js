@@ -1,7 +1,9 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {Link} from "react-router-dom";
-import {Container} from "react-bootstrap";
+import {Card, Container} from "react-bootstrap";
 import {AuthContext} from "../../context/AuthContext";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 // logs out randomly without any logout call ?
 
@@ -9,19 +11,25 @@ function MyAccount() {
 
     const auth = useContext(AuthContext);
 
+    const [showOnPage, setShowOnPage] = useState("");
+
     let renderAccountBasedOnRole = () => {
         if (!auth.isAuthenticated) return null;
         let role = auth.loggedInUser.role;
         switch (role) {
-            case 'CUSTOMER': return renderCustomerAccount();
-            case 'EMPLOYEE': return renderEmployeeAccount();
-            case 'ADMIN': return (
-                <>
-                    {renderEmployeeAccount()}
-                    {renderAdminAccount()}
-                </>
-            );
-            default: return null;
+            case 'CUSTOMER':
+                return renderCustomerAccount();
+            case 'EMPLOYEE':
+                return renderEmployeeAccount();
+            case 'ADMIN':
+                return (
+                    <>
+                        {renderEmployeeAccount()}
+                        {renderAdminAccount()}
+                    </>
+                );
+            default:
+                return null;
         }
     }
 
@@ -29,10 +37,10 @@ function MyAccount() {
         if (auth.isAuthenticated && auth.loggedInUser.role === 'CUSTOMER')
             return (
                 <>
-                    <Link to="../my-items">My items</Link>
+                    <Link to="../my-items" onClick={() => {setShowOnPage("myitems")}}>My items</Link>
                     <br/>
                     <br/>
-                    <Link to="../my-orders">My orders</Link>
+                    <Link to="../my-orders" onClick={() => {setShowOnPage("myorders")}}>My orders</Link>
                     <br/>
                     <br/>
                     <a href="#">Unsubscribe</a>
@@ -64,16 +72,47 @@ function MyAccount() {
 
     return (
         <Container className="mt-3">
-            {
-                auth.isAuthenticated
-                    ? "Your username is " + auth.loggedInUser.username + " and your role is " + auth.loggedInUser.role
-                    : "You're not logged in!"
-            }
+
+            <Card>
+                <Card.Header>
+                    My Account
+                </Card.Header>
+
+                <Card.Body>
+
+                    <Row>
+                        <Col lg="3">
+                            {
+                                auth.isAuthenticated
+                                    ?
+                                    (
+                                        <span>
+                                        Your username is
+                                        <b>{" " + auth.loggedInUser.username + " "}</b>
+                                        and your role is
+                                        <b>{" " + auth.loggedInUser.role.toLowerCase()}</b>
+                                        </span>
+                                    )
+                                    :
+                                    "You're not logged in!"
+                            }
+                            <br/>
+                            <br/>
+                            {renderAccountBasedOnRole()}
+                        </Col>
+                        <Col lg="9">
+
+                        </Col>
+                    </Row>
+
+
+                </Card.Body>
+
+            </Card>
 
             <br/>
             <br/>
 
-            {renderAccountBasedOnRole()}
 
         </Container>
     );

@@ -18,7 +18,7 @@ function ArticlePreview({article, onAddToCart = null}) {
     };
 
     return (
-        <Card className={"mb-3"}>
+        <Card className="mb-3">
             {/*<Link to={"/shop/" + article.id} key={article.id}>*/}
             {/*    <Card.Img variant="top" src=""/>*/}
             {/*</Link>*/}

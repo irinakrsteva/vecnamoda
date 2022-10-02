@@ -25,7 +25,7 @@ import ProtectedRoute from "../../utils/components/ProtectedRoute";
 import FindConsignment from "../FindConsignment/FindConsignment";
 import Consignment from "../Consignment/Consignment";
 import NewConsignment from "../Sell/NewConsignment";
-
+import Footer from "../Footer/Footer";
 
 
 function App() {
@@ -34,27 +34,32 @@ function App() {
     return (
         <CartProvider>
             <AuthProvider>
-                <Container id={global} className="text-dark">
+                <div id={global} className="position-relative min-vh-100 flex-column text-dark">
                     <Router>
-                        <Menu/>
-                        <Routes>
-                            <Route path="/" element={<Intro/>}/>
-                            <Route path="/shop" element={<Shop/>}/>
-                            <Route path="/sell" element={<Sell/>}/>
-                            <Route path="/register" element={<Register/>}/>
-                            <Route path="/login" element={<Login/>}/>
-                            <Route path="/account" element={<MyAccount/>}/>
-                            <Route path="/my-items" element={<MyItems/>}/>
-                            <Route path="/my-orders" element={<MyOrders/>}/>
-                            <Route path="/shopping-cart" element={<ShoppingCart/>}/>
-                            <Route path="/checkout" element={<CheckOut/>}/>
-                            <Route path="/shop/:id" element={<ArticleView/>}/>
-                            <Route path="/find-consignment" element={<FindConsignment/>}/>
-                            <Route path="/consignment/:token" element={<Consignment/>}/>
-                            <Route path="/new-consignment/:token" element={<NewConsignment/>}/>
-                        </Routes>
+                        {/*<div className="min-vh-100 flex-column">*/}
+                            <Menu/>
+                            <Container fluid className="px-5 pt-4 content-container">
+                                <Routes>
+                                    <Route path="/" element={<Intro/>}/>
+                                    <Route path="/shop" element={<Shop/>}/>
+                                    <Route path="/sell" element={<Sell/>}/>
+                                    <Route path="/register" element={<Register/>}/>
+                                    <Route path="/login" element={<Login/>}/>
+                                    <Route path="/account" element={<MyAccount/>}/>
+                                    <Route path="/my-items" element={<MyItems/>}/>
+                                    <Route path="/my-orders" element={<MyOrders/>}/>
+                                    <Route path="/shopping-cart" element={<ShoppingCart/>}/>
+                                    <Route path="/checkout" element={<CheckOut/>}/>
+                                    <Route path="/shop/:id" element={<ArticleView/>}/>
+                                    <Route path="/find-consignment" element={<FindConsignment/>}/>
+                                    <Route path="/consignment/:token" element={<Consignment/>}/>
+                                    <Route path="/new-consignment/:token" element={<NewConsignment/>}/>
+                                </Routes>
+                            </Container>
+                            <Footer/>
+                        {/*</div>*/}
                     </Router>
-                </Container>
+                </div>
             </AuthProvider>
         </CartProvider>
     );

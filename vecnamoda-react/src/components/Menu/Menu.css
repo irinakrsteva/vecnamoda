@@ -1,8 +1,11 @@
 #menu {
     box-shadow: none;
-
 }
 
 .nav {
     box-shadow: none;
+}
+
+.logo {
+    height: 3em !important;
 }
