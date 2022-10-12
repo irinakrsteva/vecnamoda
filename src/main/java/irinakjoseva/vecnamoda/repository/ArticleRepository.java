@@ -4,17 +4,15 @@ import irinakjoseva.vecnamoda.model.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ArticleRepository extends JpaRepository<Article, Long> {
+public interface ArticleRepository extends PagingAndSortingRepository<Article, Long> {
 
-    List<Article> findAllByStatusEquals(Article.Status status);
+    Page<Article> findAllByStatusEquals(Article.Status status, Pageable pageable);
 
-    List<Article> findTop100ByStatusEquals(Article.Status status);
-
-    Page<Article> findArticlesPageableByStatusEquals(Pageable pageable, Article.Status status);
 
 }

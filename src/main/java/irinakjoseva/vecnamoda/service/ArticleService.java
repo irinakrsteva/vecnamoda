@@ -11,10 +11,11 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<ArticleResponseDto> getAllAvailableArticles();
+    Page<ArticleResponseDto> getAllAvailableArticles(Pageable pageable);
 
     ArticleResponseDto saveArticle(ArticleRequestDto articlePostDto) throws IOException;
 
-//    Page<ArticleResponseDto> getAvailableArticles(PageRequest pageRequest);
+//    List<ArticleResponseDto> searchAvailableArticles(String query);
+
 
 }

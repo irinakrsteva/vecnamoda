@@ -7,6 +7,8 @@ import irinakjoseva.vecnamoda.service.impl.ArticleServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +30,8 @@ public class ArticleController {
 
     // TODO Make pageable from service?
     @GetMapping("/available")
-    public ResponseEntity<List<ArticleResponseDto>> getAvailableArticles() {
-        return ResponseEntity.ok(this.articleService.getAllAvailableArticles());
+    public ResponseEntity<Page<ArticleResponseDto>> getAvailableArticles(@PageableDefault(size = 12) Pageable pageable) {
+        return ResponseEntity.ok(this.articleService.getAllAvailableArticles(pageable));
     }
 
     @PostMapping("/add")
@@ -37,6 +39,8 @@ public class ArticleController {
     public ResponseEntity<ArticleResponseDto> save(@RequestBody @Valid ArticleRequestDto articleRequestDto) throws IOException {
         return ResponseEntity.ok(this.articleService.saveArticle(articleRequestDto));
     }
+
+
 
 
 }

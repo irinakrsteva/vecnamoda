@@ -39,9 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 //                .authorizeRequests().anyRequest().permitAll();
                 .exceptionHandling()
-                .authenticationEntryPoint(((request, response, authException) -> {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                }))
+                .authenticationEntryPoint(((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
                 .and()
                 .addFilter(
                         new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProperties)
@@ -71,7 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/users/hello",
                 "/api/users/register",
                 "/api/consignments",
-                "/api/images/public/**"
+                "/api/images/public/**",
+                "/api/articles/available/**"
 //                "/api/article/public/**" // ? supposedly something like this should be implemented
         };
     }

@@ -23,7 +23,7 @@ function ArticlePreview({article, onAddToCart = null}) {
             {/*    <Card.Img variant="top" src=""/>*/}
             {/*</Link>*/}
             <Card.Header>
-                {article.imageIds.length !== 0 &&
+                {article.imageIds && article.imageIds.length !== 0 &&
 
                 <Carousel indicators={article.imageIds.length > 1} interval={null} variant="dark" as={Link} to={"/shop/" + article.id} id={"article-" + article.id + "-images"}>
                     {renderImagesInCarousel(article.imageIds)}
@@ -38,7 +38,7 @@ function ArticlePreview({article, onAddToCart = null}) {
                 <Card.Text>
                     This is the description of the article with id {article.id}.
                     <br/>
-                    Condition: <b>{article.articleCondition.toLowerCase()}</b>
+                    Condition: <b>{article.articleCondition ? article.articleCondition.toLowerCase() : "Unknown"}</b>
                 </Card.Text>
 
 

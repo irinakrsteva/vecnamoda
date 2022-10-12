@@ -8,21 +8,17 @@ import Col from "react-bootstrap/Col";
 import ArticlePreview from "../ArticlePreview/ArticlePreview";
 import {CartContext} from "../../context/CartContext";
 import {getAvailableArticles} from "../../service/articleService";
+import Pagination from "../Pagination/Pagination";
 
 
 function Shop() {
     const navigate = useNavigate();
     const cart = useContext(CartContext);
-    //
-    // const mockArticles = [
-    //     {id: 1, price: 900, name: "ArticleView 1"},
-    //     {id: 2, price: 1000, name: "ArticleView 2"},
-    //     {id: 3, price: 1500, name: "ArticleView 3"},
-    //     {id: 4, price: 600, name: "ArticleView 4"},
-    //     {id: 5, price: 2100, name: "ArticleView 5"}
-    // ]
 
     let [articles, setArticles] = useState(null);
+    let [page, setPage] = useState(1);
+    const size = 4;
+    let [totalPages, setTotalPages] = useState(1);
 
     let onAdd = (article) => {
         cart.addItemToCart(article);
@@ -33,8 +29,8 @@ function Shop() {
         for (let i in articles) {
             rendered.push(
                 <>
-                    <Col key={"article" + i} xl={4} md={6}>
-                        <ArticlePreview key={"article"+i} article={articles[i]} onAddToCart={onAdd}/>
+                    <Col key={"col" + i} xl={4} md={6}>
+                        <ArticlePreview key={"article" + i} article={articles[i]} onAddToCart={onAdd}/>
                     </Col>
 
                     {/*<Link to={"/shop/" + articles[i].id} key={articles[i].id}>ArticleView {articles[i].id}</Link>*/}
@@ -44,28 +40,53 @@ function Shop() {
         return rendered;
     }
 
+    let handleChangePage = (newPage) => {
+        if (page !== newPage) {
+            setPage(newPage);
+        }
+    }
+
     useEffect(() => {
         let fetchArticles = async () => {
-            return await getAvailableArticles();
+            return await getAvailableArticles(page, size);
         }
 
         if (articles === null) {
             fetchArticles().then(response => {
-                setArticles(response.data);
+                console.log(response.data);
+                setArticles(response.data.content);
+                setTotalPages(response.data.totalPages);
+                console.log(totalPages);
             });
         }
+    });
 
-    })
+    useEffect(() => {
+        let fetchArticles = async () => {
+            return await getAvailableArticles(page, size);
+        }
+
+        fetchArticles().then(response => {
+            console.log(response.data);
+            setArticles(response.data.content);
+            setTotalPages(response.data.totalPages);
+            console.log(totalPages);
+        });
+    },
+        [page]
+    );
 
     return (
         <Container className="main mt-3">
             <Row>
                 <br/>
-                <Col md="auto"><SidebarFilter/></Col>
-                <Col className="articles">
+                <Col md="3"><SidebarFilter/></Col>
+                <Col md="9" className="articles">
                     <Row className="justify-content-start">
                         {renderArticles()}
                     </Row>
+                    <br/>
+                    <Pagination page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
                 </Col>
             </Row>
 

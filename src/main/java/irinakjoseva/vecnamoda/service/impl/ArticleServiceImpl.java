@@ -10,10 +10,11 @@ import irinakjoseva.vecnamoda.repository.ArticleImageRepository;
 import irinakjoseva.vecnamoda.repository.ArticleRepository;
 import irinakjoseva.vecnamoda.repository.ImageRepository;
 import irinakjoseva.vecnamoda.service.ArticleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -31,10 +32,10 @@ public class ArticleServiceImpl implements ArticleService {
         this.articleMapper = articleMapper;
     }
 
-    @Override
-    public List<ArticleResponseDto> getAllAvailableArticles() {
-        List<Article> articles = this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
-        return articleMapper.toResponseDtos(articles);
+    public Page<ArticleResponseDto> getAllAvailableArticles(Pageable pageable) {
+        return articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE, pageable).map(articleMapper::toResponseDto);
+//        List<Article> articles = this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
+//        return articleMapper.toResponseDtos(articles);
     }
 
     @Override
@@ -44,13 +45,20 @@ public class ArticleServiceImpl implements ArticleService {
         article = articleRepository.save(article);
 
         List<Image> images = imageRepository.findAllById(articleRequestDto.imageIds);
-        for (Image image: images) {
+        for (Image image : images) {
             ArticleImage articleImage = articleImageRepository.save(new ArticleImage(article, image));
             article.addArticleImage(articleImage);
         }
 
         return articleMapper.toResponseDto(article);
     }
+
+//    @Override
+//    public List<ArticleResponseDto> searchAvailableArticles(String query) {
+//        List<Article> articles = articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
+//        // articles needs a search query from repo
+//        return articleMapper.toResponseDtos(articles);
+//    }
 
 //    @Override
 //    public Page<ArticleResponseDto> getAvailableArticles(PageRequest pageRequest) {
