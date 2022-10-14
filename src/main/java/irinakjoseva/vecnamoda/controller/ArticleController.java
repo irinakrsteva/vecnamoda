@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -42,6 +43,15 @@ public class ArticleController {
     public ResponseEntity<ArticleResponseDto> save(@RequestBody @Valid ArticleRequestDto articleRequestDto) throws IOException {
         return ResponseEntity.ok(this.articleService.saveArticle(articleRequestDto));
     }
+//
+//    @PutMapping("/sell/{id}")
+//    public ResponseEntity<ArticleResponseDto> changeStatusToSold(@PathVariable("id") Long id) {
+//        return ResponseEntity.ok(this.articleService.changeStatus(id, Article.Status.SOLD));
+//    }
 
+    @PutMapping("/batch-sell")
+    public ResponseEntity<List<ArticleResponseDto>> changeStatusesToSold(@RequestBody List<Long> ids) {
+        return ResponseEntity.ok(this.articleService.changeStatuses(ids, Article.Status.SOLD));
+    }
 
 }

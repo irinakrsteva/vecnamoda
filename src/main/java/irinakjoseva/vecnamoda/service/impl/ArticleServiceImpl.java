@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -57,6 +58,30 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return articleMapper.toResponseDto(article);
+    }
+
+//    @Override
+//    @Transactional
+//    public ArticleResponseDto changeStatus(Long id, Article.Status status) {
+//        Article article = articleRepository.getById(id);
+//        if (article == null) {
+//            return null;
+//        }
+//        article.setStatus(status);
+//        articleRepository.save(article);
+//        return articleMapper.toResponseDto(article);
+//    }
+
+    @Override
+    @Transactional
+    public List<ArticleResponseDto> changeStatuses(List<Long> ids, Article.Status status) {
+        List<Article> articles = articleRepository.findAllById(ids);
+        for(Article article : articles) {
+            if(article.getStatus() != Article.Status.AVAILABLE) throw new RuntimeException();
+            article.setStatus(status);
+            articleRepository.save(article);
+        }
+        return articles.stream().map(articleMapper::toResponseDto).collect(Collectors.toList());
     }
 
 //    @Override

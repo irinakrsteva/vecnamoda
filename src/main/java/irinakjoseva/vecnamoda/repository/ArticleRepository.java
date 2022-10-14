@@ -38,4 +38,7 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, L
     );
 
 
+    Article getById(Long id);
+
+    List<Article> findAllById(Iterable<Long> ids);
 }

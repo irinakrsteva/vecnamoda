@@ -24,6 +24,10 @@ public interface ArticleService {
 
     ArticleResponseDto saveArticle(ArticleRequestDto articlePostDto) throws IOException;
 
+//    ArticleResponseDto changeStatus(Long id, Article.Status status);
+
+    List<ArticleResponseDto> changeStatuses(List<Long> ids, Article.Status status);
+
 //    List<ArticleResponseDto> searchAvailableArticles(String query);
 
 
