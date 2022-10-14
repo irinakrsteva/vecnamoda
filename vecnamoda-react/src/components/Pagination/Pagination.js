@@ -25,9 +25,9 @@ function Pagination({page, totalPages, onChangePage}) {
         <div>
             <BootstrapPagination>
                 <BootstrapPagination.First disabled={page === 1} onClick={() => handleClick(1)}/>
-                <BootstrapPagination.Prev disabled={page === 1} onClick={() => handleClick(page-1)}/>
+                <BootstrapPagination.Prev disabled={page === 1} onClick={() => handleClick(page - 1)}/>
                 {renderItems()}
-                <BootstrapPagination.Next disabled={page === totalPages} onClick={() => handleClick(page+1)}/>
+                <BootstrapPagination.Next disabled={page === totalPages} onClick={() => handleClick(page + 1)}/>
                 <BootstrapPagination.Last disabled={page === totalPages} onClick={() => handleClick(totalPages)}/>
             </BootstrapPagination>
         </div>

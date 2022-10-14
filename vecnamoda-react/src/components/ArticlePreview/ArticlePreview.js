@@ -19,16 +19,14 @@ function ArticlePreview({article, onAddToCart = null}) {
 
     return (
         <Card className="mb-3">
-            {/*<Link to={"/shop/" + article.id} key={article.id}>*/}
-            {/*    <Card.Img variant="top" src=""/>*/}
-            {/*</Link>*/}
             <Card.Header>
-                {article.imageIds && article.imageIds.length !== 0 &&
+                {
+                    article.imageIds && article.imageIds.length !== 0 &&
 
-                <Carousel indicators={article.imageIds.length > 1} interval={null} variant="dark" as={Link} to={"/shop/" + article.id} id={"article-" + article.id + "-images"}>
-                    {renderImagesInCarousel(article.imageIds)}
-                </Carousel>
-
+                    <Carousel indicators={article.imageIds.length > 1} interval={null} variant="dark" as={Link}
+                              to={"/shop/" + article.id} id={"article-" + article.id + "-images"}>
+                        {renderImagesInCarousel(article.imageIds)}
+                    </Carousel>
                 }
 
 
@@ -36,9 +34,18 @@ function ArticlePreview({article, onAddToCart = null}) {
             <Card.Body>
                 <Card.Title>{article.price} DEN</Card.Title>
                 <Card.Text>
-                    This is the description of the article with id {article.id}.
+                    <span>{article.description ? article.description : "No description available"}</span>
                     <br/>
-                    Condition: <b>{article.articleCondition ? article.articleCondition.toLowerCase() : "Unknown"}</b>
+                    <span>Condition: <b>{article.articleCondition ? article.articleCondition.toLowerCase() : "Unknown"}</b></span>
+                    <br/>
+                    <span>Category: <b>{article.category ? article.category.name : "Unknown"}</b></span>
+                    <br/>
+                    <span>Size: <b>{article.size ? article.size.standard + article.size.value : "Unknown"}</b></span>
+                    <br/>
+                    <span>Color: <b>{article.color ? article.color.name : "Unknown"}</b></span>
+                    <br/>
+                    <span> {JSON.stringify(article)} </span>
+                    <br/>
                 </Card.Text>
 
 

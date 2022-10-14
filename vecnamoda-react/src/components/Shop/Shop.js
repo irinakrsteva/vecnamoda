@@ -15,10 +15,10 @@ function Shop() {
     const navigate = useNavigate();
     const cart = useContext(CartContext);
 
-    let [articles, setArticles] = useState(null);
-    let [page, setPage] = useState(1);
-    const size = 4;
-    let [totalPages, setTotalPages] = useState(1);
+    const [articles, setArticles] = useState(null);
+    const [page, setPage] = useState(1);
+    const pageSize = 4;
+    const [totalPages, setTotalPages] = useState(1);
 
     let onAdd = (article) => {
         cart.addItemToCart(article);
@@ -48,7 +48,7 @@ function Shop() {
 
     useEffect(() => {
         let fetchArticles = async () => {
-            return await getAvailableArticles(page, size);
+            return await getAvailableArticles(page, pageSize);
         }
 
         if (articles === null) {
@@ -63,7 +63,7 @@ function Shop() {
 
     useEffect(() => {
         let fetchArticles = async () => {
-            return await getAvailableArticles(page, size);
+            return await getAvailableArticles(page, pageSize);
         }
 
         fetchArticles().then(response => {

@@ -31,12 +31,15 @@ import Footer from "../Footer/Footer";
 function App() {
     // const [cart, setCart] = useState({items:[], total:0});
 
+    document.title = 'VecnaModa - Second Hand Online Shop';
+
     return (
-        <CartProvider>
-            <AuthProvider>
-                <div id={global} className="position-relative min-vh-100 flex-column text-dark">
-                    <Router>
-                        {/*<div className="min-vh-100 flex-column">*/}
+        <>
+            <CartProvider>
+                <AuthProvider>
+                    <div id={global} className="position-relative min-vh-100 flex-column text-dark">
+                        <Router>
+                            {/*<div className="min-vh-100 flex-column">*/}
                             <Menu/>
                             <Container fluid className="px-5 pt-4 content-container">
                                 <Routes>
@@ -57,11 +60,12 @@ function App() {
                                 </Routes>
                             </Container>
                             <Footer/>
-                        {/*</div>*/}
-                    </Router>
-                </div>
-            </AuthProvider>
-        </CartProvider>
+                            {/*</div>*/}
+                        </Router>
+                    </div>
+                </AuthProvider>
+            </CartProvider>
+        </>
     );
 
 }

@@ -46,6 +46,7 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
 
     const [formErrors, setFormErrors] = useState({
         priceValid: null,
+        descriptionValid: null,
         maxFileSizeExceeded: ""
     });
 
@@ -65,6 +66,15 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
         }
     }
 
+
+    let onDescriptionChange = (event) => {
+        let description = event.target.value;
+        setDescription(description);
+        if(description.length > 255) {
+            setFormErrors({...formErrors, descriptionValid: "Maximum description length: 255"});
+        } else setFormErrors({...formErrors, descriptionValid: ""});
+    };
+
     let onConditionChange = (event) => {
         let condition = event.value;
         setCondition(condition);
@@ -72,7 +82,7 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
 
     let handleUploadImage = async (image) => {
         if (image.size > 4194304) {
-            let maxFileError = "Maximum file size of " + image.name + " exceeded (>1MB)";
+            let maxFileError = "Maximum file size of " + image.name + " exceeded (>4MB)";
             setFormErrors({...formErrors, maxFileSizeExceeded: maxFileError});
             throw maxFileError;
         }
@@ -85,7 +95,7 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
             //Probably... *
             setFormErrors({
                 ...formErrors,
-                maxFileSizeExceeded: "Maximum file size of " + image.name + " exceeded (>1MB)"
+                maxFileSizeExceeded: "Maximum file size of " + image.name + " exceeded (>4MB)"
             });
             throw e;
         }
@@ -120,15 +130,15 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
     }
 
     let onCategoryChange = (e) => {
-        let category = e.target.value;
+        let category = e.value;
         setCategory(category);
     };
     let onColorChange = (e) => {
-        let color = e.target.value;
+        let color = e.value;
         setColor(color);
     };
     let onSizeChange = (e) => {
-        let size = e.target.value;
+        let size = e.value;
         setSize(size);
     };
 
@@ -212,7 +222,7 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
             {...restProps}
         >
             <Modal.Header closeButton>
-                Add new article to {consignmentId}
+                Add a new article to {consignmentId}
             </Modal.Header>
 
             <Modal.Body>
@@ -223,6 +233,12 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
                                 <Form.Label>Price</Form.Label>
                                 <Form.Control onChange={onPriceChange}/>
                                 <p className="formError">{formErrors.priceValid}</p>
+                            </Form.Group>
+
+                            <Form.Group className="price mb-2" controlId="formName">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control as="textarea" rows={2} onChange={onDescriptionChange}/>
+                                <p className="formError">{formErrors.descriptionValid}</p>
                             </Form.Group>
 
                             <Form.Group className="condition mb-2" controlId="formName">
@@ -241,19 +257,19 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
 
                             <Form.Group className="category mb-2" controlId="formName">
                                 <Form.Label>Category</Form.Label>
-                                <Select onchange={onCategoryChange}
+                                <Select onChange={onCategoryChange}
                                         options={getCategoryOptions()}/>
                             </Form.Group>
 
                             <Form.Group className="color mb-2" controlId="formName">
                                 <Form.Label>Color</Form.Label>
-                                <Select onchange={onColorChange}
+                                <Select onChange={onColorChange}
                                         options={getColorOptions()}/>
                             </Form.Group>
 
                             <Form.Group className="size mb-2" controlId="formName">
                                 <Form.Label>Size</Form.Label>
-                                <Select onchange={onSizeChange}
+                                <Select onChange={onSizeChange}
                                         options={getSizeOptions()}/>
                             </Form.Group>
 
