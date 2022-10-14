@@ -31,4 +31,10 @@ public class SizeServiceImpl implements SizeService {
         Size size = sizeRepository.getById(id);
         return sizeMapper.toResponseDto(size);
     }
+
+    @Override
+    public Size map(Integer id) {
+        return sizeRepository.findById(id)
+                .orElse(null);
+    }
 }

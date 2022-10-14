@@ -88,7 +88,7 @@ public class Article {
 
     @Named("articleImagesToImageIds")
     public List<Long> getImageIds() {
-        if(articleImages == null) {
+        if (articleImages == null) {
             return new ArrayList<>();
         }
         return articleImages.stream().map(articleImage -> articleImage.getImage().getId()).collect(Collectors.toList());
@@ -189,7 +189,7 @@ public class Article {
 
 
     public void addArticleImage(ArticleImage articleImage) {
-        if(articleImages == null) {
+        if (articleImages == null) {
             articleImages = new ArrayList<>();
         }
         articleImages.add(articleImage);
@@ -214,6 +214,11 @@ public class Article {
             this.condition = condition;
         }
 
+        public static Condition getCondition(String name) {
+            if (name == null) return null;
+            else return valueOf(name);
+        }
+
     }
 
     public enum Status { // TODO: add status Draft article for when creating consignment
@@ -225,6 +230,11 @@ public class Article {
 
         Status(String status) {
             this.status = status;
+        }
+
+        public static Status getStatus(String name) {
+            if (name == null) return null;
+            else return valueOf(name);
         }
     }
 

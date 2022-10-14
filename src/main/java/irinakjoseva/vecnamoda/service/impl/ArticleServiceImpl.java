@@ -32,10 +32,16 @@ public class ArticleServiceImpl implements ArticleService {
         this.articleMapper = articleMapper;
     }
 
-    public Page<ArticleResponseDto> getAllAvailableArticles(Pageable pageable) {
-        return articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE, pageable).map(articleMapper::toResponseDto);
-//        List<Article> articles = this.articleRepository.findAllByStatusEquals(Article.Status.AVAILABLE);
-//        return articleMapper.toResponseDtos(articles);
+    public Page<ArticleResponseDto> searchAvailableArticles(Pageable pageable,
+                                                            String searchString,
+                                                            Double startPrice,
+                                                            Double endPrice,
+                                                            Article.Condition articleCondition,
+                                                            Integer categoryId,
+                                                            Integer sizeId,
+                                                            Integer colorId) {
+        return articleRepository.findArticlesPageable(Article.Status.AVAILABLE, pageable, searchString, startPrice, endPrice, articleCondition, categoryId, sizeId, colorId)
+                .map(articleMapper::toResponseDto);
     }
 
     @Override

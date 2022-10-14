@@ -9,8 +9,8 @@ public class CategoryRequestDto {
     public String name;
 
     // ? Long or Category
-    public Long parentCategory;
+    public Integer parentCategory;
 
-    public Long sizeGroup;
+//    public Long sizeGroup;
 
 }

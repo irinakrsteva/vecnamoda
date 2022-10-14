@@ -33,6 +33,12 @@ public class ColorServiceImpl implements ColorService {
         return colorMapper.toResponseDto(color);
     }
 
+    @Override
+    public Color map(Integer id) {
+        return colorRepository.findById(id)
+                .orElse(null);
+    }
+
 //    @Override
 //    public ColorResponseDto addColor(ColorRequestDto colorPostDto) {
 //        Color color = colorMapper.requestDtoToModel(colorPostDto);

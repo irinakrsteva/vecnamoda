@@ -31,4 +31,10 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categories = categoryRepository.findAll();
         return categoryMapper.toResponseDtos(categories);
     }
+
+    @Override
+    public Category map(Integer id) {
+        return categoryRepository.findById(id)
+                .orElse(null);
+    }
 }

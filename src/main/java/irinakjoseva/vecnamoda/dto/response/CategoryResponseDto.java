@@ -6,6 +6,6 @@ public class CategoryResponseDto {
 
     public String name;
 
-    public Long parentCategoryId;
+    public Integer parentCategoryId;
 
 }

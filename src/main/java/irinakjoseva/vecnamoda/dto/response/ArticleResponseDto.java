@@ -1,6 +1,7 @@
 package irinakjoseva.vecnamoda.dto.response;
 
 import irinakjoseva.vecnamoda.model.Article;
+import irinakjoseva.vecnamoda.repository.SizeRepository;
 
 import java.util.List;
 
@@ -16,17 +17,17 @@ public class ArticleResponseDto {
 
     public String description;
 
-    public Long categoryId;
+    public CategoryResponseDto category;
 
-    public Long sizeId;
+    public SizeResponseDto size;
 
-    public Long colorId;
+    public ColorResponseDto color;
 
-    public Long brandId;
+    public Integer brandId;
 
     public Long purchaseId;
 
-    public Long consignmentId;
+    public ConsignmentResponseDto consignment;
 
     public Long paymentId;
 

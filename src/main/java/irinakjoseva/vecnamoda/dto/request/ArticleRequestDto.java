@@ -10,7 +10,6 @@ public class ArticleRequestDto {
     @NotNull
     public Float price;
 
-    @NotNull
     public Article.Condition articleCondition;
 
     @NotNull
@@ -18,18 +17,18 @@ public class ArticleRequestDto {
 
     public String description;
 
-    public Long categoryId;
+    public Integer categoryId;
 
-    public Long sizeId;
+    public Integer colorId;
 
-    public Long colorId;
+    public Integer sizeId;
 
-    public Long brandId;
+    public Integer brandId;
+
+    public List<Long> imageIds;
 
     @NotNull
     public Long consignmentId;
-
-    public List<Long> imageIds;
 
 }
 

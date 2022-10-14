@@ -10,7 +10,7 @@ public class ConsignmentResponseDto {
 
     public UserResponseDto user;
 
-    public List<ArticleResponseDto> articles;
+//    public List<ArticleResponseDto> articles;
 
     // public Date date;
 

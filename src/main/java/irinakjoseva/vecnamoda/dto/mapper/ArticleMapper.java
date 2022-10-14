@@ -27,16 +27,29 @@ public interface ArticleMapper {
 
     ArticleMapper mapper = Mappers.getMapper(ArticleMapper.class);
 
-    @Mappings({
-            @Mapping(source = "consignment.id", target = "consignmentId"),
-//            @Mapping(source = "imageIds", target = "imageIds", qualifiedByName = "articleImagesToImageIds")
-    })
+//    @Mappings({
+//            @Mapping(source = "consignment.id", target = "consignment"),
+//            @Mapping(source = "category.id", target = "category"),
+//            @Mapping(source = "color.id", target = "color"),
+//            @Mapping(source = "size.id", target = "size")
+//    })
     ArticleResponseDto toResponseDto(Article article);
 
-    @Mapping(source = "consignment.id", target = "consignmentId")
+//    @Mappings({
+//            @Mapping(source = "consignment.id", target = "consignmentId"),
+//            @Mapping(source = "category.id", target = "categoryId"),
+//            @Mapping(source = "color.id", target = "colorId"),
+//            @Mapping(source = "size.id", target = "sizeId")
+//    })
     List<ArticleResponseDto> toResponseDtos(List<Article> articles);
 
-    @Mapping(source = "consignmentId", target = "consignment")
+//    @Mapping(source = "consignmentId", target = "consignment")
+    @Mappings({
+            @Mapping(source = "consignmentId", target = "consignment"),
+            @Mapping(source = "categoryId", target = "category"),
+            @Mapping(source = "colorId", target = "color"),
+            @Mapping(source = "sizeId", target = "size")
+    })
     Article requestDtoToModel(ArticleRequestDto articlePostDto);
 
 }

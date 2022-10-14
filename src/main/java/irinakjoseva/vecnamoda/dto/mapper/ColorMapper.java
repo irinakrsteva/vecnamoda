@@ -2,7 +2,9 @@ package irinakjoseva.vecnamoda.dto.mapper;
 
 import irinakjoseva.vecnamoda.dto.response.ColorResponseDto;
 import irinakjoseva.vecnamoda.dto.request.ColorRequestDto;
+import irinakjoseva.vecnamoda.dto.response.ConsignmentResponseDto;
 import irinakjoseva.vecnamoda.model.Color;
+import irinakjoseva.vecnamoda.model.Consignment;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -14,6 +16,8 @@ public interface ColorMapper {
     ColorMapper mapper = Mappers.getMapper(ColorMapper.class);
 
     List<ColorResponseDto> toResponseDtos(List<Color> colors);
+
+    Color responseDtoToModel(ColorResponseDto dto);
 
     ColorResponseDto toResponseDto(Color color);
 
