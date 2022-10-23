@@ -28,12 +28,6 @@ public class Size {
         this.value = value;
     }
 
-
-    public String getStandardAndValue() {
-        return standard.concat(value);
-    }
-
-
     public Integer getId() {
         return id;
     }

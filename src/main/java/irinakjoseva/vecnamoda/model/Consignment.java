@@ -28,7 +28,7 @@ public class Consignment {
     private User user;
 
 
-    @OneToMany(mappedBy = "consignment", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "consignment", cascade = CascadeType.ALL)
     private List<Article> articles;
 
 

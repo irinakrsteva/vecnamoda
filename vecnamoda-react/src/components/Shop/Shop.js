@@ -12,12 +12,12 @@ import Pagination from "../Pagination/Pagination";
 
 
 function Shop() {
-    const navigate = useNavigate();
+    const PAGE_SIZE = 6;
+
     const cart = useContext(CartContext);
 
     const [articles, setArticles] = useState(null);
     const [page, setPage] = useState(1);
-    const pageSize = 4;
     const [totalPages, setTotalPages] = useState(1);
 
     let onAdd = (article) => {
@@ -32,8 +32,6 @@ function Shop() {
                     <Col key={"col" + i} xl={4} md={6}>
                         <ArticlePreview key={"article" + i} article={articles[i]} onAddToCart={onAdd}/>
                     </Col>
-
-                    {/*<Link to={"/shop/" + articles[i].id} key={articles[i].id}>ArticleView {articles[i].id}</Link>*/}
                 </>
             );
         }
@@ -48,29 +46,12 @@ function Shop() {
 
     useEffect(() => {
         let fetchArticles = async () => {
-            return await getAvailableArticles(page, pageSize);
-        }
-
-        if (articles === null) {
-            fetchArticles().then(response => {
-                console.log(response.data);
-                setArticles(response.data.content);
-                setTotalPages(response.data.totalPages);
-                console.log(totalPages);
-            });
-        }
-    });
-
-    useEffect(() => {
-        let fetchArticles = async () => {
-            return await getAvailableArticles(page, pageSize);
+            return await getAvailableArticles(page, PAGE_SIZE);
         }
 
         fetchArticles().then(response => {
-            console.log(response.data);
             setArticles(response.data.content);
             setTotalPages(response.data.totalPages);
-            console.log(totalPages);
         });
     },
         [page]

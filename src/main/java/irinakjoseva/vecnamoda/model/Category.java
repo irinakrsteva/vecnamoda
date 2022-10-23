@@ -1,7 +1,13 @@
 package irinakjoseva.vecnamoda.model;
 
+import irinakjoseva.vecnamoda.dto.response.CategoryResponseDto;
+import org.mapstruct.Named;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Entity
 @Table (name = "category")
@@ -15,13 +21,26 @@ public class Category {
     @Column (name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn (name = "parent_category_id")
-    private Category parentCategory;
+//    @ManyToOne
+//    @JoinColumn (name = "parent_category_id")
+    @Column(name="parent_category_id")
+    private Integer parentCategory;
+
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
+    private List<Category> childrenCategories;
 
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Article> articles;
+
+    public Category() {
+    }
+
+    public Category(String name, Integer parentCategory) {
+        this.name = name;
+        this.parentCategory = parentCategory;
+//        this.childrenCategories = new ArrayList<>();
+    }
 
 
     public Integer getId() {
@@ -40,11 +59,11 @@ public class Category {
         this.name = name;
     }
 
-    public Category getParentCategory() {
+    public Integer getParentCategory() {
         return parentCategory;
     }
 
-    public void setParentCategory(Category parentCategory) {
+    public void setParentCategory(Integer parentCategory) {
         this.parentCategory = parentCategory;
     }
 
@@ -59,4 +78,12 @@ public class Category {
         article.setCategory(null);
     }
 
+
+    public List<Category> getChildrenCategories() {
+        return childrenCategories;
+    }
+
+    public void setChildrenCategories(List<Category> childrenCategories) {
+        this.childrenCategories = childrenCategories;
+    }
 }

@@ -6,9 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Select from 'react-select'
 import Button from "react-bootstrap/Button";
-import {render} from "@testing-library/react";
 import {uploadImageFile} from "../../service/imageService";
-import ArticlePreview from "../ArticlePreview/ArticlePreview";
 import Image from "react-bootstrap/Image";
 import {getColors} from "../../service/colorService";
 import {getCategories} from "../../service/categoryService";
@@ -38,7 +36,7 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
     const [category, setCategory] = useState(null);
     const [color, setColor] = useState(null);
     const [size, setSize] = useState(null);
-    const [brand, setBrand] = useState(null); //ign
+    // const [brand, setBrand] = useState(null); //ign
     const [uploadedImages, setUploadedImages] = useState([]);
     const consignmentId = consignmentid;
 
@@ -51,13 +49,12 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
     });
 
     let handleHide = () => {
-        setUploadedImages([]);
         onHide();
     }
 
 
-    let onPriceChange = (event) => {
-        let price = event.target.value;
+    let onPriceChange = (e) => {
+        let price = e.target.value;
         setPrice(price);
         if (price > 0 && price <= 99999.99) {
             setFormErrors({...formErrors, priceValid: ""});
@@ -67,16 +64,16 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
     }
 
 
-    let onDescriptionChange = (event) => {
-        let description = event.target.value;
+    let onDescriptionChange = (e) => {
+        let description = e.target.value;
         setDescription(description);
-        if(description.length > 255) {
+        if (description.length > 255) {
             setFormErrors({...formErrors, descriptionValid: "Maximum description length: 255"});
         } else setFormErrors({...formErrors, descriptionValid: ""});
     };
 
-    let onConditionChange = (event) => {
-        let condition = event.value;
+    let onConditionChange = (e) => {
+        let condition = e;
         setCondition(condition);
     }
 
@@ -114,8 +111,6 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
                 setUploadedImages(uploadedImages => [...uploadedImages, newUploadedImage]);
             });
         }
-
-        console.log("All uploadedImages in state:", uploadedImages);
     };
 
     let renderPreviewImages = () => {
@@ -130,39 +125,22 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
     }
 
     let onCategoryChange = (e) => {
-        let category = e.value;
-        setCategory(category);
+        setCategory(e);
     };
     let onColorChange = (e) => {
-        let color = e.value;
-        setColor(color);
+        setColor(e);
     };
     let onSizeChange = (e) => {
-        let size = e.value;
-        setSize(size);
+        setSize(e);
     };
-
-    let postArticle = () => {
-        // if()
-        let article = {
-            price: price,
-            articleCondition: condition,
-            status: status,
-            description: description,
-            categoryId: category,
-            sizeId: size,
-            colorId: color,
-            // brandId: brand,
-            consignmentId: consignmentId,
-            imageIds: uploadedImages.map(img => img.id)
-        };
-        onAdd(article).then(() => handleHide());
-    }
 
     let getCategoryOptions = () => {
         if (categories) {
             return categories.map(c => {
-                return {value: c.id, label: c.name}
+                return {
+                    value: c.id,
+                    label: c.name.replace("w_", "women's ").replace("m_", "men's ").replace("c_", "children's ")
+                }
             });
         } else
             return [];
@@ -186,30 +164,62 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
             return [];
     }
 
+    let clearArticle = () => {
+        setPrice(0.00);
+        setCondition(conditions[0]);
+        setDescription("");
+        setCategory(null);
+        setColor(null);
+        setSize(null);
+        // setBrand(null); //ign
+        setUploadedImages([]);
+    };
+
+    let postArticle = () => {
+        // if()
+        let article = {
+            price: price,
+            articleCondition: condition.value,
+            status: status,
+            description: description,
+            categoryId: category.value,
+            sizeId: size.value,
+            colorId: color.value,
+            // brandId: brand,
+            consignmentId: consignmentId,
+            imageIds: uploadedImages.map(img => img.id)
+        };
+
+
+        onAdd(article).then(() => {
+            clearArticle();
+            handleHide();
+        });
+    }
 
     useEffect(() => {
         renderPreviewImages();
     });
 
     useEffect(() => {
-        console.log("Fetching C,C & S");
+        // console.log("Fetching C,C & S");
         if (categories === null) {
             getCategories().then(response => {
                 let listCategories = response.data;
                 setCategories(listCategories);
-            }).catch(console.log("Couldn't fetch categories"));
+            }).catch(e => console.log(e));
         }
         if (colors === null) {
             getColors().then(response => {
                 let listColors = response.data
                 setColors(listColors);
-            }).catch(console.log("Couldn't fetch colors"));
+            }).catch(e => console.log(e));
         }
         if (sizes === null) {
             getSizes().then(response => {
                 let listSizes = response.data;
                 setSizes(listSizes);
-            }).catch(console.log("Couldn't fetch sizes"));
+            }).catch(e => console.log(e));
         }
     });
 
@@ -231,25 +241,28 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
                         <Form>
                             <Form.Group className="price mb-2" controlId="formName">
                                 <Form.Label>Price</Form.Label>
-                                <Form.Control onChange={onPriceChange}/>
+                                <Form.Control onChange={onPriceChange} value={price}/>
                                 <p className="formError">{formErrors.priceValid}</p>
                             </Form.Group>
 
                             <Form.Group className="price mb-2" controlId="formName">
                                 <Form.Label>Description</Form.Label>
-                                <Form.Control as="textarea" rows={2} onChange={onDescriptionChange}/>
+                                <Form.Control as="textarea" rows={2} onChange={onDescriptionChange}
+                                              value={description}/>
                                 <p className="formError">{formErrors.descriptionValid}</p>
                             </Form.Group>
 
                             <Form.Group className="condition mb-2" controlId="formName">
                                 <Form.Label>Condition</Form.Label>
-                                <Select options={conditions} onChange={onConditionChange}/>
+                                <Select options={conditions} onChange={onConditionChange} value={condition}/>
                             </Form.Group>
 
                             <Form.Group className="image mb-2" controlId="formName">
                                 <Form.Label>Images</Form.Label>
-                                <Form.Control type="file" multiple onChange={onImagesChange} accept="image/*"/>
-                                {//TODO look into what is the actual max file size for form data posting (looks to be around 1MB}
+                                <Form.Control className="px-5" type="file" multiple onChange={onImagesChange}
+                                              accept="image/*"/>
+                                {
+                                    //TODO look into what is the actual max file size for form data posting (looks to be around 1MB}
                                 }
                                 <p className="formError">{formErrors.maxFileSizeExceeded}</p>
                                 {renderPreviewImages()}
@@ -258,19 +271,25 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
                             <Form.Group className="category mb-2" controlId="formName">
                                 <Form.Label>Category</Form.Label>
                                 <Select onChange={onCategoryChange}
-                                        options={getCategoryOptions()}/>
+                                        options={getCategoryOptions()}
+                                        value={category}
+                                />
                             </Form.Group>
 
                             <Form.Group className="color mb-2" controlId="formName">
                                 <Form.Label>Color</Form.Label>
                                 <Select onChange={onColorChange}
-                                        options={getColorOptions()}/>
+                                        options={getColorOptions()}
+                                        value={size}
+                                />
                             </Form.Group>
 
                             <Form.Group className="size mb-2" controlId="formName">
                                 <Form.Label>Size</Form.Label>
                                 <Select onChange={onSizeChange}
-                                        options={getSizeOptions()}/>
+                                        options={getSizeOptions()}
+                                        value={color}
+                                />
                             </Form.Group>
 
                         </Form>

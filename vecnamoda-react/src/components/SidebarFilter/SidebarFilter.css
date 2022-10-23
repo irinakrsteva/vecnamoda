@@ -3,6 +3,46 @@
     z-index: 1;
 }
 
-.accordion-toggle {
-    background-color: #a2bdb0;
+.accordion-button:not(.collapsed)  {
+    background-color: #d3ded3 !important;
+    color: black !important;
+}
+
+.accordion-button:not(.collapsed)::after  {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/2791/2791551.png') !important;
+}
+
+.horizontal-slider {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    padding-bottom: 35px;
+}
+.example-thumb {
+    cursor: pointer;
+    position: absolute;
+    z-index: 100;
+    background: #ffffff;
+    border: 5px solid #5d8370;
+    border-radius: 100%;
+    display: flex;
+    box-shadow: 0 0 2px 0 rgba(0 0 0 44);
+}
+.example-track {
+    position: relative;
+    background: #ddd;
+}
+.example-track.example-track-0 {
+    background: #ddd;
+}
+.horizontal-slider .example-track {
+    top: 20px;
+    height: 4px;
+}
+.horizontal-slider .example-thumb {
+    top: 12px;
+    width: 10px;
+    outline: none;
+    height: 10px;
+    line-height: 38px;
 }

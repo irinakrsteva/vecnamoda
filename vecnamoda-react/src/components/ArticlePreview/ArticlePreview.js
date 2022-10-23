@@ -23,8 +23,14 @@ function ArticlePreview({article, onAddToCart = null}) {
                 {
                     article.imageIds && article.imageIds.length !== 0 &&
 
-                    <Carousel indicators={article.imageIds.length > 1} interval={null} variant="dark" as={Link}
-                              to={"/shop/" + article.id} id={"article-" + article.id + "-images"}>
+                    <Carousel
+                        indicators={false}
+                        slide={false}
+                        controls={article.imageIds.length > 1}
+                        interval={null}
+                        variant="dark"
+                        // as={Link} to={"/shop/" + article.id} id={"article-" + article.id + "-images"}
+                    >
                         {renderImagesInCarousel(article.imageIds)}
                     </Carousel>
                 }
@@ -34,18 +40,21 @@ function ArticlePreview({article, onAddToCart = null}) {
             <Card.Body>
                 <Card.Title>{article.price} DEN</Card.Title>
                 <Card.Text>
-                    <span>{article.description ? article.description : "No description available"}</span>
+                    <span><i>{article.description ? article.description : "No description available"}</i></span>
                     <br/>
                     <span>Condition: <b>{article.articleCondition ? article.articleCondition.toLowerCase() : "Unknown"}</b></span>
                     <br/>
-                    <span>Category: <b>{article.category ? article.category.name : "Unknown"}</b></span>
+                    <span>Category: <b>{article.category ?
+                        article.category.name.replace("w_", "women's ").replace("m_", "men's ").replace("c_","children's ")
+                        : "Unknown"}</b>
+                    </span>
                     <br/>
-                    <span>Size: <b>{article.size ? article.size.standard + article.size.value : "Unknown"}</b></span>
+                    <span>Size: <b>{article.size ? article.size.standard + " " + article.size.value : "Unknown"}</b></span>
                     <br/>
                     <span>Color: <b>{article.color ? article.color.name : "Unknown"}</b></span>
                     <br/>
-                    <span> {JSON.stringify(article)} </span>
-                    <br/>
+                    {/*<span> {JSON.stringify(article)} </span>*/}
+                    {/*<br/>*/}
                 </Card.Text>
 
 

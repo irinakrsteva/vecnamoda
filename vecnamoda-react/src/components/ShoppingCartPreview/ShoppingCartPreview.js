@@ -14,7 +14,7 @@ function ShoppingCartPreview(props) {
 
     let productDescription = (item) => {
         return ((item.color ? item.color.name : "") + " "
-            + (item.category ? item.category.name : "") + " "
+            + (item.category ? item.category.name : "").replace("w_", "women's ").replace("m_", "men's ").replace("c_","children's ") + " "
             + (item.size ? "size " + item.size.value + " " + item.size.standard : "")).toUpperCase()
             + " (" + (item.description ? item.description : "No description available") + ")";
     }
@@ -46,7 +46,7 @@ function ShoppingCartPreview(props) {
             soldArticles = response;
         }).catch(e => console.log(e));
 
-        console.log(soldArticles);
+        cart.clearCart();
         props.onHide();
         nav('/checkout');
     }

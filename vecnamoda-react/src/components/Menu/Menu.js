@@ -105,68 +105,12 @@ function Menu() {
                     </Nav>
 
                 </Navbar.Collapse>
-
-
             </Navbar>
-
-            {/*<Navbar sticky="top" id="menu" className="bg-light" expand="lg">*/}
-
-
-            {/*    <Col md="2">*/}
-            {/*        <Navbar.Brand as={Link} to="/">*/}
-            {/*            <Image fluid id="logo" src={logo}/>*/}
-            {/*        </Navbar.Brand>*/}
-            {/*    </Col>*/}
-
-            {/*    <Navbar.Toggle aria-controls="basic-navbar-nav"/>*/}
-
-            {/*    <Navbar.Collapse id="responsive-navbar-nav">*/}
-            {/*        <Nav className="nav container-fluid ">*/}
-            {/*            <Nav.Item>*/}
-            {/*                <Nav.Link as={Link} to="/shop">Shop</Nav.Link>*/}
-            {/*            </Nav.Item>*/}
-
-            {/*            <Nav.Item>*/}
-            {/*                <Nav.Link as={Link} to="/sell">Sell</Nav.Link>*/}
-            {/*            </Nav.Item>*/}
-
-            {/*            <Nav.Item>*/}
-            {/*                <Nav.Link as={Link} to="#">About</Nav.Link>*/}
-            {/*            </Nav.Item>*/}
-
-            {/*        </Nav>*/}
-
-            {/*        <Form className="d-flex">*/}
-            {/*            <FormControl type="search" placeholder="Search" className="me-3"/>*/}
-            {/*        </Form>*/}
-
-            {/*        <Nav className="nav ms-lg-auto">*/}
-
-                        {/*{isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu()}*/}
-
-                        {/*<Nav.Item>*/}
-                        {/*    <Nav.Link className="text-light" as={Button} onClick={() => setShowCartPreview(true)}>*/}
-                        {/*        Shopping Cart*/}
-                        {/*    </Nav.Link>*/}
-                        {/*</Nav.Item>*/}
-
-            {/*        </Nav>*/}
-            {/*    </Navbar.Collapse>*/}
-
-
-            {/*</Navbar>*/}
 
 
             <ShoppingCartPreview
                 show={showCartPreview}
                 onHide={() => setShowCartPreview(false)}
-                // content={[
-                //     {id: 1, price: 900, name: "ArticleView 1"},
-                //     {id: 2, price: 1000, name: "ArticleView 2"},
-                //     {id: 3, price: 1500, name: "ArticleView 3"},
-                //     {id: 4, price: 600, name: "ArticleView 4"},
-                //     {id: 5, price: 2100, name: "ArticleView 5"}
-                // ]}
             />
         </>
     );
