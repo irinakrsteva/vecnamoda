@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
-import ShoppingCartPreview from "../ShoppingCartPreview/ShoppingCartPreview";
+import ShoppingCartPreview from "../../components/ShoppingCartPreview/ShoppingCartPreview";
 import {AuthContext} from "../../context/AuthContext";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import {Image, NavDropdown} from "react-bootstrap";
@@ -33,10 +33,10 @@ function Menu() {
         return (
             <>
                 <Nav.Item>
-                    <Nav.Link className="mx-1" as={Link} to="/register">Register</Nav.Link>
+                    <Nav.Link className="mx-1 link" as={Link} to="/register">Register</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link className="mx-1" as={Link} to="/login">Log in</Nav.Link>
+                    <Nav.Link className="mx-1 link" as={Link} to="/login">Log in</Nav.Link>
                 </Nav.Item>
             </>
         );
@@ -46,10 +46,10 @@ function Menu() {
         return (
             <>
                 <Nav.Item>
-                    <Nav.Link className="mx-1" as={Link} to="/account">My account</Nav.Link>
+                    <Nav.Link className="mx-1 link" as={Link} to="/account">My account</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link className="mx-1 text-white" as={Button} onClick={() => {
+                    <Nav.Link className="mx-1 text-white link" as={Button} onClick={() => {
                         onLogout()
                     }}>Log out</Nav.Link>
                 </Nav.Item>
@@ -64,7 +64,7 @@ function Menu() {
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className="px-5">
 
                 <Navbar.Brand as={Link} to="/" >
-                    <Image className="logo" fluid id="logo" src={logo}/>
+                    <Image className="logo mx-4" fluid id="logo" src={logo}/>
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
@@ -72,33 +72,24 @@ function Menu() {
 
                     <Nav className="md-auto">
                         <Nav.Item>
-                            <Nav.Link as={Link} to="/shop">Shop</Nav.Link>
+                            <Nav.Link as={Link} to="/shop" className="link">Shop</Nav.Link>
                         </Nav.Item>
 
                         <Nav.Item>
-                            <Nav.Link as={Link} to="/sell">Sell</Nav.Link>
+                            <Nav.Link as={Link} to="/sell" className="link">Sell</Nav.Link>
                         </Nav.Item>
 
                         <Nav.Item>
-                            <Nav.Link as={Link} to="#">About</Nav.Link>
+                            <Nav.Link as={Link} to="#" className="link">About</Nav.Link>
                         </Nav.Item>
 
                     </Nav>
 
-                    <Form className="d-flex mx-3">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                    </Form>
-
-                    <Nav className="ms-auto">
+                    <Nav className="ms-auto mr-5">
                         { isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu() }
 
                         <Nav.Item>
-                            <Nav.Link className="mx-1 text-light" as={Button} onClick={() => setShowCartPreview(true)}>
+                            <Nav.Link className="mx-1 text-light link" as={Button} onClick={() => setShowCartPreview(true)}>
                                 Shopping Cart
                             </Nav.Link>
                         </Nav.Item>

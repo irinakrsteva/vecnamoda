@@ -8,6 +8,8 @@ import stock3 from '../../assets/imgs/stock3.jpg'
 import Image from "react-bootstrap/Image";
 import {Link} from "react-router-dom";
 
+import './Intro.css';
+
 function Intro() {
 
     return (
@@ -22,11 +24,17 @@ function Intro() {
                 <h4>Browse quality items at affordable prices</h4>
                 <br/>
                 <Row>
-                    <Col lg="6">
+                    <Col lg="6" className="img-container">
                         <Image className="img-fluid w-100" src={stock1}/>
+                        <h1 className="overlay-text-shop">
+                            <Link to={'/shop'} className="special-link">Shop...</Link>
+                        </h1>
                     </Col>
-                    <Col lg="6">
+                    <Col lg="6" className="img-container">
                         <Image className="img-fluid w-100" src={stock2}/>
+                        <h1 className="overlay-text-sell">
+                            <Link to={'/sell'} className="special-link">...Or sell </Link>
+                        </h1>
                     </Col>
                 </Row>
             </div>

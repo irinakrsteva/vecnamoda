@@ -60,7 +60,7 @@
 
 html {
   box-sizing: border-box;
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Inter Tight", "Candara", sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -72,17 +72,13 @@ html {
   box-sizing: inherit;
 }
 
-@-ms-viewport {
-  width: device-width;
-}
-
 article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
 
 body {
   margin: 0;
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Inter Tight", "Candara", sans-serif;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.5;
@@ -4193,7 +4189,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Inter Tight", "Candara", sans-serif;
   font-style: normal;
   font-weight: normal;
   line-height: 1.5;
@@ -4307,7 +4303,7 @@ button.close {
   display: block;
   max-width: 276px;
   padding: 1px;
-  font-family: "Inter Tight", sans-serif;
+  font-family: "Inter Tight", "Candara", sans-serif;
   font-style: normal;
   font-weight: normal;
   line-height: 1.5;

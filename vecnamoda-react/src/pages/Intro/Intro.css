@@ -1,0 +1,29 @@
+.img-container {
+    position: relative;
+    width: 100%;
+}
+
+.overlay-text-shop {
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    padding: 10px;
+}
+.overlay-text-sell {
+     position: absolute;
+     bottom: 50px;
+     left: 100px;
+     letter-spacing: -1px;
+     padding: 10px;
+ }
+
+.special-link {
+    font-size: 1.8em;
+    letter-spacing: -2px;
+    color: white;
+    /*-webkit-text-stroke: 1px darkseagreen;*/
+}
+.special-link:hover {
+    color: lightgray;
+    -webkit-text-stroke: 1px white;
+}

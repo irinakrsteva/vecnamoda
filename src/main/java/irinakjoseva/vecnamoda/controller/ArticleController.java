@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -30,12 +32,19 @@ public class ArticleController {
                                                                          @RequestParam(required = false) String searchString,
                                                                          @RequestParam(required = false) Double startPrice,
                                                                          @RequestParam(required = false) Double endPrice,
-                                                                         @RequestParam(required = false) String condition,
-                                                                         @RequestParam(required = false) Integer categoryId,
-                                                                         @RequestParam(required = false) Integer sizeId,
-                                                                         @RequestParam(required = false) Integer colorId) {
-        Article.Condition articleCondition = Article.Condition.getCondition(condition);
-        return ResponseEntity.ok(this.articleService.searchAvailableArticles(pageable, searchString, startPrice, endPrice, articleCondition, categoryId, sizeId, colorId));
+                                                                         @RequestParam(required = false) List<String> conditions,
+                                                                         @RequestParam(required = false) List<Integer> categoryIds,
+                                                                         @RequestParam(required = false) List<Integer> sizeIds,
+                                                                         @RequestParam(required = false) List<Integer> colorIds) {
+//        Article.Condition articleCondition = Article.Condition.getCondition(condition);
+        List<Article.Condition> articleConditions = (conditions == null)
+                ? new ArrayList<>()
+                : conditions.stream()
+                .map(Article.Condition::getCondition)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(this.articleService.searchAvailableArticles(pageable, searchString,
+                startPrice, endPrice, articleConditions, categoryIds, sizeIds, colorIds));
     }
 
     @PostMapping("/add")

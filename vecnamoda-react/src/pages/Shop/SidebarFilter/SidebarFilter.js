@@ -6,38 +6,20 @@ import Form from 'react-bootstrap/Form';
 import ReactSlider from 'react-slider';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {getCategories} from "../../service/categoryService";
-import {getSizes} from "../../service/sizeService";
-import {getColors} from "../../service/colorService";
+import {getCategories} from "../../../service/categoryService";
+import {getSizes} from "../../../service/sizeService";
+import {getColors} from "../../../service/colorService";
 import {TreeSelect} from "antd";
+import "antd/dist/antd.css";
 
-function SidebarFilter() {
+function SidebarFilter({filters, filterHandlers, updateResults}) {
 
     const conditionOptions = ['EXCELLENT', 'GREAT', 'GOOD'];
-
     const [categoryOptions, setCategoryOptions] = useState([]);
     const [sizeOptions, setSizeOptions] = useState([]);
     const [colorOptions, setColorOptions] = useState([]);
 
-    const [priceFilter, setPriceFilter] = useState([0, 30000]);
-    const [conditionFilter, setConditionFilter] = useState([]);
-    const [categoryFilter, setCategoryFilter] = useState([]);
-    const [sizeFilter, setSizeFilter] = useState([]);
-    const [colorFilter, setColorFilter] = useState([]);
-
     // ----
-
-    let onChangePriceSlider = (e) => {
-        setPriceFilter(e);
-    };
-
-    let changeFromPrice = (e) => {
-        setPriceFilter([e.target.value, priceFilter[1]]);
-    };
-
-    let changeToPrice = (e) => {
-        setPriceFilter([priceFilter[0], e.target.value]);
-    };
 
     let loadCategoryOptions = async () => {
         return await getCategories();
@@ -45,64 +27,46 @@ function SidebarFilter() {
 
     let loadSizeOptions = async () => {
         return await getSizes();
-    }
+    };
 
     let loadColorOptions = async () => {
         return await getColors();
-    }
-
-    // Change handlers:
-
-    let handleConditionChange = (condition) => {
-        let newConditionFilter = [...conditionFilter];
-        if (conditionFilter.includes(condition)) {
-            newConditionFilter.splice(newConditionFilter.indexOf(condition), 1);
-        } else {
-            newConditionFilter.push(condition);
-        }
-        setConditionFilter(newConditionFilter);
     };
 
-    let handleCategoryChange = (categoryId) => {
-        let newCategoryFilter = [...categoryFilter];
-        if (categoryFilter.includes(categoryId)) {
-            newCategoryFilter.splice(newCategoryFilter.indexOf(categoryId), 1);
-        } else {
-            newCategoryFilter.push(categoryId);
-        }
-        setCategoryFilter(newCategoryFilter);
+    // -- Change handlers:
+
+    let onChangeStartPrice = (e) => {
+        filterHandlers.handlePriceChange([e.target.value, filters.priceFilter[1]]);
+        console.log("Start price changed to: " + e.target.value);
     };
 
-    let handleSizeChange = (sizeId) => {
-        let newSizeFilter = [...sizeFilter];
-        if (sizeFilter.includes(sizeId)) {
-            newSizeFilter.splice(newSizeFilter.indexOf(sizeId), 1);
-        } else {
-            newSizeFilter.push(sizeId);
-        }
-        setSizeFilter(newSizeFilter);
+    let onChangeEndPrice = (e) => {
+        filterHandlers.handlePriceChange([filters.priceFilter[0], e.target.value]);
+        console.log("End price changed to: " + e.target.value);
     };
-
-    let handleColorChange = (colorId) => {
-        let newColorFilter = [...colorFilter];
-        if (colorFilter.includes(colorId)) {
-            newColorFilter.splice(newColorFilter.indexOf(colorId), 1);
-        } else {
-            newColorFilter.push(colorId);
-        }
-        setColorFilter(newColorFilter);
-    }
 
     // Effects:
 
+    // -- set Category options --
     useEffect(() => {
         if (categoryOptions.length > 0) {
             return;
         }
         loadCategoryOptions().then(response => {
-            setCategoryOptions(response.data);
+            let formattedResponse = (response.data).map(category => {
+                return ({
+                    id: category.id,
+                    value: category.id,
+                    pId: category.parentCategoryId,
+                    title: category.name.replace("w_", "women's ")
+                        .replace("m_", "men's ")
+                        .replace("c_", "children's "),
+                });
+            });
+            setCategoryOptions(formattedResponse);
         }).catch(e => console.log(e));
     });
+    // -- set Size options --
     useEffect(() => {
         if (sizeOptions.length > 0) {
             return;
@@ -112,6 +76,7 @@ function SidebarFilter() {
         }).catch(e => console.log(e));
 
     });
+    // -- set Color options --
     useEffect(() => {
         if (colorOptions.length > 0) {
             return;
@@ -122,38 +87,33 @@ function SidebarFilter() {
 
     });
 
-    useEffect(() => {
-        // console.log(colorFilter);
-    });
-
-
-    // Render:
-
     return (
         <Accordion alwaysOpen="true" flush>
             <h5 className="mx-2 my-4">Filter articles</h5>
 
             {/*PRICE*/}
             <Accordion.Item eventKey={0}>
-                <Accordion.Header>Price {(priceFilter[0] !== 0 || priceFilter[1] !== 30000) ? "*" : ""}</Accordion.Header>
+                <Accordion.Header>Price {(filters.priceFilter[0] !== 0 || filters.priceFilter[1] !== 30000) ? "*" : ""}</Accordion.Header>
                 <Accordion.Body className="pb-5">
                     <ReactSlider
                         className="horizontal-slider"
                         thumbClassName="example-thumb"
                         trackClassName="example-track"
-                        value={priceFilter}
-                        onChange={onChangePriceSlider}
+                        value={filters.priceFilter} // only using array for priceFilter because that's what ReactSlider wants
+                        onChange={filterHandlers.handlePriceChange}
                         min={0}
                         max={30000}
                     />
                     <Row>
                         <Col className="col-md-6">
-                            <Form.Control className="fromPrice" size="sm" onChange={changeFromPrice}
-                                          value={priceFilter[0]}/>
+                            <Form.Control className="fromPrice" size="sm"
+                                          onChange={onChangeStartPrice}
+                                          value={filters.priceFilter[0]}/>
                         </Col>
                         <Col className="col-md-6">
-                            <Form.Control className="toPrice" size="sm" onChange={changeToPrice}
-                                          value={priceFilter[1]}/>
+                            <Form.Control className="toPrice" size="sm"
+                                          onChange={onChangeEndPrice}
+                                          value={filters.priceFilter[1]}/>
                         </Col>
                     </Row>
                 </Accordion.Body>
@@ -161,14 +121,14 @@ function SidebarFilter() {
 
             {/*CONDITION*/}
             <Accordion.Item eventKey={1}>
-                <Accordion.Header>Condition {conditionFilter.length !== 0 ? "*" : ""}</Accordion.Header>
+                <Accordion.Header>Condition {filters.conditionFilter.length !== 0 ? "*" : ""}</Accordion.Header>
                 <Accordion.Body>
                     {conditionOptions.map((condition, index) => {
                         return (
                             <Form.Check
                                 type="checkbox"
-                                checked={conditionFilter.includes(condition)}
-                                onChange={() => handleConditionChange(condition)}
+                                checked={filters.conditionFilter.includes(condition)}
+                                onChange={() => filterHandlers.handleConditionChange(condition)}
                                 label={`${condition}`}
                                 id={`condition-${index}`}
                                 name="conditionGroup"
@@ -178,37 +138,10 @@ function SidebarFilter() {
                 </Accordion.Body>
             </Accordion.Item>
 
-            {/*CATEGORY*/}
-            <Accordion.Item eventKey={2}>
-                <Accordion.Header>Category {categoryFilter.length !== 0 ? "*" : ""}</Accordion.Header>
-                <Accordion.Body>
-                    {/*{categoryOptions.map((category, index) => {*/}
-                    {/*    return (*/}
-                    {/*        <Form.Check*/}
-                    {/*            type="checkbox"*/}
-                    {/*            onChange={() => handleCategoryChange(category.id)}*/}
-                    {/*            checked={categoryFilter.includes(category.id)}*/}
-                    {/*            label={`${category.name.replace("w_", "women's ").replace("m_", "men's ").replace("c_", "children's ")}`}*/}
-                    {/*            id={`category-${index}`}*/}
-                    {/*        />*/}
-                    {/*    );*/}
-                    {/*})}*/}
-
-                    <div id="tree-select"/>
-                    <TreeSelect
-                        treeData={ categoryOptions }
-                        treeCheckable={true}
-                        showCheckedStrategy="SHOW_PARENT"
-                        placeholder="Select category"
-                        getPopupContainer={() => document.getElementById("tree-select")}
-                    />
-
-                </Accordion.Body>
-            </Accordion.Item>
 
             {/*SIZE*/}
             <Accordion.Item eventKey={3}>
-                <Accordion.Header>Size {sizeFilter.length !== 0 ? "*" : ""}</Accordion.Header>
+                <Accordion.Header>Size {filters.sizeFilter.length !== 0 ? "*" : ""}</Accordion.Header>
                 <Accordion.Body>
                     <Accordion alwaysOpen="true" flush>
                         <Accordion.Item eventKey={0}>
@@ -218,8 +151,8 @@ function SidebarFilter() {
                                     return (
                                         <Form.Check
                                             className="col-6 pl-5 pr-0"
-                                            onChange={() => handleSizeChange(size.id)}
-                                            checked={sizeFilter.includes(size.id)}
+                                            onChange={() => filterHandlers.handleSizeChange(size.id)}
+                                            checked={filters.sizeFilter.includes(size.id)}
                                             type="checkbox"
                                             label={`${size.value}`}
                                             id={`size-${index}`}
@@ -235,8 +168,8 @@ function SidebarFilter() {
                                     return (
                                         <Form.Check
                                             className="col-6 pl-5 pr-0"
-                                            onChange={() => handleSizeChange(size.id)}
-                                            checked={sizeFilter.includes(size.id)}
+                                            onChange={() => filterHandlers.handleSizeChange(size.id)}
+                                            checked={filters.sizeFilter.includes(size.id)}
                                             type="checkbox"
                                             label={`${size.value}`}
                                             id={`size-${index}`}
@@ -252,8 +185,8 @@ function SidebarFilter() {
                                     return (
                                         <Form.Check
                                             className="col-6 pl-5 pr-0"
-                                            onChange={() => handleSizeChange(size.id)}
-                                            checked={sizeFilter.includes(size.id)}
+                                            onChange={() => filterHandlers.handleSizeChange(size.id)}
+                                            checked={filters.sizeFilter.includes(size.id)}
                                             type="checkbox"
                                             label={`${size.value}`}
                                             id={`size-${index}`}
@@ -269,14 +202,14 @@ function SidebarFilter() {
 
             {/*COLOR*/}
             <Accordion.Item eventKey={4}>
-                <Accordion.Header>Color {colorFilter.length !== 0 ? "*" : ""}</Accordion.Header>
+                <Accordion.Header>Color {filters.colorFilter.length !== 0 ? "*" : ""}</Accordion.Header>
                 <Accordion.Body className="row">
                     {colorOptions.map((color, index) => {
                         return (
                             <Form.Check
                                 className="col-6 pl-5 pr-0"
-                                onChange={() => handleColorChange(color.id)}
-                                checked={colorFilter.includes(color.id)}
+                                onChange={() => filterHandlers.handleColorChange(color.id)}
+                                checked={filters.colorFilter.includes(color.id)}
                                 type="checkbox"
                                 label={`${color.name}`}
                                 id={`size-${index}`}
@@ -286,7 +219,40 @@ function SidebarFilter() {
                 </Accordion.Body>
             </Accordion.Item>
 
-            <Button className="float-right my-4">Update results</Button>
+            {/*CATEGORY*/}
+            <Accordion.Item eventKey={2}>
+                <Accordion.Header>Category {filters.categoryFilter.length !== 0 ? "*" : ""}</Accordion.Header>
+                <Accordion.Body>
+
+                    <div>
+                        <TreeSelect
+                            showSearch={false}
+                            bordered={true}
+                            allowClear
+                            treeDefaultExpandAll
+                            id="tree-select"
+                            treeDataSimpleMode={true}
+                            treeData={categoryOptions}
+                            treeCheckable={true}
+                            multiple={true}
+                            showCheckedStrategy={TreeSelect.SHOW_ALL}
+                            placeholder="Select category"
+                            value={filters.categoryFilter}
+                            onChange={filterHandlers.handleCategoryChange}
+                            style={{width: "100%"}}
+                            // getPopupContainer={() => document.getElementById("tree-select")}
+                        />
+                    </div>
+
+                </Accordion.Body>
+            </Accordion.Item>
+
+            <Button
+                className="float-right my-4"
+                onClick={updateResults}
+            >
+                Update results
+            </Button>
 
         </Accordion>
     );

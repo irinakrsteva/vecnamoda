@@ -11,23 +11,27 @@ import Image from "react-bootstrap/Image";
 import {getColors} from "../../service/colorService";
 import {getCategories} from "../../service/categoryService";
 import {getSizes} from "../../service/sizeService";
+import {TreeSelect} from "antd";
 
 //ONLY FOR EMPLOYEES/ADMINS
 
 function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
 
     const auth = useContext(AuthContext);
+
+    // -- Options states
+
     const conditions = [
         {value: 'EXCELLENT', label: 'Excellent'},
         {value: 'GREAT', label: 'Great'},
         {value: 'GOOD', label: 'Good'}
     ];
-    const [categories, setCategories] = useState(null);
-    const [colors, setColors] = useState(null);
-    const [sizes, setSizes] = useState(null);
+    const [categories, setCategories] = useState([]);
+    const [colors, setColors] = useState([]);
+    const [sizes, setSizes] = useState([]);
 
 
-    // ----- initial values ------
+    // ----- Form value states ------
 
     const [price, setPrice] = useState(0.00);
     const [condition, setCondition] = useState(conditions[0]);
@@ -36,7 +40,6 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
     const [category, setCategory] = useState(null);
     const [color, setColor] = useState(null);
     const [size, setSize] = useState(null);
-    // const [brand, setBrand] = useState(null); //ign
     const [uploadedImages, setUploadedImages] = useState([]);
     const consignmentId = consignmentid;
 
@@ -52,6 +55,7 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
         onHide();
     }
 
+    // -- Change handlers
 
     let onPriceChange = (e) => {
         let price = e.target.value;
@@ -62,7 +66,6 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
             setFormErrors({...formErrors, priceValid: "Price can only be between 0 and 99999.99"});
         }
     }
-
 
     let onDescriptionChange = (e) => {
         let description = e.target.value;
@@ -134,36 +137,6 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
         setSize(e);
     };
 
-    let getCategoryOptions = () => {
-        if (categories) {
-            return categories.map(c => {
-                return {
-                    value: c.id,
-                    label: c.name.replace("w_", "women's ").replace("m_", "men's ").replace("c_", "children's ")
-                }
-            });
-        } else
-            return [];
-    }
-
-    let getColorOptions = () => {
-        if (colors) {
-            return colors.map(c => {
-                return {value: c.id, label: c.name}
-            });
-        } else
-            return [];
-    }
-
-    let getSizeOptions = () => {
-        if (sizes) {
-            return sizes.map(s => {
-                return {value: s.id, label: (s.standard + " " + s.value)}
-            });
-        } else
-            return [];
-    }
-
     let clearArticle = () => {
         setPrice(0.00);
         setCondition(conditions[0]);
@@ -182,46 +155,70 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
             articleCondition: condition.value,
             status: status,
             description: description,
-            categoryId: category.value,
+            categoryId: category,
             sizeId: size.value,
             colorId: color.value,
             // brandId: brand,
             consignmentId: consignmentId,
             imageIds: uploadedImages.map(img => img.id)
         };
-
+        console.log(article);
 
         onAdd(article).then(() => {
             clearArticle();
             handleHide();
-        });
+        }).catch(e => console.log(e));
     }
 
     useEffect(() => {
         renderPreviewImages();
     });
 
+    // -- Fetch options for Categories, Colors and Sizes
+
     useEffect(() => {
-        // console.log("Fetching C,C & S");
-        if (categories === null) {
+        if (!categories.length > 0) {
             getCategories().then(response => {
                 let listCategories = response.data;
-                setCategories(listCategories);
+
+                let formattedCategories = listCategories.map(category => {
+                    return {
+                        id: category.id,
+                        value: category.id,
+                        pId: category.parentCategoryId,
+                        title: category.name.replace("w_", "women's ")
+                            .replace("m_", "men's ")
+                            .replace("c_", "children's "),
+                    }
+                });
+
+                setCategories(formattedCategories);
             }).catch(e => console.log(e));
         }
-        if (colors === null) {
+        if (!colors.length > 0) {
             getColors().then(response => {
-                let listColors = response.data
-                setColors(listColors);
+                let listColors = response.data;
+
+                let formattedColors = listColors.map(color => {
+                    return {value: color.id, label: color.name}
+                });
+
+                setColors(formattedColors);
             }).catch(e => console.log(e));
         }
-        if (sizes === null) {
+        if (!sizes.length > 0) {
             getSizes().then(response => {
                 let listSizes = response.data;
-                setSizes(listSizes);
+
+                let formattedSizes = listSizes.map(size => {
+                    return {value: size.id, label: (size.standard + " " + size.value)}
+                });
+
+                setSizes(formattedSizes);
             }).catch(e => console.log(e));
         }
     });
+
 
     return (
         <Modal
@@ -270,25 +267,41 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
 
                             <Form.Group className="category mb-2" controlId="formName">
                                 <Form.Label>Category</Form.Label>
-                                <Select onChange={onCategoryChange}
-                                        options={getCategoryOptions()}
-                                        value={category}
+                                {/*<Select onChange={onCategoryChange}*/}
+                                {/*        options={categories}*/}
+                                {/*        value={category}*/}
+                                {/*/>*/}
+                                <TreeSelect
+                                    className="form-select"
+                                    showSearch={false}
+                                    bordered={true}
+                                    allowClear
+                                    treeDefaultExpandAll
+                                    id="tree-select"
+                                    treeDataSimpleMode={true}
+                                    treeData={categories}
+                                    showCheckedStrategy={TreeSelect.SHOW_ALL}
+                                    placeholder="Select..."
+                                    value={category}
+                                    onChange={onCategoryChange}
+                                    style={{width: "100%"}}
+                                    // getPopupContainer={() => document.getElementById("tree-select")}
                                 />
                             </Form.Group>
 
                             <Form.Group className="color mb-2" controlId="formName">
                                 <Form.Label>Color</Form.Label>
                                 <Select onChange={onColorChange}
-                                        options={getColorOptions()}
-                                        value={size}
+                                        options={colors}
+                                        value={color}
                                 />
                             </Form.Group>
 
                             <Form.Group className="size mb-2" controlId="formName">
                                 <Form.Label>Size</Form.Label>
                                 <Select onChange={onSizeChange}
-                                        options={getSizeOptions()}
-                                        value={color}
+                                        options={sizes}
+                                        value={size}
                                 />
                             </Form.Group>
 

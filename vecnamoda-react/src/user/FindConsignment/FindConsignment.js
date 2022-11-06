@@ -39,7 +39,7 @@ function FindConsignment() {
     }
 
     let manageConsignment = () => {
-        navigate("../consignment/"+token);
+        navigate("../consignment/" + token);
     }
 
     return (
@@ -66,9 +66,16 @@ function FindConsignment() {
                 <Col hidden={hideManageButton} lg={{span: 5, offset: 3}} sm={{span: 8, offset: 2}}>
                     {/*<Consignment token={consignmentId}/>*/}
                     <br/>
-                    Found consignment with token {token}
+                    {
+                        consignmentId ?
+                            <>
+                                Found consignment with token {token}
+                                <Button onClick={manageConsignment} className="mx-auto d-block my-2">Manage
+                                    consignment</Button>
+                            </>
+                            : "Could not find consignment"
+                    }
                     <br/>
-                    <Button onClick={manageConsignment} className="mx-auto d-block my-2">Manage consignment</Button>
 
                 </Col>
             </Row>

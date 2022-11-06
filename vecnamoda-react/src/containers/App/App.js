@@ -1,36 +1,32 @@
 import './App.css';
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import '../../scss/custom.scss';
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
-import Menu from "../Menu/Menu"
-import Intro from "../Intro/Intro";
-import Shop from "../Shop/Shop";
-import Sell from "../Sell/Sell";
-import Register from "../Register/Register";
-import Login from "../Login/Login";
-import MyAccount from "../MyAccount/MyAccount";
-import MyItems from "../MyItems/MyItems";
-import MyOrders from "../MyOrders/MyOrders";
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
-import CheckOut from "../CheckOut/CheckOut";
-import ArticleView from "../ArticleView/ArticleView";
-// import SidebarFilter from "../SidebarFilter/SidebarFilter";
+import Menu from "../../layouts/Menu/Menu"
+import Intro from "../../pages/Intro/Intro";
+import Shop from "../../pages/Shop/Shop";
+import Sell from "../../pages/Sell/Sell";
+import Register from "../../user/Register/Register";
+import Login from "../../user/Login/Login";
+import MyAccount from "../../user/MyAccount/MyAccount";
+import MyItems from "../../user/MyItems/MyItems";
+import MyOrders from "../../user/MyOrders/MyOrders";
+import ShoppingCart from "../../pages/ShoppingCart/ShoppingCart";
+import CheckOut from "../../pages/CheckOut/CheckOut";
+import ArticleView from "../../pages/ArticleView/ArticleView";
 import {CartProvider} from "../../context/CartContext";
 import Container from "react-bootstrap/Container";
-import AddArticle from "../AddArticle/AddArticle";
 import {AuthProvider} from "../../context/AuthContext";
-import ProtectedRoute from "../../utils/components/ProtectedRoute";
-import FindConsignment from "../FindConsignment/FindConsignment";
-import Consignment from "../Consignment/Consignment";
-import NewConsignment from "../Sell/NewConsignment";
-import Footer from "../Footer/Footer";
+import FindConsignment from "../../user/FindConsignment/FindConsignment";
+import Consignment from "../../user/Consignment/Consignment";
+import NewConsignment from "../../pages/Sell/NewConsignment/NewConsignment";
+import Footer from "../../layouts/Footer/Footer";
 
 
 function App() {
-    // const [cart, setCart] = useState({items:[], total:0});
-
     document.title = 'VecnaModa - Second Hand Online Shop';
 
     return (
@@ -39,7 +35,6 @@ function App() {
                 <AuthProvider>
                     <div id={global} className="position-relative min-vh-100 flex-column text-dark">
                         <Router>
-                            {/*<div className="min-vh-100 flex-column">*/}
                             <Menu/>
                             <Container fluid className="px-5 pt-4 content-container">
                                 <Routes>
@@ -60,7 +55,6 @@ function App() {
                                 </Routes>
                             </Container>
                             <Footer/>
-                            {/*</div>*/}
                         </Router>
                     </div>
                 </AuthProvider>

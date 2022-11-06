@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App/App';
+import App from './containers/App/App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
-import './scss/custom.scss';
+// import './scss/custom.scss';
 
 
 ReactDOM.render(

@@ -1,6 +1,5 @@
 package irinakjoseva.vecnamoda.model;
 
-import com.sun.tools.jconsole.JConsoleContext;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

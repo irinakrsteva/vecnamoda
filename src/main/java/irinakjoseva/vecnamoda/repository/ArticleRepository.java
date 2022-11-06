@@ -1,12 +1,8 @@
 package irinakjoseva.vecnamoda.repository;
 
 import irinakjoseva.vecnamoda.model.Article;
-import irinakjoseva.vecnamoda.model.Category;
-import irinakjoseva.vecnamoda.model.Color;
-import irinakjoseva.vecnamoda.model.Size;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,26 +13,24 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends PagingAndSortingRepository<Article, Long> {
 
-
     @Query("select articles from Article articles " +
             "where (:status is null or articles.status = :status) " +
             "and (:searchString is null or articles.description like concat('%', :searchString, '%')) " +
             "and (:startPrice is null or :endPrice is null or (articles.price between :startPrice and :endPrice)) " +
-            "and (:articleCondition is null or articles.articleCondition = :articleCondition) " +
-            "and (:categoryId is null or articles.category.id = :categoryId) " +
-            "and (:sizeId is null or articles.size.id = :sizeId) " +
-            "and (:colorId is null or articles.color.id = :colorId)")
+            "and (coalesce (:categoryIds, 'failed') = 'failed' or articles.category.id in :categoryIds) " +
+            "and (coalesce (:articleConditions, 'failed') = 'failed' or articles.articleCondition in :articleConditions) " +
+            "and (coalesce (:sizeIds, 'failed') = 'failed' or articles.size.id in :sizeIds) " +
+            "and (coalesce (:colorIds, 'failed') = 'failed' or articles.color.id in :colorIds)")
     Page<Article> findArticlesPageable(Article.Status status,
                                        Pageable pageable,
                                        @Param("searchString") String searchString,
                                        @Param("startPrice") Double startPrice,
                                        @Param("endPrice") Double endPrice,
-                                       @Param("articleCondition") Article.Condition articleCondition,
-                                       @Param("categoryId") Integer categoryId,
-                                       @Param("sizeId") Integer sizeId,
-                                       @Param("colorId") Integer colorId
+                                       @Param("articleConditions") List<Article.Condition> articleConditions,
+                                       @Param("categoryIds") List<Integer> categoryIds,
+                                       @Param("sizeIds") List<Integer> sizeIds,
+                                       @Param("colorIds") List<Integer> colorIds
     );
-
 
     Article getById(Long id);
 

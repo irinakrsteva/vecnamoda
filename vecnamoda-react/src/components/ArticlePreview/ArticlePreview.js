@@ -2,12 +2,11 @@ import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
 import {Carousel} from "react-bootstrap";
 
 import "./ArticlePreview.css"
 
-function ArticlePreview({article, onAddToCart = null}) {
+function ArticlePreview({ article, onAddToCart = null }) {
 
     function handleAddToCart() {
         onAddToCart(article);
@@ -29,7 +28,8 @@ function ArticlePreview({article, onAddToCart = null}) {
                         controls={article.imageIds.length > 1}
                         interval={null}
                         variant="dark"
-                        // as={Link} to={"/shop/" + article.id} id={"article-" + article.id + "-images"}
+                        as={Link} to={{ pathname: "/shop/" + article.id, state: {article: article, onAddToCart: onAddToCart}  }}
+                        id={"article-" + article.id + "-images"}
                     >
                         {renderImagesInCarousel(article.imageIds)}
                     </Carousel>

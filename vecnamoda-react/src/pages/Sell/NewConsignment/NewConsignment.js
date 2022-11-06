@@ -1,9 +1,9 @@
 import React, {useContext} from "react";
 import {Button, Container} from "react-bootstrap";
-import {createConsignment} from "../../service/consignmentService";
+import {createConsignment} from "../../../service/consignmentService";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {AuthContext} from "../../context/AuthContext";
+import {AuthContext} from "../../../context/AuthContext";
 import {useNavigate, useParams} from "react-router-dom";
 
 function NewConsignment() {

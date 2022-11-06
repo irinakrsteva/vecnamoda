@@ -8,8 +8,8 @@ public class CategoryResponseDto {
 
     public String name;
 
-//    public Integer parentCategoryId;
+    public Integer parentCategoryId;
 
-    public List<CategoryResponseDto> childrenCategories;
+//    public List<CategoryResponseDto> childrenCategories;
 
 }

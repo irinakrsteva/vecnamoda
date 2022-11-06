@@ -37,13 +37,17 @@ function MyAccount() {
         if (auth.isAuthenticated && auth.loggedInUser.role === 'CUSTOMER')
             return (
                 <>
-                    <Link to="../my-items" onClick={() => {setShowOnPage("myitems")}}>My items</Link>
+                    <Link to="../my-items" onClick={() => {
+                        setShowOnPage("myitems")
+                    }}>My items</Link>
                     <br/>
                     <br/>
-                    <Link to="../my-orders" onClick={() => {setShowOnPage("myorders")}}>My orders</Link>
+                    <Link to="../my-orders" onClick={() => {
+                        setShowOnPage("myorders")
+                    }}>My orders</Link>
                     <br/>
                     <br/>
-                    <a href="#">Unsubscribe</a>
+                    <a href="#">Delete my account</a>
                 </>
             );
         else return null;
@@ -52,10 +56,9 @@ function MyAccount() {
     let renderEmployeeAccount = () => {
         return (
             <>
-                {/*<br/>*/}
-                {/*<Link to="../addarticle">Add new article</Link>*/}
                 <br/>
                 <br/>
+                <h4>Employee-specific functionalities:</h4>
                 <Link to="../find-consignment">Open a consignment</Link>
             </>
         );
@@ -80,30 +83,23 @@ function MyAccount() {
 
                 <Card.Body>
 
-                    <Row>
-                        <Col lg="3">
-                            {
-                                auth.isAuthenticated
-                                    ?
-                                    (
-                                        <span>
+                    {
+                        auth.isAuthenticated
+                            ?
+                            (
+                                <span>
                                         Your username is
                                         <b>{" " + auth.loggedInUser.username + " "}</b>
                                         and your role is
                                         <b>{" " + auth.loggedInUser.role.toLowerCase()}</b>
                                         </span>
-                                    )
-                                    :
-                                    "You're not logged in!"
-                            }
-                            <br/>
-                            <br/>
-                            {renderAccountBasedOnRole()}
-                        </Col>
-                        <Col lg="9">
-
-                        </Col>
-                    </Row>
+                            )
+                            :
+                            "You're not logged in!"
+                    }
+                    <br/>
+                    <br/>
+                    {renderAccountBasedOnRole()}
 
 
                 </Card.Body>

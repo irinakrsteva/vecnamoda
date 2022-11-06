@@ -23,7 +23,7 @@ public class ArticleRequestDto {
 
     public Integer sizeId;
 
-    public Integer brandId;
+//    public Integer brandId;
 
     public List<Long> imageIds;
 

@@ -21,10 +21,10 @@ public class Category {
     @Column (name = "name")
     private String name;
 
-//    @ManyToOne
-//    @JoinColumn (name = "parent_category_id")
-    @Column(name="parent_category_id")
-    private Integer parentCategory;
+    @ManyToOne
+    @JoinColumn (name = "parent_category_id")
+//    @Column(name="parent_category_id")
+    private Category parentCategory;
 
     @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
     private List<Category> childrenCategories;
@@ -36,9 +36,9 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name, Integer parentCategory) {
+    public Category(String name) {
         this.name = name;
-        this.parentCategory = parentCategory;
+//        this.parentCategory = parentCategory;
 //        this.childrenCategories = new ArrayList<>();
     }
 
@@ -59,11 +59,11 @@ public class Category {
         this.name = name;
     }
 
-    public Integer getParentCategory() {
+    public Category getParentCategory() {
         return parentCategory;
     }
 
-    public void setParentCategory(Integer parentCategory) {
+    public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
     }
 
@@ -78,12 +78,22 @@ public class Category {
         article.setCategory(null);
     }
 
-
     public List<Category> getChildrenCategories() {
         return childrenCategories;
     }
 
-    public void setChildrenCategories(List<Category> childrenCategories) {
-        this.childrenCategories = childrenCategories;
-    }
+//    public List<Category> getRecursiveCategories() {
+//        List<Category> recursiveCategories = new ArrayList<>();
+//        recursiveCategories.add(this);
+//
+//        childrenCategories.forEach(category -> {
+//            recursiveCategories.addAll(category.getRecursiveCategories());
+//        });
+//
+//        return recursiveCategories;
+//    }
+//
+//    public void setChildrenCategories(List<Category> childrenCategories) {
+//        this.childrenCategories = childrenCategories;
+//    }
 }

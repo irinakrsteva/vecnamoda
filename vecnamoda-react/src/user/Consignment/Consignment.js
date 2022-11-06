@@ -5,9 +5,9 @@ import Row from "react-bootstrap/Row";
 import {useParams} from "react-router-dom";
 import {getConsignmentByToken} from "../../service/consignmentService";
 import Button from "react-bootstrap/Button";
-import AddArticle from "../AddArticle/AddArticle";
+import AddArticle from "../../components/AddArticle/AddArticle";
 import {addArticle} from "../../service/articleService";
-import ArticlePreview from "../ArticlePreview/ArticlePreview";
+import ArticlePreview from "../../components/ArticlePreview/ArticlePreview";
 import {AuthContext} from "../../context/AuthContext";
 
 //ONLY FOR EMPLOYEES/ADMINS

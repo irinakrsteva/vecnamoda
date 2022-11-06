@@ -17,10 +17,10 @@ public interface ArticleService {
                                                      String searchString,
                                                      Double startPrice,
                                                      Double endPrice,
-                                                     Article.Condition articleCondition,
-                                                     Integer categoryId,
-                                                     Integer sizeId,
-                                                     Integer colorId);
+                                                     List<Article.Condition> articleConditions,
+                                                     List<Integer> categoryIds,
+                                                     List<Integer> sizeIds,
+                                                     List<Integer> colorIds);
 
     ArticleResponseDto saveArticle(ArticleRequestDto articlePostDto) throws IOException;
 
