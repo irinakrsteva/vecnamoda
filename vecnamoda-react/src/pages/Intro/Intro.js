@@ -41,10 +41,10 @@ function Intro() {
             <br/>
             <div>
                 <Row>
+                    <Col lg="6"/>
 
-                    <Col lg="6">
+                    <Col lg="6" className="d-flex justify-content-evenly">
                         <h2>How it works</h2>
-                        <br/>
                         <h4>Clear out your closet and we'll do the rest!
                             <br/>
                             <Link to="/sell">

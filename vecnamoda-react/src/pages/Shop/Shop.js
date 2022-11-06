@@ -66,6 +66,11 @@ function Shop() {
         setSearchText(value);
     }
 
+    let clearSearch = () => {
+        setSearchText("");
+        updateResults();
+    }
+
     let onPriceChange = ([startPrice, endPrice]) => {
         setFilters({...filters, priceFilter: [startPrice, endPrice]});
     }
@@ -112,9 +117,19 @@ function Shop() {
         handleColorChange: onColorChange,
     };
 
+    let resetFilters = () => {
+        setFilters({
+            priceFilter: [0, 30000],
+            conditionFilter: [],
+            categoryFilter: [],
+            sizeFilter: [],
+            colorFilter: []
+        });
+    }
+
     // -- Rendering articles logic: --
 
-    let onUpdateResults = () => {
+    let updateResults = () => {
         setPage(1);
         setShopInfo();
     }
@@ -140,6 +155,24 @@ function Shop() {
         [page]
     );
 
+    useEffect(() => {
+        if(searchText === "") {
+            updateResults();
+        }
+    }, [searchText]);
+
+    useEffect(() => {
+        if(filters.priceFilter[0] === 0
+            && filters.priceFilter[1] === 30000
+            && filters.conditionFilter.length === 0
+            && filters.sizeFilter.length === 0
+            && filters.colorFilter.length === 0
+            && filters.categoryFilter.length === 0
+        ) {
+            updateResults();
+        }
+    }, [filters]);
+
     return (
         <Container className="main mt-3">
             <Row>
@@ -148,7 +181,8 @@ function Shop() {
                     <SidebarFilter
                         filters={filters}
                         filterHandlers={filterHandlers}
-                        updateResults={onUpdateResults}
+                        updateResults={updateResults}
+                        resetFilters={resetFilters}
                     />
                 </Col>
                 <Col md="9" className="articles">
@@ -157,7 +191,8 @@ function Shop() {
                             totalResults={totalResults}
                             searchText={searchText}
                             onChangeSearchText={handleChangeSearchText}
-                            updateResults={onUpdateResults}
+                            onEnter={updateResults}
+                            onClear={clearSearch}
                         />
                     </Row>
                     <Row className="justify-content-start">

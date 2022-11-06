@@ -24,6 +24,6 @@
     /*-webkit-text-stroke: 1px darkseagreen;*/
 }
 .special-link:hover {
-    color: lightgray;
+    color: #333;
     -webkit-text-stroke: 1px white;
 }

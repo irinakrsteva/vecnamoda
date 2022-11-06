@@ -6,13 +6,15 @@ import Form from 'react-bootstrap/Form';
 import ReactSlider from 'react-slider';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {InputGroup} from "react-bootstrap";
+
 import {getCategories} from "../../../service/categoryService";
 import {getSizes} from "../../../service/sizeService";
 import {getColors} from "../../../service/colorService";
 import {TreeSelect} from "antd";
 import "antd/dist/antd.css";
 
-function SidebarFilter({filters, filterHandlers, updateResults}) {
+function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters }) {
 
     const conditionOptions = ['EXCELLENT', 'GREAT', 'GOOD'];
     const [categoryOptions, setCategoryOptions] = useState([]);
@@ -246,13 +248,21 @@ function SidebarFilter({filters, filterHandlers, updateResults}) {
 
                 </Accordion.Body>
             </Accordion.Item>
+            <InputGroup className="ml-4 mt-2">
+                <Button
+                    className="float-right my-4 btn-secondary"
+                    onClick={resetFilters}
+                >
+                    Reset filters
+                </Button>
+                <Button
+                    className="float-right my-4"
+                    onClick={updateResults}
+                >
+                    Update results
+                </Button>
+            </InputGroup>
 
-            <Button
-                className="float-right my-4"
-                onClick={updateResults}
-            >
-                Update results
-            </Button>
 
         </Accordion>
     );

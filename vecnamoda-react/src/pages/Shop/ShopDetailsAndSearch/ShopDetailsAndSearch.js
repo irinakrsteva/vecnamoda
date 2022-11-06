@@ -1,7 +1,7 @@
-import {FormControl, FormText} from "react-bootstrap";
-import Button from "antd/es/button";
+import {FormControl, InputGroup} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
-function ShopDetailsAndSearch({totalResults, searchText, onChangeSearchText, updateResults}) {
+function ShopDetailsAndSearch({totalResults, searchText, onChangeSearchText, onEnter, onClear}) {
 
     let handleSearchChange = (e) => {
         onChangeSearchText(e.target.value);
@@ -9,11 +9,13 @@ function ShopDetailsAndSearch({totalResults, searchText, onChangeSearchText, upd
 
     let onSearchKeyUp = (e) => {
         if (e.key === 'Enter') {
-            // console.log(searchText);
-            updateResults();
+            onEnter();
         }
     };
 
+    let clearSearch = () => {
+        onClear();
+    };
 
     return (
         <div className="py-4 row justify-content-between ">
@@ -21,15 +23,20 @@ function ShopDetailsAndSearch({totalResults, searchText, onChangeSearchText, upd
                 <div className="align-items-center d-flex">{totalResults} total results</div>
             </div>
             <div className="search col-6">
-                <FormControl type="search"
-                             size="sm"
-                             id="searchInput"
-                             className="form-control muted"
-                             placeholder="Search articles by description"
-                             onChange={handleSearchChange}
-                             value={searchText}
-                             onKeyUp={onSearchKeyUp}
-                />
+                <InputGroup>
+                    <FormControl type="search"
+                                 size="sm"
+                                 id="searchInput"
+                                 className="form-control muted"
+                                 placeholder="Search articles by description"
+                                 onChange={handleSearchChange}
+                                 value={searchText}
+                                 onKeyUp={onSearchKeyUp}
+                    />
+                    <Button className="btn-sm btn-secondary" onClick={clearSearch}>
+                        x
+                    </Button>
+                </InputGroup>
             </div>
         </div>
     );

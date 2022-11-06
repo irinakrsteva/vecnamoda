@@ -58,7 +58,7 @@ function MyAccount() {
             <>
                 <br/>
                 <br/>
-                <h4>Employee-specific functionalities:</h4>
+                <h6>Employee-specific functionalities:</h6>
                 <Link to="../find-consignment">Open a consignment</Link>
             </>
         );
@@ -78,7 +78,9 @@ function MyAccount() {
 
             <Card>
                 <Card.Header>
-                    My Account
+                    <h5>
+                        My Account
+                    </h5>
                 </Card.Header>
 
                 <Card.Body>

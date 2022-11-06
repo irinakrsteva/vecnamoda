@@ -6,6 +6,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {CartContext} from "../../context/CartContext";
 import Image from "react-bootstrap/Image";
 import {sellArticle, sellArticles} from "../../service/articleService";
+import './ShoppingCartPreview.css';
 
 function ShoppingCartPreview(props) {
 
@@ -26,7 +27,7 @@ function ShoppingCartPreview(props) {
             console.log(cart.items[i]);
             previewContent.push(
                 <tr key={"cartItem" + i}>
-                    <td>{<Image src={`/api/images/public/${item.imageIds[0]}`}/>}</td>
+                    <td>{ <Image className="image-preview img-thumbnail" src={`/api/images/public/${item.imageIds[0]}`}/> }</td>
                     <td>
                         {productDescription(item)}
                     </td>
@@ -69,11 +70,11 @@ function ShoppingCartPreview(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {renderArticlesInsideShoppingCartPreview()}
+                    { renderArticlesInsideShoppingCartPreview() }
                     </tbody>
                     <tfoot className="border-top-0 ">
                     <tr>
-                        <td></td>
+                        <td/>
                         <td className="text-right"><b>Total:</b></td>
                         <td><b>{cart.getCartTotal()}</b></td>
                         <td><a href="#" onClick={cart.clearCart}>Clear</a></td>
