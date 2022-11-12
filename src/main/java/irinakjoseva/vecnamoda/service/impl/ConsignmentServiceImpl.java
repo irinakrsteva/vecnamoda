@@ -2,7 +2,6 @@ package irinakjoseva.vecnamoda.service.impl;
 
 import irinakjoseva.vecnamoda.dto.mapper.ArticleMapper;
 import irinakjoseva.vecnamoda.dto.mapper.ConsignmentMapper;
-import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
 import irinakjoseva.vecnamoda.dto.response.ConsignmentResponseDto;
 import irinakjoseva.vecnamoda.model.Article;
@@ -44,6 +43,12 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     public ConsignmentResponseDto findByToken(String token) {
         Consignment consignment = consignmentRepository.findByToken(token);
         return consignmentMapper.toResponseDto(consignment);
+    }
+
+    @Override
+    public List<ConsignmentResponseDto> getConsignmentsByUserId(Long userId) {
+        List<Consignment> consignments = consignmentRepository.findAllByUser(userId);
+        return consignmentMapper.toResponseDtos(consignments);
     }
 
     @Override

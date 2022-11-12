@@ -2,6 +2,7 @@ package irinakjoseva.vecnamoda.controller;
 
 import irinakjoseva.vecnamoda.dto.request.ColorRequestDto;
 import irinakjoseva.vecnamoda.dto.response.ColorResponseDto;
+import irinakjoseva.vecnamoda.service.ColorService;
 import irinakjoseva.vecnamoda.service.impl.ColorServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,9 @@ import java.util.List;
 @RequestMapping("api/colors")
 public class ColorController {
 
-    private final ColorServiceImpl colorService;
+    private final ColorService colorService;
 
-    public ColorController(ColorServiceImpl colorService) {
+    public ColorController(ColorService colorService) {
         this.colorService = colorService;
     }
 
@@ -28,10 +29,5 @@ public class ColorController {
     public ResponseEntity<ColorResponseDto> getColor(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(colorService.getColor(id));
     }
-
-//    @PostMapping("/add")
-//    public ResponseEntity<ColorResponseDto> addColor(@RequestBody @Valid ColorRequestDto colorRequestDto) {
-//        return ResponseEntity.ok(colorService.addColor(colorRequestDto));
-//    }
 
 }

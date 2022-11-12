@@ -39,11 +39,4 @@ public class ColorServiceImpl implements ColorService {
                 .orElse(null);
     }
 
-//    @Override
-//    public ColorResponseDto addColor(ColorRequestDto colorPostDto) {
-//        Color color = colorMapper.requestDtoToModel(colorPostDto);
-//        colorRepository.save(color);
-//        return colorMapper.toResponseDto(color);
-//    }
-
 }

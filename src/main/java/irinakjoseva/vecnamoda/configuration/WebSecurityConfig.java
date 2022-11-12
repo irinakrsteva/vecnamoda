@@ -66,16 +66,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private String[] getPublicPaths() {
         return new String[]{
-                "/api/users/hello",
                 "/api/users/register",
-                "/api/consignments",
+                "/api/consignments/**",
                 "/api/images/public/**",
                 "/api/articles/available/**",
                 "/api/articles/batch-sell",
                 "/api/categories/**",
                 "/api/sizes/**",
                 "/api/colors/**",
-//                "/api/article/public/**" // ? supposedly something like this should be implemented
         };
     }
 

@@ -34,6 +34,11 @@ public class ConsignmentController {
         return ResponseEntity.ok(consignmentService.findByToken(token));
     }
 
+    @GetMapping(value = "/getbyuser/{userId}")
+    public ResponseEntity<List<ConsignmentResponseDto>> getByUser(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(consignmentService.getConsignmentsByUserId(userId));
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<ConsignmentResponseDto> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(consignmentService.findById(id));

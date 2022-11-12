@@ -30,11 +30,11 @@ public class UserServiceImpl implements UserService {
     // TODO Maybe should create user through UserMapper
     // But need builder pattern to encode pass
     @Override
-    public UserResponseDto register(UserRequestDto userPostDto) throws UserAlreadyExistsException {
-        if (userRepository.existsByEmailIgnoreCase(userPostDto.email) || userRepository.existsByUsernameIgnoreCase(userPostDto.username)) {
+    public UserResponseDto register(UserRequestDto userRequestDto) throws UserAlreadyExistsException {
+        if (userRepository.existsByEmailIgnoreCase(userRequestDto.email) || userRepository.existsByUsernameIgnoreCase(userRequestDto.username)) {
             throw new UserAlreadyExistsException();
         }
-        User user = new User(userPostDto.name, userPostDto.username, userPostDto.email, encoder.encode(userPostDto.password), User.Role.CUSTOMER);
+        User user = new User(userRequestDto.name, userRequestDto.username, userRequestDto.email, encoder.encode(userRequestDto.password), User.Role.CUSTOMER);
         userRepository.save(user);
         return userMapper.toResponseDto(user);
     }

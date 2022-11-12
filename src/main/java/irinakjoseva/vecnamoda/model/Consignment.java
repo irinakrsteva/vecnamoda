@@ -87,7 +87,6 @@ public class Consignment {
         this.token = token;
     }
 
-
 //    @Override
 //    public String toString() {
 //        return "Consignment id: [" + this.getId() + "], made by user: [" + this.getUser().getUsername() + "]";

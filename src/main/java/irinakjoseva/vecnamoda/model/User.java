@@ -42,8 +42,8 @@ public class User implements UserDetails {
     private float balance;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Address> addresses;
 
 
     public User() {
@@ -121,15 +121,15 @@ public class User implements UserDetails {
     }
 
 
-    public void addAddress(Address address) {
-        addresses.add(address);
-        address.setUser(this);
-    }
-
-    public void removeAddress(Address address) {
-        addresses.remove(address);
-        address.setUser(null);
-    }
+//    public void addAddress(Address address) {
+//        addresses.add(address);
+//        address.setUser(this);
+//    }
+//
+//    public void removeAddress(Address address) {
+//        addresses.remove(address);
+//        address.setUser(null);
+//    }
 
 
     @Override

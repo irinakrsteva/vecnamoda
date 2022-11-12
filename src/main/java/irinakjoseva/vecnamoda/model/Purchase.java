@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,10 +39,20 @@ public class Purchase {
     @JoinColumn(name = "address_id")
     private Address address;
 
-
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Article> articles;
 
+    public Purchase(User user, List<Article> articles, Address address) {
+        this.user = user;
+        this.articles = articles;
+        this.status = Status.PENDING;
+        this.dateOrdered = LocalDateTime.now();
+        this.address = address;
+    }
+
+    public Purchase() {
+
+    }
 
     public Long getId() {
         return id;
@@ -98,6 +109,8 @@ public class Purchase {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public List<Article> getArticles() { return articles; }
 
 
     public void addArticle(Article article) {

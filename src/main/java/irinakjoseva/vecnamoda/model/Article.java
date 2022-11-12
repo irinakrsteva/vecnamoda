@@ -47,7 +47,7 @@ public class Article {
     private Brand brand;
 
     @ManyToOne
-    @JoinColumn(name = "purchase_id")
+    @JoinColumn(name = "purchase_id", updatable = true)
     private Purchase purchase;
 
     @ManyToOne

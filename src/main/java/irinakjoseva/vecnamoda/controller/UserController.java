@@ -17,20 +17,13 @@ import java.util.HashMap;
 @RequestMapping("api/users")
 public class UserController {
 
-    //    @Autowired
     private final UserService userService;
 
-    //    @Autowired
     private final UserMapper userMapper;
 
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
-    }
-
-    @GetMapping({"/hello"})
-    public ResponseEntity<String> firstPage() {
-        return ResponseEntity.ok("Hello world");
     }
 
     @PostMapping(value = "/register")
@@ -49,14 +42,5 @@ public class UserController {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
         return ResponseEntity.ok(this.userMapper.toResponseDto(user));
     }
-
-
-    // ??????????????
-//    @DeleteMapping(value = "/delete/{id}")
-//    @PreAuthorize("hasAuthority(" + User.Role.ADMIN ")")
-//    public ResponseEntity delete(@PathVariable ("id") Long id) {
-//        this.userService.delete(id);
-//        return ResponseEntity.ok().build();
-//    }
 
 }

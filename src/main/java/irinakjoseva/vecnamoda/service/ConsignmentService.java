@@ -17,6 +17,8 @@ public interface ConsignmentService {
 
     ConsignmentResponseDto findByToken(String token);
 
+    List<ConsignmentResponseDto> getConsignmentsByUserId(Long userId);
+
     List<ArticleResponseDto> getArticles(Long consignmentId);
 
     List<ConsignmentResponseDto> getAllConsignments();

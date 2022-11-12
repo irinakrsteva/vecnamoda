@@ -3,7 +3,7 @@ package irinakjoseva.vecnamoda.controller;
 import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
 import irinakjoseva.vecnamoda.model.Article;
-import irinakjoseva.vecnamoda.service.impl.ArticleServiceImpl;
+import irinakjoseva.vecnamoda.service.ArticleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,13 +20,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/articles")
 public class ArticleController {
 
-    private final ArticleServiceImpl articleService;
+    private final ArticleService articleService;
 
-    public ArticleController(ArticleServiceImpl articleService) {
+    public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
-    // TODO Make pageable from service?
     @GetMapping("/available")
     public ResponseEntity<Page<ArticleResponseDto>> getAvailableArticles(@PageableDefault(size = 12) Pageable pageable,
                                                                          @RequestParam(required = false) String searchString,
@@ -36,7 +35,6 @@ public class ArticleController {
                                                                          @RequestParam(required = false) List<Integer> categoryIds,
                                                                          @RequestParam(required = false) List<Integer> sizeIds,
                                                                          @RequestParam(required = false) List<Integer> colorIds) {
-//        Article.Condition articleCondition = Article.Condition.getCondition(condition);
         List<Article.Condition> articleConditions = (conditions == null)
                 ? new ArrayList<>()
                 : conditions.stream()
@@ -47,20 +45,21 @@ public class ArticleController {
                 startPrice, endPrice, articleConditions, categoryIds, sizeIds, colorIds));
     }
 
+//    @GetParam("/get-bought/{userId}")
+//    public ResponseEntity<Page<ArticleResponseDto>> getArticlesBoughtByUser(@PageableDefault(size=3) Pageable pageable,
+//                                                                            @RequestParam Long userId) {
+//        return ResponseEntity.ok(this.articleService.searchArticlesBoughtByUser(pageable, userId));
+//    }
+
     @PostMapping("/add")
 //    @PreAuthorize("hasRole('EMPLOYEE') or hasRole('ADMIN')")
     public ResponseEntity<ArticleResponseDto> save(@RequestBody @Valid ArticleRequestDto articleRequestDto) throws IOException {
         return ResponseEntity.ok(this.articleService.saveArticle(articleRequestDto));
     }
-//
-//    @PutMapping("/sell/{id}")
-//    public ResponseEntity<ArticleResponseDto> changeStatusToSold(@PathVariable("id") Long id) {
-//        return ResponseEntity.ok(this.articleService.changeStatus(id, Article.Status.SOLD));
-//    }
 
     @PutMapping("/batch-sell")
     public ResponseEntity<List<ArticleResponseDto>> changeStatusesToSold(@RequestBody List<Long> ids) {
-        return ResponseEntity.ok(this.articleService.changeStatuses(ids, Article.Status.SOLD));
+        return ResponseEntity.ok(this.articleService.changeStatusesToSold(ids));
     }
 
 }

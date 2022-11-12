@@ -4,12 +4,12 @@ import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
 import irinakjoseva.vecnamoda.model.Article;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+
 
 public interface ArticleService {
 
@@ -24,9 +24,9 @@ public interface ArticleService {
 
     ArticleResponseDto saveArticle(ArticleRequestDto articlePostDto) throws IOException;
 
-//    ArticleResponseDto changeStatus(Long id, Article.Status status);
+    List<ArticleResponseDto> changeStatusesToSold(List<Long> ids);
 
-    List<ArticleResponseDto> changeStatuses(List<Long> ids, Article.Status status);
+//    Page<ArticleResponseDto> searchArticlesBoughtByUser(Pageable pageable, Long userId);
 
 //    List<ArticleResponseDto> searchAvailableArticles(String query);
 

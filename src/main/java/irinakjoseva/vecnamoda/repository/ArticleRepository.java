@@ -1,6 +1,7 @@
 package irinakjoseva.vecnamoda.repository;
 
 import irinakjoseva.vecnamoda.model.Article;
+import irinakjoseva.vecnamoda.service.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -35,4 +36,13 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, L
     Article getById(Long id);
 
     List<Article> findAllById(Iterable<Long> ids);
+
+
+    //TODO UNFINISHED
+    @Query("select articles from Article articles " +
+            "where (:status is null or articles.status = :status) " +
+            "and articles.purchase.user.id = :userId")
+    Page<Article> findArticlesByPurchasePageable(Article.Status status,
+                                        Pageable pageable,
+                                        @Param("userId") Long userId);
 }
