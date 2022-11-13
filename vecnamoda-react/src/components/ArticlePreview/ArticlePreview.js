@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import {Carousel} from "react-bootstrap";
 
 import "./ArticlePreview.css"
+import formatCategory from "../../utils/helpers/formatCategory";
 
 function ArticlePreview({article, onAddToCart = null}) {
 
@@ -50,7 +51,7 @@ function ArticlePreview({article, onAddToCart = null}) {
                     <span>Condition: <b>{article.articleCondition ? article.articleCondition.toLowerCase() : "Unknown"}</b></span>
                     <br/>
                     <span>Category: <b>{article.category ?
-                        article.category.name.replace("w_", "women's ").replace("m_", "men's ").replace("c_", "children's ")
+                        formatCategory(article.category.name)
                         : "Unknown"}</b>
                     </span>
                     <br/>

@@ -24,6 +24,7 @@ import FindConsignment from "../../user/FindConsignment/FindConsignment";
 import Consignment from "../../user/Consignment/Consignment";
 import NewConsignment from "../../pages/Sell/NewConsignment/NewConsignment";
 import Footer from "../../layouts/Footer/Footer";
+import AllOrders from "../../user/AllOrders/AllOrders";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
                                     <Route path="/account" element={<MyAccount/>}/>
                                     <Route path="/my-items" element={<MyItems/>}/>
                                     <Route path="/my-orders" element={<MyOrders/>}/>
+                                    <Route path="/all-orders" element={<AllOrders/>}/>
                                     <Route path="/shopping-cart" element={<ShoppingCart/>}/>
                                     <Route path="/checkout" element={<CheckOut/>}/>
                                     <Route path="/shop/:id" element={<ArticleView/>}/>

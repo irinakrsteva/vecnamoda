@@ -1,21 +1,28 @@
 import React, {useContext, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Card, Container} from "react-bootstrap";
 import {AuthContext} from "../../context/AuthContext";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 
 // logs out randomly without any logout call ?
 
 function MyAccount() {
 
     const auth = useContext(AuthContext);
+    const nav = useNavigate();
 
     const [showOnPage, setShowOnPage] = useState("");
 
     let renderAccountBasedOnRole = () => {
         if (!auth.isAuthenticated) return null;
         let role = auth.loggedInUser.role;
+
+        // this is better done by keeping the roles in a separate table in the db
+        // and getting possible roles from db to iterate through
+        // this situation is not as good because if there is a change to the backend
+        // the front end has no way of knowing about it...
         switch (role) {
             case 'CUSTOMER':
                 return renderCustomerAccount();
@@ -37,17 +44,16 @@ function MyAccount() {
         if (auth.isAuthenticated && auth.loggedInUser.role === 'CUSTOMER')
             return (
                 <>
-                    <Link to="../my-items" onClick={() => {
-                        setShowOnPage("myitems")
-                    }}>My items</Link>
+                    <Button className="btn-block"
+                            onClick={() => nav("../my-items")} >
+                        My items
+                    </Button>
                     <br/>
+                    <Button className="btn-block"
+                            onClick={() => nav("../my-orders")}>
+                        My orders
+                    </Button>
                     <br/>
-                    <Link to="../my-orders" onClick={() => {
-                        setShowOnPage("myorders")
-                    }}>My orders</Link>
-                    <br/>
-                    <br/>
-                    <a href="#">Delete my account</a>
                 </>
             );
         else return null;
@@ -57,9 +63,12 @@ function MyAccount() {
         return (
             <>
                 <br/>
-                <br/>
                 <h6>Employee-specific functionalities:</h6>
-                <Link to="../find-consignment">Open a consignment</Link>
+                <br/>
+                <Button className="btn-block"
+                        onClick={() => nav('../find-consignment')}>
+                    Open a consignment
+                </Button>
             </>
         );
     }
@@ -68,51 +77,57 @@ function MyAccount() {
         return (
             <div>
                 <br/>
-                <Link to="#">Manage employees</Link>
+                <h6>Admin-specific functionalities:</h6>
+                <br/>
+                <Button className="btn-block"
+                        onClick={() => nav('../all-orders')}>
+                    Overview all orders
+                </Button>
             </div>
         );
     }
 
     return (
-        <Container className="mt-3">
+        <Row className="justify-content-center">
+            <Col md="5">
+                <Card>
+                    <Card.Header>
+                        <h5>
+                            My Account
+                        </h5>
+                    </Card.Header>
 
-            <Card>
-                <Card.Header>
-                    <h5>
-                        My Account
-                    </h5>
-                </Card.Header>
+                    <Card.Body>
 
-                <Card.Body>
-
-                    {
-                        auth.isAuthenticated
-                            ?
-                            (
-                                <span>
+                        {
+                            auth.isAuthenticated
+                                ?
+                                (
+                                    <span>
                                         Your username is
                                         <b>{" " + auth.loggedInUser.username + " "}</b>
                                         and your role is
                                         <b>{" " + auth.loggedInUser.role.toLowerCase()}</b>
                                         </span>
-                            )
-                            :
-                            "You're not logged in!"
-                    }
-                    <br/>
-                    <br/>
-                    {renderAccountBasedOnRole()}
+                                )
+                                :
+                                "You're not logged in!"
+                        }
+                        <br/>
+                        <br/>
+                        {renderAccountBasedOnRole()}
 
+                    </Card.Body>
 
-                </Card.Body>
+                    <Card.Footer>
+                        <Link to="#">More account options</Link>
+                    </Card.Footer>
+                </Card>
 
-            </Card>
-
-            <br/>
-            <br/>
-
-
-        </Container>
+                <br/>
+                <br/>
+            </Col>
+        </Row>
     );
 }
 

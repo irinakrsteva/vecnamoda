@@ -13,6 +13,7 @@ import {getSizes} from "../../../service/sizeService";
 import {getColors} from "../../../service/colorService";
 import {TreeSelect} from "antd";
 import "antd/dist/antd.css";
+import formatCategory from "../../../utils/helpers/formatCategory";
 
 function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters }) {
 
@@ -60,9 +61,7 @@ function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters })
                     id: category.id,
                     value: category.id,
                     pId: category.parentCategoryId,
-                    title: category.name.replace("w_", "women's ")
-                        .replace("m_", "men's ")
-                        .replace("c_", "children's "),
+                    title: formatCategory(category.name),
                 });
             });
             setCategoryOptions(formattedResponse);

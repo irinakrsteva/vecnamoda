@@ -20,12 +20,6 @@ function Consignment() {
     const [showAddArticle, setShowAddArticle] = useState(false);
     const [consignment, setConsignment] = useState(null);
 
-    useEffect(() => {
-        if (!consignment && auth.isAuthenticated) {
-            loadConsignment();
-        }
-    });
-
     let loadConsignment = () => {
         getConsignmentByToken(token).then(response => {
             setConsignment(response.data);
@@ -56,6 +50,12 @@ function Consignment() {
             }
         );
     }
+
+    useEffect(() => {
+        if (!consignment && auth.isAuthenticated) {
+            loadConsignment();
+        }
+    });
 
     return (
         <Container>
@@ -91,10 +91,8 @@ function Consignment() {
                 <></>
             }
 
-
         </Container>
     );
-
 }
 
 export default Consignment;

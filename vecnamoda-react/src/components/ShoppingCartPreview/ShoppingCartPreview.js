@@ -7,6 +7,7 @@ import {CartContext} from "../../context/CartContext";
 import Image from "react-bootstrap/Image";
 import {sellArticle, sellArticles} from "../../service/articleService";
 import './ShoppingCartPreview.css';
+import formatCategory from "../../utils/helpers/formatCategory";
 
 function ShoppingCartPreview(props) {
 
@@ -15,7 +16,7 @@ function ShoppingCartPreview(props) {
 
     let productDescription = (item) => {
         return ((item.color ? item.color.name : "") + " "
-            + (item.category ? item.category.name : "").replace("w_", "women's ").replace("m_", "men's ").replace("c_","children's ") + " "
+            + formatCategory(item.category ? item.category.name : "") + " "
             + (item.size ? "size " + item.size.value + " " + item.size.standard : "")).toUpperCase()
             + " (" + (item.description ? item.description : "No description available") + ")";
     }
