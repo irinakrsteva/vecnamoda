@@ -14,8 +14,8 @@ function Order({order, index = "", showUser = false}) {
     return (
         <Card className="my-4">
             <Card.Header>
-                Order #{index} with total price { getOrderTotal(order.articles) }
-                {showUser && order.user ? ". Made by user: " + order.user.username : ""}
+                Order {index} with total price <b>{ getOrderTotal(order.articles) } DEN</b>
+                <i> {showUser && order.user ? ". Made by user: " + order.user.username : ""} </i>
             </Card.Header>
             <Card.Body>
                 {order.articles.length === 0 ? "This is an empty order" : ""}

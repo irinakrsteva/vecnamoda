@@ -10,6 +10,10 @@ export const getAllPurchasesByCurrentUser = () => {
     return axios.get(`${apiUri}/currentuser`);
 }
 
-export const makePurchase = () => {
-    return axios.post(`${apiUri}`);
+export const getPurchaseById = (purchaseId) => {
+    return axios.get(`${apiUri}/${purchaseId}`);
+}
+
+export const makePurchase = (articleIds) => {
+    return axios.post(`${apiUri}`, articleIds);
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 public class PurchaseResponseDto {
 
+    public Long id;
+
     public List<ArticleResponseDto> articles;
 
     public LocalDateTime dateOrdered;

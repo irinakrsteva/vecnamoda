@@ -49,7 +49,7 @@ function App() {
                                     <Route path="/my-orders" element={<MyOrders/>}/>
                                     <Route path="/all-orders" element={<AllOrders/>}/>
                                     <Route path="/shopping-cart" element={<ShoppingCart/>}/>
-                                    <Route path="/checkout" element={<CheckOut/>}/>
+                                    <Route path="/checkout/:purchaseId" element={<CheckOut/>}/>
                                     <Route path="/shop/:id" element={<ArticleView/>}/>
                                     <Route path="/find-consignment" element={<FindConsignment/>}/>
                                     <Route path="/consignment/:token" element={<Consignment/>}/>

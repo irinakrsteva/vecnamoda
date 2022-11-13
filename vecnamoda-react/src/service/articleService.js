@@ -29,6 +29,6 @@ export const addArticle = (article) => {
     return axios.post(`${apiUri}/add`, article);
 }
 
-export const sellArticles = (ids) => {
-    return axios.put(`${apiUri}/batch-sell`, ids);
-}
+// export const sellArticles = (ids) => {
+//     return axios.put(`${apiUri}/batch-sell`, ids);
+// }

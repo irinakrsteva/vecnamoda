@@ -1,18 +1,18 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import {Link, useNavigate} from "react-router-dom";
 import {CartContext} from "../../context/CartContext";
 import Image from "react-bootstrap/Image";
-import {sellArticle, sellArticles} from "../../service/articleService";
 import './ShoppingCartPreview.css';
 import formatCategory from "../../utils/helpers/formatCategory";
+import {makePurchase} from "../../service/purchaseService";
 
 function ShoppingCartPreview(props) {
 
-    let cart = useContext(CartContext);
-    let nav = useNavigate();
+    const cart = useContext(CartContext);
+    const nav = useNavigate();
 
     let productDescription = (item) => {
         return ((item.color ? item.color.name : "") + " "
@@ -25,7 +25,7 @@ function ShoppingCartPreview(props) {
         let previewContent = [];
         for (let i = 0; i < cart.items.length; i++) {
             let item = cart.items[i];
-            console.log(cart.items[i]);
+            // console.log(cart.items[i]);
             previewContent.push(
                 <tr key={"cartItem" + i}>
                     <td>{ <Image className="image-preview img-thumbnail" src={`/api/images/public/${item.imageIds[0]}`}/> }</td>
@@ -42,15 +42,17 @@ function ShoppingCartPreview(props) {
     }
 
     let onCheckoutButton = async () => {
-        let soldArticles = [];
+        console.log(cart.items.map(item => item.id));
 
-        sellArticles(cart.items.map(item => item.id)).then(response => {
-            soldArticles = response;
+        makePurchase(cart.items.map(item => item.id)).then(response => {
+            console.log("purchase response: ", response.data);
+            let purchase = response.data;
+            cart.clearCart();
+            props.onHide();
+            nav(`/checkout/${purchase.id}`);
         }).catch(e => console.log(e));
 
-        cart.clearCart();
-        props.onHide();
-        nav('/checkout');
+
     }
 
     return (

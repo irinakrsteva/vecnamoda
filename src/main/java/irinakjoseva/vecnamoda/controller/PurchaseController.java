@@ -21,16 +21,14 @@ import java.util.stream.Collectors;
 public class PurchaseController {
 
     private final PurchaseService purchaseService;
-    private final PurchaseMapper purchaseMapper;
 
-    public PurchaseController(PurchaseService purchaseService, PurchaseMapper purchaseMapper) {
+    public PurchaseController(PurchaseService purchaseService) {
         this.purchaseService = purchaseService;
-        this.purchaseMapper = purchaseMapper;
     }
 
     @PostMapping
     public ResponseEntity<PurchaseResponseDto> save(Authentication authentication, @RequestBody List<Long> articleIds) throws ArticleAlreadySoldException {
-        if(authentication == null) {
+        if (authentication == null) {
             return ResponseEntity.ok(purchaseService.savePurchase(null, articleIds));
         }
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
