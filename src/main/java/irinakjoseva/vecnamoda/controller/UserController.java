@@ -1,8 +1,10 @@
 package irinakjoseva.vecnamoda.controller;
 
 import irinakjoseva.vecnamoda.dto.request.UserRequestDto;
+import irinakjoseva.vecnamoda.dto.response.PurchaseResponseDto;
 import irinakjoseva.vecnamoda.dto.response.UserResponseDto;
 import irinakjoseva.vecnamoda.dto.mapper.UserMapper;
+import irinakjoseva.vecnamoda.model.Purchase;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.service.UserService;
 import irinakjoseva.vecnamoda.service.exceptions.UserAlreadyExistsException;
@@ -12,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/users")
 public class UserController {
 
     private final UserService userService;
-
     private final UserMapper userMapper;
 
     public UserController(UserService userService, UserMapper userMapper) {
@@ -42,5 +44,11 @@ public class UserController {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
         return ResponseEntity.ok(this.userMapper.toResponseDto(user));
     }
+
+//    @GetMapping(value = "/purchases")
+//    public ResponseEntity<PurchaseResponseDto> getUserPurchases(Authentication authentication) {
+//        User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
+//
+//    }
 
 }

@@ -10,6 +10,7 @@ import irinakjoseva.vecnamoda.repository.ArticleImageRepository;
 import irinakjoseva.vecnamoda.repository.ArticleRepository;
 import irinakjoseva.vecnamoda.repository.ImageRepository;
 import irinakjoseva.vecnamoda.service.ArticleService;
+import irinakjoseva.vecnamoda.service.exceptions.ArticleAlreadySoldException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -63,11 +64,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public List<ArticleResponseDto> changeStatusesToSold(List<Long> ids) {
+    public List<ArticleResponseDto> changeStatusesToSold(List<Long> ids) throws ArticleAlreadySoldException {
         List<Article> articles = articleRepository.findAllById(ids);
         for(Article article : articles) {
             if(article.getStatus() != Article.Status.AVAILABLE)
-                throw new RuntimeException();
+                throw new ArticleAlreadySoldException(article.getId());
             article.setStatus(Article.Status.SOLD);
             articleRepository.save(article);
         }

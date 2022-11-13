@@ -4,6 +4,7 @@ import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
 import irinakjoseva.vecnamoda.model.Article;
 import irinakjoseva.vecnamoda.service.ArticleService;
+import irinakjoseva.vecnamoda.service.exceptions.ArticleAlreadySoldException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -58,7 +59,7 @@ public class ArticleController {
     }
 
     @PutMapping("/batch-sell")
-    public ResponseEntity<List<ArticleResponseDto>> changeStatusesToSold(@RequestBody List<Long> ids) {
+    public ResponseEntity<List<ArticleResponseDto>> changeStatusesToSold(@RequestBody List<Long> ids) throws ArticleAlreadySoldException {
         return ResponseEntity.ok(this.articleService.changeStatusesToSold(ids));
     }
 

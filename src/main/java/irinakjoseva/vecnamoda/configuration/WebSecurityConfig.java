@@ -67,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private String[] getPublicPaths() {
         return new String[]{
                 "/api/users/register",
+                "/api/users/{username}",
                 "/api/consignments/**",
                 "/api/images/public/**",
                 "/api/articles/available/**",
@@ -74,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/categories/**",
                 "/api/sizes/**",
                 "/api/colors/**",
+                "/api/purchases", // save new purchase is accessible to non logged in
         };
     }
 

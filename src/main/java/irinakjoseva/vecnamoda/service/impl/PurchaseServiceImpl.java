@@ -12,10 +12,12 @@ import irinakjoseva.vecnamoda.repository.PurchaseRepository;
 import irinakjoseva.vecnamoda.service.AddressService;
 import irinakjoseva.vecnamoda.service.ArticleService;
 import irinakjoseva.vecnamoda.service.PurchaseService;
+import irinakjoseva.vecnamoda.service.exceptions.ArticleAlreadySoldException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
@@ -38,7 +40,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     @Transactional
-    public PurchaseResponseDto savePurchase(User user, List<Long> articleIds) {
+    public PurchaseResponseDto savePurchase(User user, List<Long> articleIds) throws ArticleAlreadySoldException {
 
         articleService.changeStatusesToSold(articleIds);
 
@@ -58,7 +60,23 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    public List<PurchaseResponseDto> getPurchasesByUserId(Long userId) {
+        return purchaseRepository.findAllPurchasesByUserId(userId)
+                .stream()
+                .map(purchaseMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public PurchaseResponseDto getPurchase(Long id) {
         return purchaseMapper.toResponseDto(purchaseRepository.getById(id));
+    }
+
+    @Override
+    public List<PurchaseResponseDto> getPurchases() {
+        return purchaseRepository.findAll()
+                .stream()
+                .map(purchaseMapper::toResponseDto)
+                .collect(Collectors.toList());
     }
 }
