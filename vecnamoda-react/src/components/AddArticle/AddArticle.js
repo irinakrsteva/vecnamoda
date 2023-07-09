@@ -229,7 +229,7 @@ function AddArticle({consignmentid, onAdd, onHide, show, ...restProps}) {
             {...restProps}
         >
             <Modal.Header closeButton>
-                Add a new article to {consignmentId}
+                Add a new article to consignment {consignmentId}
             </Modal.Header>
 
             <Modal.Body>
