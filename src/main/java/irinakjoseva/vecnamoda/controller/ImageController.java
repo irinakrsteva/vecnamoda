@@ -3,6 +3,7 @@ package irinakjoseva.vecnamoda.controller;
 import irinakjoseva.vecnamoda.dto.response.ImageResponseDto;
 import irinakjoseva.vecnamoda.service.ImageService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,7 @@ public class ImageController {
 
     //TODO blobs validation...
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<ImageResponseDto> save(@RequestParam("file") MultipartFile file) {
         try {
             return ResponseEntity.ok(imageService.save(file));

@@ -42,10 +42,6 @@ public class User implements UserDetails {
     private float balance;
 
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Address> addresses;
-
-
     public User() {
     }
 
@@ -120,18 +116,6 @@ public class User implements UserDetails {
         this.balance = balance;
     }
 
-
-//    public void addAddress(Address address) {
-//        addresses.add(address);
-//        address.setUser(this);
-//    }
-//
-//    public void removeAddress(Address address) {
-//        addresses.remove(address);
-//        address.setUser(null);
-//    }
-
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -151,7 +135,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

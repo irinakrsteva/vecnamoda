@@ -75,10 +75,11 @@ public class ArticleServiceImpl implements ArticleService {
         return articles.stream().map(articleMapper::toResponseDto).collect(Collectors.toList());
     }
 
-//    @Override
-//    public Page<ArticleResponseDto> searchArticlesBoughtByUser(Pageable pageable, Long userId) {
-//        return articleRepository.findArticlesBoughtByUserIdPageable(Article.Status.AVAILABLE, pageable, userId)
-//                                .map(articleMapper::toResponseDto);
-//    }
+    @Override
+    public Page<ArticleResponseDto> searchArticlesForSaleByUser(Pageable pageable, Long userId) {
+        Page<Article> articles = articleRepository.findArticlesByForSalePageable(Article.Status.AVAILABLE, pageable, userId);
+        return articles.map(articleMapper::toResponseDto);
+    }
+
 
 }

@@ -42,7 +42,8 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, L
     @Query("select articles from Article articles " +
             "where (:status is null or articles.status = :status) " +
             "and articles.purchase.user.id = :userId")
-    Page<Article> findArticlesByPurchasePageable(Article.Status status,
-                                        Pageable pageable,
-                                        @Param("userId") Long userId);
+    Page<Article> findArticlesByForSalePageable(Article.Status status,
+                                                Pageable pageable,
+                                                @Param("userId") Long userId);
+
 }

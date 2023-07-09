@@ -2,18 +2,23 @@ package irinakjoseva.vecnamoda.controller;
 
 import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
+import irinakjoseva.vecnamoda.dto.response.PurchaseResponseDto;
 import irinakjoseva.vecnamoda.model.Article;
+import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.service.ArticleService;
 import irinakjoseva.vecnamoda.service.exceptions.ArticleAlreadySoldException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,21 +51,23 @@ public class ArticleController {
                 startPrice, endPrice, articleConditions, categoryIds, sizeIds, colorIds));
     }
 
-//    @GetParam("/get-bought/{userId}")
-//    public ResponseEntity<Page<ArticleResponseDto>> getArticlesBoughtByUser(@PageableDefault(size=3) Pageable pageable,
-//                                                                            @RequestParam Long userId) {
-//        return ResponseEntity.ok(this.articleService.searchArticlesBoughtByUser(pageable, userId));
-//    }
-
     @PostMapping("/add")
-//    @PreAuthorize("hasRole('EMPLOYEE') or hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
     public ResponseEntity<ArticleResponseDto> save(@RequestBody @Valid ArticleRequestDto articleRequestDto) throws IOException {
         return ResponseEntity.ok(this.articleService.saveArticle(articleRequestDto));
     }
 
     @PutMapping("/batch-sell")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
     public ResponseEntity<List<ArticleResponseDto>> changeStatusesToSold(@RequestBody List<Long> ids) throws ArticleAlreadySoldException {
         return ResponseEntity.ok(this.articleService.changeStatusesToSold(ids));
     }
+
+//    @GetMapping("/available/currentuser")
+//    public ResponseEntity<Page<ArticleResponseDto>> getArticlesForSaleByUser(Authentication authentication,
+//                                                                            @PageableDefault(size=3) Pageable pageable) {
+//        User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
+//        return ResponseEntity.ok(this.articleService.searchArticlesForSaleByUser(pageable, user.getId()));
+//    }
 
 }

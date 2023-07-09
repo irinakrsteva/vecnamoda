@@ -34,7 +34,7 @@ function AllOrders() {
     });
 
     useEffect(() => {
-        if (auth.loggedInUser.role !== 'ADMIN')
+        if (auth.loggedInUser.role !== 'ADMIN' || auth.loggedInUser.role !== 'EMPLOYEE')
             nav("/");
     }, [auth]);
 

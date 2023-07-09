@@ -13,3 +13,7 @@ export const getConsignmentByToken = (token) => {
 export const getArticlesInConsignment = (id) => {
     return axios.get(`${apiUri}/${id}/articles`);
 }
+
+export const getAllConsignmentsByCurrentUser = () => {
+    return axios.get(`${apiUri}/currentuser`);
+}
