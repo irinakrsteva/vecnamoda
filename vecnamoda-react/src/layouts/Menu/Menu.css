@@ -13,3 +13,8 @@
 .link {
     font-size: 1.3em;
 }
+
+.badge {
+    padding: 5px;
+    margin-left: 5px;
+}

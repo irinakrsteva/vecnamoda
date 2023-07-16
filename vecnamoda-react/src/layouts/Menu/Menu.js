@@ -17,9 +17,12 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import './Menu.css';
+import Badge from "react-bootstrap/Badge";
+import {CartContext} from "../../context/CartContext";
 
 function Menu() {
     const [showCartPreview, setShowCartPreview] = React.useState(false);
+    const cart = useContext(CartContext);
 
     const auth = useContext(AuthContext);
     const nav = useNavigate();
@@ -91,6 +94,7 @@ function Menu() {
                         <Nav.Item>
                             <Nav.Link className="mx-1 text-light link" as={Button} onClick={() => setShowCartPreview(true)}>
                                 Shopping Cart
+                                <Badge className="badge" bg="dark">{cart.items.length}</Badge>
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>
