@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface PurchaseService {
 
-    PurchaseResponseDto savePurchase(User user, List<Long> articleIds) throws ArticleAlreadySoldException;
+    PurchaseResponseDto save(User user, List<Long> articleIds) throws ArticleAlreadySoldException;
 
-    List<PurchaseResponseDto> getPurchasesByUserId(Long userId);
+    List<PurchaseResponseDto> getAllByUserId(Long userId);
 
-    PurchaseResponseDto getPurchase(Long id);
+    PurchaseResponseDto getById(Long id);
 
-    List<PurchaseResponseDto> getPurchases();
+    List<PurchaseResponseDto> getAll();
 }

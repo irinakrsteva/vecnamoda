@@ -14,20 +14,20 @@ import java.util.List;
 
 public interface ArticleService {
 
-    Page<ArticleResponseDto> searchAvailableArticles(Pageable pageable,
-                                                     String searchString,
-                                                     Double startPrice,
-                                                     Double endPrice,
-                                                     List<Article.Condition> articleConditions,
-                                                     List<Integer> categoryIds,
-                                                     List<Integer> sizeIds,
-                                                     List<Integer> colorIds);
+    Page<ArticleResponseDto> getAvailableArticles(Pageable pageable,
+                                                  String searchString,
+                                                  Double startPrice,
+                                                  Double endPrice,
+                                                  List<Article.Condition> articleConditions,
+                                                  List<Integer> categoryIds,
+                                                  List<Integer> sizeIds,
+                                                  List<Integer> colorIds);
 
     ArticleResponseDto saveArticle(ArticleRequestDto articlePostDto) throws IOException;
 
     List<ArticleResponseDto> changeStatusesToSold(List<Long> ids) throws ArticleAlreadySoldException;
 
-    Page<ArticleResponseDto> searchArticlesForSaleByUser(Pageable pageable, Long userId);
+    Page<ArticleResponseDto> getArticlesForSaleByUser(Pageable pageable, Long userId);
 
 
 }

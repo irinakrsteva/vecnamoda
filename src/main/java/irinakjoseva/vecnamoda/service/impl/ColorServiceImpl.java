@@ -6,6 +6,7 @@ import irinakjoseva.vecnamoda.dto.mapper.ColorMapper;
 import irinakjoseva.vecnamoda.model.Color;
 import irinakjoseva.vecnamoda.repository.ColorRepository;
 import irinakjoseva.vecnamoda.service.ColorService;
+import irinakjoseva.vecnamoda.service.exceptions.NotFound404Exception;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,15 +23,17 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public List<ColorResponseDto> getAllColors() {
-        List<Color> colors = colorRepository.findAll();
-        return colorMapper.toResponseDtos(colors);
+    public ColorResponseDto getById(Integer id) {
+        Color color = colorRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFound404Exception("id: " + id));
+        return colorMapper.toResponseDto(color);
     }
 
     @Override
-    public ColorResponseDto getColor(Integer id) {
-        Color color = colorRepository.getById(id);
-        return colorMapper.toResponseDto(color);
+    public List<ColorResponseDto> getAll() {
+        List<Color> colors = colorRepository.findAll();
+        return colorMapper.toResponseDtos(colors);
     }
 
     @Override

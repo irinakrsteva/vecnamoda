@@ -5,6 +5,8 @@ import irinakjoseva.vecnamoda.dto.response.CategoryResponseDto;
 import irinakjoseva.vecnamoda.model.Category;
 import irinakjoseva.vecnamoda.repository.CategoryRepository;
 import irinakjoseva.vecnamoda.service.CategoryService;
+import irinakjoseva.vecnamoda.service.exceptions.NotFound404Exception;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +24,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponseDto getById(Integer id) {
-        Category category = categoryRepository.getById(id);
+        Category category = categoryRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFound404Exception("id: " + id));
         return categoryMapper.toResponseDto(category);
     }
 
@@ -34,7 +38,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category map(Integer id) {
-        return categoryRepository.findById(id)
+        return categoryRepository
+                .findById(id)
                 .orElse(null);
     }
 }

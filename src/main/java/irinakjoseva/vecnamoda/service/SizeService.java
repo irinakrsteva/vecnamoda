@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface SizeService {
 
-    List<SizeResponseDto> getSizes();
+    List<SizeResponseDto> getAll();
 
-    SizeResponseDto getSize(Integer id);
+    SizeResponseDto getById(Integer id);
 
     Size map(Integer id);
 

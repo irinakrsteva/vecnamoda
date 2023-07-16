@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto getAuthenticatedUser(Authentication authentication) {
+    public UserResponseDto getAuthenticated(Authentication authentication) {
         User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
         return userMapper.toResponseDto(user);
     }

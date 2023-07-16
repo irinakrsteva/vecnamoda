@@ -22,12 +22,12 @@ public class SizeController {
 
     @GetMapping
     public ResponseEntity<List<SizeResponseDto>> getSizes() {
-        return ResponseEntity.ok(sizeService.getSizes());
+        return ResponseEntity.ok(sizeService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SizeResponseDto> getSize(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(sizeService.getSize(id));
+        return ResponseEntity.ok(sizeService.getById(id));
     }
 
 }

@@ -7,11 +7,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ConsignmentRepository extends JpaRepository<Consignment, Long> {
 
-    Consignment findByToken(String token);
+    Optional<Consignment> findByToken(String token);
 
     @Query("select consignments from Consignment consignments " +
         "where consignments.user.id = :userId")

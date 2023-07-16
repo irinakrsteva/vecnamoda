@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ColorService {
 
-    List<ColorResponseDto> getAllColors();
+    List<ColorResponseDto> getAll();
 
-    ColorResponseDto getColor(Integer id);
+    ColorResponseDto getById(Integer id);
 
     Color map(Integer id);
 

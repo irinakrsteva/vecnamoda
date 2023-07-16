@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface ConsignmentService {
 
-    ConsignmentResponseDto saveConsignment(User user);
+    ConsignmentResponseDto createNew(User user);
 
-    ConsignmentResponseDto findByToken(String token);
+    ConsignmentResponseDto getByToken(String token);
 
-    List<ConsignmentResponseDto> getConsignmentsByUserId(Long userId);
+    List<ConsignmentResponseDto> getAllByUserId(Long userId);
 
     List<ArticleResponseDto> getArticles(Long consignmentId);
 
@@ -22,6 +22,6 @@ public interface ConsignmentService {
 
     Consignment map(Long id);
 
-    ConsignmentResponseDto findById(Long id);
+    ConsignmentResponseDto getById(Long id);
 
 }

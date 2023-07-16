@@ -9,6 +9,7 @@ import irinakjoseva.vecnamoda.model.Consignment;
 import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.repository.ConsignmentRepository;
 import irinakjoseva.vecnamoda.service.ConsignmentService;
+import irinakjoseva.vecnamoda.service.exceptions.NotFound404Exception;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -30,7 +31,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Transactional
-    public ConsignmentResponseDto saveConsignment(User user) {
+    public ConsignmentResponseDto createNew(User user) {
         UUID token = UUID.randomUUID();
 
         Consignment consignment = new Consignment(user, token.toString());
@@ -40,27 +41,31 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public ConsignmentResponseDto findByToken(String token) {
-        Consignment consignment = consignmentRepository.findByToken(token);
+    public ConsignmentResponseDto getByToken(String token) {
+        Consignment consignment = consignmentRepository
+                .findByToken(token)
+                .orElseThrow(() -> new NotFound404Exception("token: " + token));
         return consignmentMapper.toResponseDto(consignment);
     }
 
     @Override
-    public List<ConsignmentResponseDto> getConsignmentsByUserId(Long userId) {
-        List<Consignment> consignments = consignmentRepository.findAllByUser(userId);
+    public ConsignmentResponseDto getById(Long id) {
+        Consignment consignment = consignmentRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFound404Exception("id: " + id));
+        return consignmentMapper.toResponseDto(consignment);
+    }
+
+    @Override
+    public List<ConsignmentResponseDto> getAllConsignments() {
+        List<Consignment> consignments = consignmentRepository.findAll();
         return consignmentMapper.toResponseDtos(consignments);
     }
 
     @Override
-    public ConsignmentResponseDto findById(Long id) {
-        Consignment consignment = consignmentRepository.getById(id);
-        return consignmentMapper.toResponseDto(consignment);
-    }
-
-    @Override
-    public Consignment map(Long id) {
-        return consignmentRepository.findById(id)
-                .orElse(null);
+    public List<ConsignmentResponseDto> getAllByUserId(Long userId) {
+        List<Consignment> consignments = consignmentRepository.findAllByUser(userId);
+        return consignmentMapper.toResponseDtos(consignments);
     }
 
     @Override
@@ -72,9 +77,9 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public List<ConsignmentResponseDto> getAllConsignments() {
-        List<Consignment> consignments = consignmentRepository.findAll();
-        return consignmentMapper.toResponseDtos(consignments);
+    public Consignment map(Long id) {
+        return consignmentRepository.findById(id)
+                .orElse(null);
     }
 
 }

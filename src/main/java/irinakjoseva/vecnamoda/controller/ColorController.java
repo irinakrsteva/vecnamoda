@@ -1,13 +1,10 @@
 package irinakjoseva.vecnamoda.controller;
 
-import irinakjoseva.vecnamoda.dto.request.ColorRequestDto;
 import irinakjoseva.vecnamoda.dto.response.ColorResponseDto;
 import irinakjoseva.vecnamoda.service.ColorService;
-import irinakjoseva.vecnamoda.service.impl.ColorServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,12 +19,12 @@ public class ColorController {
 
     @GetMapping
     public ResponseEntity<List<ColorResponseDto>> getColors() {
-        return ResponseEntity.ok(colorService.getAllColors());
+        return ResponseEntity.ok(colorService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ColorResponseDto> getColor(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(colorService.getColor(id));
+        return ResponseEntity.ok(colorService.getById(id));
     }
 
 }

@@ -13,6 +13,7 @@ import irinakjoseva.vecnamoda.service.AddressService;
 import irinakjoseva.vecnamoda.service.ArticleService;
 import irinakjoseva.vecnamoda.service.PurchaseService;
 import irinakjoseva.vecnamoda.service.exceptions.ArticleAlreadySoldException;
+import irinakjoseva.vecnamoda.service.exceptions.NotFound404Exception;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -40,15 +41,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     @Transactional
-    public PurchaseResponseDto savePurchase(User user, List<Long> articleIds) throws ArticleAlreadySoldException {
+    public PurchaseResponseDto save(User user, List<Long> articleIds) throws ArticleAlreadySoldException {
 
         articleService.changeStatusesToSold(articleIds);
-
         List<Article> articles = articleRepository.findAllById(articleIds);
-
         // this is a stand-in. In fully functioning website address would have to be passed through controller etc...
         Address address = addressService.saveMockAddress(user);
         Purchase purchase = new Purchase(user, articles, address);
+
         for (Article article : articles) {
             article.setPurchase(purchase);
         }
@@ -60,23 +60,27 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public List<PurchaseResponseDto> getPurchasesByUserId(Long userId) {
+    public PurchaseResponseDto getById(Long id) {
+        return purchaseMapper.toResponseDto(purchaseRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFound404Exception("id: " + id))
+        );
+    }
+
+    @Override
+    public List<PurchaseResponseDto> getAll() {
+        return purchaseRepository.findAll()
+                .stream()
+                .map(purchaseMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PurchaseResponseDto> getAllByUserId(Long userId) {
         return purchaseRepository.findAllPurchasesByUserId(userId)
                 .stream()
                 .map(purchaseMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public PurchaseResponseDto getPurchase(Long id) {
-        return purchaseMapper.toResponseDto(purchaseRepository.getById(id));
-    }
-
-    @Override
-    public List<PurchaseResponseDto> getPurchases() {
-        return purchaseRepository.findAll()
-                .stream()
-                .map(purchaseMapper::toResponseDto)
-                .collect(Collectors.toList());
-    }
 }

@@ -13,7 +13,7 @@ public interface UserService {
     UserResponseDto getByUsername(String username) throws UsernameNotFoundException;
 
     // TODO: Use mapper through service? Passing authentication doesn't work?
-    UserResponseDto getAuthenticatedUser(Authentication authentication);
+    UserResponseDto getAuthenticated(Authentication authentication);
 
     void delete(Long id);
 

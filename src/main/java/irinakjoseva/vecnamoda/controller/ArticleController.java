@@ -2,9 +2,7 @@ package irinakjoseva.vecnamoda.controller;
 
 import irinakjoseva.vecnamoda.dto.request.ArticleRequestDto;
 import irinakjoseva.vecnamoda.dto.response.ArticleResponseDto;
-import irinakjoseva.vecnamoda.dto.response.PurchaseResponseDto;
 import irinakjoseva.vecnamoda.model.Article;
-import irinakjoseva.vecnamoda.model.User;
 import irinakjoseva.vecnamoda.service.ArticleService;
 import irinakjoseva.vecnamoda.service.exceptions.ArticleAlreadySoldException;
 import org.springframework.data.domain.Page;
@@ -12,13 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +43,7 @@ public class ArticleController {
                 .map(Article.Condition::getCondition)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(this.articleService.searchAvailableArticles(pageable, searchString,
+        return ResponseEntity.ok(this.articleService.getAvailableArticles(pageable, searchString,
                 startPrice, endPrice, articleConditions, categoryIds, sizeIds, colorIds));
     }
 
