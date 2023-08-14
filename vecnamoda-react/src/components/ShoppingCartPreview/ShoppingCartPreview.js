@@ -50,7 +50,13 @@ function ShoppingCartPreview(props) {
             cart.clearCart();
             props.onHide();
             nav(`/checkout/${purchase.id}`);
-        }).catch(e => console.log(e));
+        }).catch(e => {
+            if(e.response.status === 401) {
+                nav("../login");
+                props.onHide();
+            }
+            console.log('Error code: ', e.response.status);
+        });
 
 
     }
