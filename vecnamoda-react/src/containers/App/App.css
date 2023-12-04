@@ -2,7 +2,12 @@
   box-shadow: none;
 }
 
+.menu {
+  display: inline-block;
+}
+
 .content-container {
+  padding-top: 100px;
   padding-bottom: 5em;
 }
 

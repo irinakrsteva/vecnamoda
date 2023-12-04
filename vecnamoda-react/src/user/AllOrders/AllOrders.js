@@ -34,8 +34,10 @@ function AllOrders() {
     });
 
     useEffect(() => {
-        if (auth.loggedInUser.role !== 'ADMIN' || auth.loggedInUser.role !== 'EMPLOYEE')
+        if (auth.loggedInUser.role !== 'ADMIN' && auth.loggedInUser.role !== 'EMPLOYEE') {
+            console.log('test',auth.loggedInUser);
             nav("/");
+        }
     }, [auth]);
 
     return (

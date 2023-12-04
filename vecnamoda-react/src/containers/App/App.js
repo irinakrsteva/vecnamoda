@@ -36,8 +36,8 @@ function App() {
                 <AuthProvider>
                     <div id={global} className="position-relative min-vh-100 flex-column text-dark">
                         <Router>
-                            <Menu/>
-                            <Container fluid className="px-5 pt-4 content-container">
+                            <Menu className="menu"/>
+                            <Container fluid className="px-5 content-container">
                                 <Routes>
                                     <Route path="/" element={<Intro/>}/>
                                     <Route path="/shop" element={<Shop/>}/>

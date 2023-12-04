@@ -1,5 +1,6 @@
 #menu {
     box-shadow: none;
+    position: fixed;
 }
 
 .nav {

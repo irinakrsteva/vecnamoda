@@ -64,7 +64,7 @@ function Menu() {
 
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className="px-5">
+            <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className="px-5 fixed-top">
 
                 <Navbar.Brand as={Link} to="/" >
                     <Image className="logo mx-4" fluid id="logo" src={logo}/>
@@ -88,11 +88,11 @@ function Menu() {
 
                     </Nav>
 
-                    <Nav className="ms-auto mr-5">
+                    <Nav className="ms-auto mr-5" >
                         { isAuthenticated ? renderLoggedMenu() : renderUnloggedMenu() }
 
                         <Nav.Item>
-                            <Nav.Link className="mx-1 text-light link" as={Button} onClick={() => setShowCartPreview(true)}>
+                            <Nav.Link className="mx-1 text-light link px-4" as={Button} onClick={() => setShowCartPreview(true)}>
                                 Shopping Cart
                                 <Badge className="badge" bg="dark">{cart.items.length}</Badge>
                             </Nav.Link>
