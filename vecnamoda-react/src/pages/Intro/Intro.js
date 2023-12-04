@@ -9,11 +9,12 @@ import Image from "react-bootstrap/Image";
 import {Link} from "react-router-dom";
 
 import './Intro.css';
+import Button from "react-bootstrap/Button";
 
 function Intro() {
 
     return (
-        <>
+        <div className="intro">
             <div>
                 <h3>Our mission</h3>
                 <h5>We are an online consignment and thrift store. Our biggest priority is making good fashion
@@ -26,15 +27,15 @@ function Intro() {
                 <Row>
                     <Col lg="6" className="img-container">
                         <Image className="img-fluid w-100" src={stock1}/>
-                        <h1 className="overlay-text-shop">
+                        <Button className="overlay-text-shop">
                             <Link to={'/shop'} className="special-link">Shop...</Link>
-                        </h1>
+                        </Button>
                     </Col>
                     <Col lg="6" className="img-container">
                         <Image className="img-fluid w-100" src={stock2}/>
-                        <h1 className="overlay-text-sell">
+                        <Button className="overlay-text-sell">
                             <Link to={'/sell'} className="special-link">...Or sell </Link>
-                        </h1>
+                        </Button>
                     </Col>
                 </Row>
             </div>
@@ -56,7 +57,7 @@ function Intro() {
 
             </div>
             <br/>
-        </>
+        </div>
     );
 
 }
