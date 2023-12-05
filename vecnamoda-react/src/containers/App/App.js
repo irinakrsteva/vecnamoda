@@ -14,7 +14,6 @@ import Login from "../../pages/Login/Login";
 import MyAccount from "../../pages/MyAccount/MyAccount";
 import MyItems from "../../pages/MyItems/MyItems";
 import MyOrders from "../../pages/MyOrders/MyOrders";
-import ShoppingCart from "../../pages/ShoppingCart/ShoppingCart";
 import CheckOut from "../../pages/CheckOut/CheckOut";
 import ArticleView from "../../pages/ArticleView/ArticleView";
 import {CartProvider} from "../../context/CartContext";
@@ -32,8 +31,8 @@ function App() {
 
     return (
         <>
-            <CartProvider>
-                <AuthProvider>
+            <AuthProvider>
+                <CartProvider>
                     <div id={global} className="position-relative min-vh-100 flex-column text-dark">
                         <Router>
                             <Menu className="menu"/>
@@ -48,7 +47,6 @@ function App() {
                                     <Route path="/my-items" element={<MyItems/>}/>
                                     <Route path="/my-orders" element={<MyOrders/>}/>
                                     <Route path="/all-orders" element={<AllOrders/>}/>
-                                    <Route path="/shopping-cart" element={<ShoppingCart/>}/>
                                     <Route path="/checkout/:purchaseId" element={<CheckOut/>}/>
                                     <Route path="/shop/:id" element={<ArticleView/>}/>
                                     <Route path="/find-consignment" element={<FindConsignment/>}/>
@@ -59,8 +57,8 @@ function App() {
                             <Footer/>
                         </Router>
                     </div>
-                </AuthProvider>
-            </CartProvider>
+                </CartProvider>
+            </AuthProvider>
         </>
     );
 

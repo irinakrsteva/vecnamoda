@@ -32,7 +32,7 @@ function ShoppingCartPreview(props) {
                     <td>
                         {productDescription(item)}
                     </td>
-                    <td>{item.price}</td>
+                    <td>{item.price.toLocaleString()} DEN</td>
                     <td><a href="#" onClick={() => cart.removeItemFromCart(item)}>Delete</a></td>
                     {/*{console.log(cart.items)}*/}
                 </tr>
@@ -85,7 +85,7 @@ function ShoppingCartPreview(props) {
                     <tr>
                         <td/>
                         <td className="text-right"><b>Total:</b></td>
-                        <td><b>{cart.getCartTotal()}</b></td>
+                        <td><b>{cart.getCartTotal().toLocaleString()} DEN</b></td>
                         <td><a href="#" onClick={cart.clearCart}>Clear</a></td>
                     </tr>
                     </tfoot>

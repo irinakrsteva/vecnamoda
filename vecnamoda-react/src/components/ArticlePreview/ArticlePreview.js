@@ -43,7 +43,7 @@ function ArticlePreview({article, onAddToCart = null}) {
                 <Card.Title>
                     <small className="font-italic text-danger">{article.status === 'SOLD' ? "Sold!" : ""}</small>
                     <br/>
-                    {article.price} DEN
+                    {article.price.toLocaleString()} DEN
                 </Card.Title>
                 <Card.Text>
                     <span><i>{article.description ? article.description : "No description available"}</i></span>

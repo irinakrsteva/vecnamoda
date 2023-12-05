@@ -28,12 +28,11 @@ export const AuthProvider = ({children}) => {
                 //     setLoggedInUser(response.data);
                 // }, 10000)
                 setLoggedInUser(response.data);
-                // console.log(response.data);
             }).catch(reason => {
                 setIsAuthenticated(false);
             });
         }
-    });
+    }, [isAuthenticated]);
 
     let login = async (user) => {
         return new Promise((resolve, reject) => {
