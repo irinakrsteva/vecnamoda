@@ -9,22 +9,22 @@ import Menu from "../../layouts/Menu/Menu"
 import Intro from "../../pages/Intro/Intro";
 import Shop from "../../pages/Shop/Shop";
 import Sell from "../../pages/Sell/Sell";
-import Register from "../../user/Register/Register";
-import Login from "../../user/Login/Login";
-import MyAccount from "../../user/MyAccount/MyAccount";
-import MyItems from "../../user/MyItems/MyItems";
-import MyOrders from "../../user/MyOrders/MyOrders";
+import Register from "../../pages/Register/Register";
+import Login from "../../pages/Login/Login";
+import MyAccount from "../../pages/MyAccount/MyAccount";
+import MyItems from "../../pages/MyItems/MyItems";
+import MyOrders from "../../pages/MyOrders/MyOrders";
 import ShoppingCart from "../../pages/ShoppingCart/ShoppingCart";
 import CheckOut from "../../pages/CheckOut/CheckOut";
 import ArticleView from "../../pages/ArticleView/ArticleView";
 import {CartProvider} from "../../context/CartContext";
 import Container from "react-bootstrap/Container";
 import {AuthProvider} from "../../context/AuthContext";
-import FindConsignment from "../../user/FindConsignment/FindConsignment";
-import Consignment from "../../user/Consignment/Consignment";
+import FindConsignment from "../../pages/FindConsignment/FindConsignment";
+import Consignment from "../../pages/Consignment/Consignment";
 import NewConsignment from "../../pages/Sell/NewConsignment/NewConsignment";
 import Footer from "../../layouts/Footer/Footer";
-import AllOrders from "../../user/AllOrders/AllOrders";
+import AllOrders from "../../pages/AllOrders/AllOrders";
 
 
 function App() {

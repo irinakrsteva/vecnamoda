@@ -17,7 +17,7 @@ function AllOrders() {
             return <>
                 {
                     allOrders.map((order, index) =>
-                        <Order order={order} index={index + 1} showUser={true}/>
+                        <Order order={order} key={index + 1} index={index + 1} showUser={true}/>
                     )
                 }
             </>;
@@ -25,7 +25,7 @@ function AllOrders() {
     }
 
     useEffect(() => {
-        if (auth.isAuthenticated && auth.loggedInUser.role === 'ADMIN' && !allOrders) {
+        if (auth.isAuthenticated && auth.loggedInUser?.role === 'ADMIN' && !allOrders) {
             getAllPurchases().then(res => {
                 setAllOrders(res.data);
                 // console.log(res.data);
@@ -34,7 +34,7 @@ function AllOrders() {
     });
 
     useEffect(() => {
-        if (auth.loggedInUser.role !== 'ADMIN' && auth.loggedInUser.role !== 'EMPLOYEE') {
+        if (auth.loggedInUser?.role !== 'ADMIN' && auth.loggedInUser?.role !== 'EMPLOYEE') {
             nav("/");
         }
     }, [auth]);

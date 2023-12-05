@@ -66,7 +66,7 @@ function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters })
             });
             setCategoryOptions(formattedResponse);
         }).catch(e => console.log(e));
-    });
+    }, []);
     // -- set Size options --
     useEffect(() => {
         if (sizeOptions.length > 0) {
@@ -76,9 +76,10 @@ function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters })
             setSizeOptions(response.data);
         }).catch(e => console.log(e));
 
-    });
+    }, []);
     // -- set Color options --
     useEffect(() => {
+        console.log('loading colors!');
         if (colorOptions.length > 0) {
             return;
         }
@@ -86,7 +87,7 @@ function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters })
             setColorOptions(response.data);
         }).catch(e => console.log(e));
 
-    });
+    }, []);
 
     return (
         <Accordion alwaysOpen="true" flush>
