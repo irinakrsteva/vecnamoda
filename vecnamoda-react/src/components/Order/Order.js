@@ -14,7 +14,7 @@ function Order({order, index = "", showUser = false}) {
     return (
         <Card className="my-4">
             <Card.Header>
-                Order {index} with total price <b>{ getOrderTotal(order.articles) } DEN</b>
+                Order {index} with total price <b>{ getOrderTotal(order.articles).toLocaleString() } DEN</b>
                 <i> {showUser && order.user ? ". Made by user: " + order.user.username : ""} </i>
             </Card.Header>
             <Card.Body>
