@@ -54,9 +54,6 @@ public class Article {
     @JoinColumn(name = "consignment_id")
     private Consignment consignment;
 
-    //TODO: see if we can directly add Date attribute to Article from join with Consignment (which holds the date)
-    //Or else, get it at the Dto mapping (we want to return a date for each article)
-
     @ManyToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;

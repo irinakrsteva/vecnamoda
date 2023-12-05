@@ -29,14 +29,16 @@ public class ArticleController {
     }
 
     @GetMapping("/available")
-    public ResponseEntity<Page<ArticleResponseDto>> getAvailableArticles(@PageableDefault(size = 12) Pageable pageable,
-                                                                         @RequestParam(required = false) String searchString,
-                                                                         @RequestParam(required = false) Double startPrice,
-                                                                         @RequestParam(required = false) Double endPrice,
-                                                                         @RequestParam(required = false) List<String> conditions,
-                                                                         @RequestParam(required = false) List<Integer> categoryIds,
-                                                                         @RequestParam(required = false) List<Integer> sizeIds,
-                                                                         @RequestParam(required = false) List<Integer> colorIds) {
+    public ResponseEntity<Page<ArticleResponseDto>> getAvailableArticles(
+        @PageableDefault(size = 12) Pageable pageable,
+        @RequestParam(required = false) String searchString,
+        @RequestParam(required = false) Double startPrice,
+        @RequestParam(required = false) Double endPrice,
+        @RequestParam(required = false) List<String> conditions,
+        @RequestParam(required = false) List<Integer> categoryIds,
+        @RequestParam(required = false) List<Integer> sizeIds,
+        @RequestParam(required = false) List<Integer> colorIds
+    ) {
         List<Article.Condition> articleConditions = (conditions == null)
                 ? new ArrayList<>()
                 : conditions.stream()
@@ -53,11 +55,11 @@ public class ArticleController {
         return ResponseEntity.ok(this.articleService.saveArticle(articleRequestDto));
     }
 
-    @PutMapping("/batch-sell")
-    @PreAuthorize("hasAuthority('CUSTOMER')")
-    public ResponseEntity<List<ArticleResponseDto>> changeStatusesToSold(@RequestBody List<Long> ids) throws ArticleAlreadySoldException {
-        return ResponseEntity.ok(this.articleService.changeStatusesToSold(ids));
-    }
+//    @PutMapping("/batch-sell")
+//    @PreAuthorize("hasAuthority('CUSTOMER')")
+//    public ResponseEntity<List<ArticleResponseDto>> changeStatusesToSold(@RequestBody List<Long> ids) throws ArticleAlreadySoldException {
+//        return ResponseEntity.ok(this.articleService.changeStatusesToSold(ids));
+//    }
 
 //    @GetMapping("/available/currentuser")
 //    public ResponseEntity<Page<ArticleResponseDto>> getArticlesForSaleByUser(Authentication authentication,

@@ -14,8 +14,6 @@ public interface ConsignmentMapper {
 
     ConsignmentResponseDto toResponseDto(Consignment consignment);
 
-    Consignment responseDtoToModel(ConsignmentResponseDto dto);
-
     List<ConsignmentResponseDto> toResponseDtos(List<Consignment> consignments);
 
 }

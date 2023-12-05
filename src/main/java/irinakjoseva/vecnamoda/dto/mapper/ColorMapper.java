@@ -17,8 +17,6 @@ public interface ColorMapper {
 
     List<ColorResponseDto> toResponseDtos(List<Color> colors);
 
-    Color responseDtoToModel(ColorResponseDto dto);
-
     ColorResponseDto toResponseDto(Color color);
 
 }

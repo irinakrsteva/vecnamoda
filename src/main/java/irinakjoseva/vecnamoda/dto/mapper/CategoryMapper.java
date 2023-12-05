@@ -16,11 +16,9 @@ public interface CategoryMapper {
 
     @Mappings({
             @Mapping(source = "parentCategory.id", target = "parentCategoryId"),
-//            @Mapping(source = "childrenCategories", target = "childrenCategories")
     })
     CategoryResponseDto toResponseDto(Category category);
 
-    //    @Mapping(source = "category.id", target = "parentCategoryId")
     List<CategoryResponseDto> toResponseDtos(List<Category> categories);
 
 }

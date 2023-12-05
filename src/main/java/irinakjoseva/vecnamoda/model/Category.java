@@ -1,13 +1,7 @@
 package irinakjoseva.vecnamoda.model;
 
-import irinakjoseva.vecnamoda.dto.response.CategoryResponseDto;
-import org.mapstruct.Named;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Entity
 @Table (name = "category")
@@ -23,23 +17,15 @@ public class Category {
 
     @ManyToOne
     @JoinColumn (name = "parent_category_id")
-//    @Column(name="parent_category_id")
     private Category parentCategory;
 
     @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
     private List<Category> childrenCategories;
 
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Article> articles;
-
-    public Category() {
-    }
+    public Category() {}
 
     public Category(String name) {
         this.name = name;
-//        this.parentCategory = parentCategory;
-//        this.childrenCategories = new ArrayList<>();
     }
 
 
@@ -65,17 +51,6 @@ public class Category {
 
     public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
-    }
-
-
-    public void addArticle(Article article) {
-        articles.add(article);
-        article.setCategory(this);
-    }
-
-    public void removeArticle(Article article) {
-        articles.remove(article);
-        article.setCategory(null);
     }
 
     public List<Category> getChildrenCategories() {

@@ -13,10 +13,4 @@ public interface UserMapper {
 
     UserResponseDto toResponseDto(User user);
 
-    UserRequestDto toRequestDto(User user);
-
-    User responseDtoToModel(UserResponseDto dto);
-
-    User requestDtoToModel(UserRequestDto dto);
-
 }

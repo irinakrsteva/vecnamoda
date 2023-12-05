@@ -16,8 +16,6 @@ public interface SizeMapper {
 
     SizeResponseDto toResponseDto(Size size);
 
-    Size responseDtoToModel(SizeResponseDto dto);
-
     List<SizeResponseDto> toResponseDtos(List<Size> sizes);
 
 }
