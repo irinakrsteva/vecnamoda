@@ -16,8 +16,6 @@ public interface ConsignmentService {
 
     List<ConsignmentResponseDto> getAllByUserId(Long userId);
 
-    List<ArticleResponseDto> getArticles(Long consignmentId);
-
     List<ConsignmentResponseDto> getAllConsignments();
 
     Consignment map(Long id);

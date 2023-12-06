@@ -68,14 +68,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         return consignmentMapper.toResponseDtos(consignments);
     }
 
-    @Override
-    public List<ArticleResponseDto> getArticles(Long consignmentId) {
-        Consignment consignment = consignmentRepository.getById(consignmentId);
-        List<Article> articles = consignment.getArticles();
-
-        return articleMapper.toResponseDtos(articles);
-    }
-
+    
     @Override
     public Consignment map(Long id) {
         return consignmentRepository.findById(id)

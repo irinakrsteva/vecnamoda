@@ -57,10 +57,5 @@ public class ConsignmentController {
 //    public ResponseEntity<ConsignmentResponseDto> getById(@PathVariable("id") Long id) {
 //        return ResponseEntity.ok(consignmentService.findById(id));
 //    }
-//
-//    @GetMapping(value = "/{id}/articles")
-//    public ResponseEntity<List<ArticleResponseDto>> getAllArticles(@PathVariable("id") Long id) {
-//        return ResponseEntity.ok(consignmentService.getArticles(id));
-//    }
 
 }

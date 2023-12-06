@@ -9,8 +9,3 @@ export const getColors = () => {
 export const getColor = (id) => {
     return axios.get(`${apiUri}/${id}`)
 }
-
-//
-// export const saveColor = (color) => {
-//     return axios.post(`${apiUri}`);
-// }

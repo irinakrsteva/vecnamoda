@@ -83,7 +83,7 @@ public class Article {
 
     }
 
-    @Named("articleImagesToImageIds")
+//    @Named("articleImagesToImageIds")
     public List<Long> getImageIds() {
         if (articleImages == null) {
             return new ArrayList<>();
@@ -218,7 +218,7 @@ public class Article {
 
     }
 
-    public enum Status { // TODO: add status Draft article for when creating consignment
+    public enum Status { // TODO: Status 'reserved' when article is in a user's shopping cart?
 
         AVAILABLE("AVAILABLE"),
         SOLD("SOLD");

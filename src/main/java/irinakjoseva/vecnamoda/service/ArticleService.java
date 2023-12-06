@@ -27,7 +27,4 @@ public interface ArticleService {
 
     List<ArticleResponseDto> changeStatusesToSold(List<Long> ids) throws ArticleAlreadySoldException;
 
-    Page<ArticleResponseDto> getArticlesForSaleByUser(Pageable pageable, Long userId);
-
-
 }

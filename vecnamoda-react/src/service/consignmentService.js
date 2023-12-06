@@ -10,10 +10,6 @@ export const getConsignmentByToken = (token) => {
     return axios.get(`${apiUri}/getbytoken/${token}`);
 }
 
-export const getArticlesInConsignment = (id) => {
-    return axios.get(`${apiUri}/${id}/articles`);
-}
-
 export const getAllConsignmentsByCurrentUser = () => {
     return axios.get(`${apiUri}/currentuser`);
 }

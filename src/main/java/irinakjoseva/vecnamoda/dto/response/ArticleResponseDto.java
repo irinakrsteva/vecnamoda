@@ -23,14 +23,6 @@ public class ArticleResponseDto {
 
     public ColorResponseDto color;
 
-//    public Integer brandId;
-
-//    public Long purchaseId;
-
-//    public ConsignmentResponseDto consignment;
-
-//    public Long paymentId;
-
     public List<Long> imageIds;
 
 }

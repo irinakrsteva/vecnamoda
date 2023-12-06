@@ -8,9 +8,7 @@ export const getAvailableArticles = (page, size, searchString, filters) => {
         {
             page: page-1,
             size,
-
             searchString,
-            // Is this the best way to define the filters? vvv
             startPrice: filters.priceFilter[0],
             endPrice: filters.priceFilter[1],
             conditions: filters.conditionFilter,
@@ -28,7 +26,3 @@ export const getAvailableArticles = (page, size, searchString, filters) => {
 export const addArticle = (article) => {
     return axios.post(`${apiUri}/add`, article);
 }
-
-// export const sellArticles = (ids) => {
-//     return axios.put(`${apiUri}/batch-sell`, ids);
-// }

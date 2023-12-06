@@ -32,17 +32,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
                                        @Param("colorIds") List<Integer> colorIds
     );
 
-    Article getById(Long id);
-
-    List<Article> findAllById(Iterable<Long> ids);
-
-
-    //TODO UNFINISHED
-    @Query("select articles from Article articles " +
-            "where (:status is null or articles.status = :status) " +
-            "and articles.purchase.user.id = :userId")
-    Page<Article> findArticlesByForSalePageable(Article.Status status,
-                                                Pageable pageable,
-                                                @Param("userId") Long userId);
+//    List<Article> findAllById(Iterable<Long> ids);
 
 }

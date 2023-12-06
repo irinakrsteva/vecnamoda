@@ -55,17 +55,4 @@ public class ArticleController {
         return ResponseEntity.ok(this.articleService.saveArticle(articleRequestDto));
     }
 
-//    @PutMapping("/batch-sell")
-//    @PreAuthorize("hasAuthority('CUSTOMER')")
-//    public ResponseEntity<List<ArticleResponseDto>> changeStatusesToSold(@RequestBody List<Long> ids) throws ArticleAlreadySoldException {
-//        return ResponseEntity.ok(this.articleService.changeStatusesToSold(ids));
-//    }
-
-//    @GetMapping("/available/currentuser")
-//    public ResponseEntity<Page<ArticleResponseDto>> getArticlesForSaleByUser(Authentication authentication,
-//                                                                            @PageableDefault(size=3) Pageable pageable) {
-//        User user = ((HashMap<String, User>) authentication.getDetails()).get("user");
-//        return ResponseEntity.ok(this.articleService.searchArticlesForSaleByUser(pageable, user.getId()));
-//    }
-
 }

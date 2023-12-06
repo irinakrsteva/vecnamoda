@@ -48,12 +48,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Page<ArticleResponseDto> getArticlesForSaleByUser(Pageable pageable, Long userId) {
-        Page<Article> articles = articleRepository.findArticlesByForSalePageable(Article.Status.AVAILABLE, pageable, userId);
-        return articles.map(articleMapper::toResponseDto);
-    }
-
-    @Override
     @Transactional
     public ArticleResponseDto saveArticle(ArticleRequestDto articleRequestDto) {
         Article article = articleMapper.requestDtoToModel(articleRequestDto);

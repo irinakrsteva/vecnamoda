@@ -28,10 +28,6 @@ function ArticlePreview({article, onAddToCart = null}) {
                         controls={article.imageIds.length > 1}
                         interval={null}
                         variant="dark"
-                        // as={Link} to={{
-                        //     pathname: "/shop/" + article.id,
-                        //     state: { article: article, onAddToCart: onAddToCart }
-                        // }}
                         id={"article-" + article.id + "-images"}
                     >
                         {renderImagesInCarousel(article.imageIds)}
@@ -59,16 +55,12 @@ function ArticlePreview({article, onAddToCart = null}) {
                     <br/>
                     <span>Color: <b>{article.color ? article.color.name : "Unknown"}</b></span>
                     <br/>
-                    {/*<span> {JSON.stringify(article)} </span>*/}
-                    {/*<br/>*/}
                 </Card.Text>
 
 
-                {onAddToCart ?
+                {onAddToCart &&
                     <Button id={"addArticle" + article.id} onClick={() => handleAddToCart()} variant="primary">Add to
                         cart</Button>
-                    :
-                    <></>
                 }
             </Card.Body>
         </Card>
