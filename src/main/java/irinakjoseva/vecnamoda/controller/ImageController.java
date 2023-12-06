@@ -21,7 +21,6 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    //TODO blobs validation...
     @PostMapping
     @PreAuthorize("hasAnyAuthority('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<ImageResponseDto> save(@RequestParam("file") MultipartFile file) {

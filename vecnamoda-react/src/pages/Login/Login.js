@@ -52,7 +52,7 @@ function Login() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control onChange={onPasswordChange} type="password"/>
                         </Form.Group>
-                        <p className="formError"> { errorLoggingIn } </p>
+                        <p className="formError text-danger"> { errorLoggingIn } </p>
                         <Form.Group style={{display: 'flex', justifyContent: 'flex-end'}}>
                             <Button type="submit" variant="primary" onClick={login}>Login</Button>
                             <Button as={Link} to={"/register"} variant="secondary" className="ms-2">Register</Button>
