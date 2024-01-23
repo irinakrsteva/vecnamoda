@@ -40,12 +40,10 @@ function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters })
 
     let onChangeStartPrice = (e) => {
         filterHandlers.handlePriceChange([e.target.value, filters.priceFilter[1]]);
-        console.log("Start price changed to: " + e.target.value);
     };
 
     let onChangeEndPrice = (e) => {
         filterHandlers.handlePriceChange([filters.priceFilter[0], e.target.value]);
-        console.log("End price changed to: " + e.target.value);
     };
 
     // Effects:
@@ -79,7 +77,6 @@ function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters })
     }, []);
     // -- set Color options --
     useEffect(() => {
-        console.log('loading colors!');
         if (colorOptions.length > 0) {
             return;
         }
@@ -95,7 +92,7 @@ function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters })
 
             {/*PRICE*/}
             <Accordion.Item eventKey={0}>
-                <Accordion.Header>Price {(filters.priceFilter[0] !== 0 || filters.priceFilter[1] !== 30000) ? "*" : ""}</Accordion.Header>
+                <Accordion.Header>Price {(filters.priceFilter[0] !== 0 || filters.priceFilter[1] !== 10000) ? "*" : ""}</Accordion.Header>
                 <Accordion.Body className="pb-5">
                     <ReactSlider
                         className="horizontal-slider"
@@ -104,7 +101,7 @@ function SidebarFilter({ filters, filterHandlers, updateResults, resetFilters })
                         value={filters.priceFilter} // only using array for priceFilter because that's what ReactSlider wants
                         onChange={filterHandlers.handlePriceChange}
                         min={0}
-                        max={30000}
+                        max={10000}
                     />
                     <Row>
                         <Col className="col-md-6">

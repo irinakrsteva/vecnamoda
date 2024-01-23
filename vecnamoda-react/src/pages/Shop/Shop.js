@@ -27,7 +27,7 @@ function Shop() {
     const [searchText, setSearchText] = useState("");
 
     const [filters, setFilters] = useState({
-        priceFilter: [0, 30000],
+        priceFilter: [0, 10000],
         conditionFilter: [],
         categoryFilter: [],
         sizeFilter: [],
@@ -119,7 +119,7 @@ function Shop() {
 
     let resetFilters = () => {
         setFilters({
-            priceFilter: [0, 30000],
+            priceFilter: [0, 10000],
             conditionFilter: [],
             categoryFilter: [],
             sizeFilter: [],
@@ -163,7 +163,7 @@ function Shop() {
 
     useEffect(() => {
         if(filters.priceFilter[0] === 0
-            && filters.priceFilter[1] === 30000
+            && filters.priceFilter[1] === 10000
             && filters.conditionFilter.length === 0
             && filters.sizeFilter.length === 0
             && filters.colorFilter.length === 0
