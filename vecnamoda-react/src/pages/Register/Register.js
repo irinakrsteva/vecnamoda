@@ -45,9 +45,9 @@ function Register() {
         if (username && username.length > 2 && username.length <= 50) {
             setFormErrors({...formErrors, userNameValid: ""});
         } else {
-            if (username.length < 2) {
+            if (username.length < 3) {
                 setFormErrors({...formErrors, userNameValid: "Username must be at least 3 characters"});
-            } else {
+            } else if (username.length > 50) {
                 setFormErrors({...formErrors, userNameValid: "Username cannot exceed 50 characters"});
             }
         }
